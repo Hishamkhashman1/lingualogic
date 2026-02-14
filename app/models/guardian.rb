@@ -1,3 +1,3 @@
 class Guardian < ApplicationRecord
-  belongs_to :student
+  has_many :students
 end
