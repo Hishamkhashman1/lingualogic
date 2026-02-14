@@ -10,8 +10,85 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_14_054143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "guardians", force: :cascade do |t|
+    t.string "email"
+    t.bigint "student_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_guardians_on_student_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer "price"
+    t.integer "effect"
+    t.string "description"
+    t.boolean "accessory"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "monster_tasks", force: :cascade do |t|
+    t.bigint "monster_id", null: false
+    t.bigint "task_id", null: false
+    t.integer "progress"
+    t.json "user_answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["monster_id"], name: "index_monster_tasks_on_monster_id"
+    t.index ["task_id"], name: "index_monster_tasks_on_task_id"
+  end
+
+  create_table "monsters", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.string "name"
+    t.integer "happiness"
+    t.integer "energy"
+    t.string "species_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_monsters_on_student_id"
+  end
+
+  create_table "student_items", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "qty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_student_items_on_item_id"
+    t.index ["student_id"], name: "index_student_items_on_student_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.string "language"
+    t.integer "level"
+    t.integer "money"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "goal"
+    t.jsonb "answer_options"
+    t.jsonb "right_answer"
+    t.jsonb "reward"
+    t.integer "difficulty"
+    t.integer "attempts"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "guardians", "students"
+  add_foreign_key "monster_tasks", "monsters"
+  add_foreign_key "monster_tasks", "tasks"
+  add_foreign_key "monsters", "students"
+  add_foreign_key "student_items", "items"
+  add_foreign_key "student_items", "students"
 end
