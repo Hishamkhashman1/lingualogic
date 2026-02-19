@@ -5,8 +5,12 @@ class MonsterController < ApplicationController
   end
 
   def create
-    @monster = Monster.new(:name, :species_type)
+    @monster = Monster.new(params.require(:monster).permit(:name, :species_type))
     @monster.student = current_student
+    @monster.save
+
+    redirect_to monster_path(@monster)
+
   end
 
   def show
