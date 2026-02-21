@@ -8,16 +8,16 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-puts "Cleaning database..."
+# puts "Cleaning database..."
 
-Monster.destroy_all
-Task.destroy_all
+# Monster.destroy_all
+# Task.destroy_all
 
 puts "Creating test seeds..."
 
 # test_user = Student.create!(email: "testing@testing.test", encrypted_password: "123456", reset_password_token: "123456");
 
-test_monster = Monster.create!(name: "Testasaur", student_id: 1, happiness: 1, energy: 100, species_type: "bulbasaur");
+test_monster = Monster.create!(name: "Testasaur", student_id: 1, happiness: 1, energy: 100, species_type: "bulbasaur", image: "https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png");
 
 test_task = Task.create!(goal: "Set speed to 800", difficulty: 0)
 
