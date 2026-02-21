@@ -1,8 +1,14 @@
 <div class="monster-container">
 <h1><%= @monster.name %></h1>
-<%= image_tag "Biskitzu.png", alt: "Biskitzu Monster" %>
+<%= image_tag "Biskitzu.png", alt: "Biskitzu Monster", size: "115x140" %>
 
-<%= link_to "Choose this Monster", monsters_path(@monster), class: "cta-button" %>
+
+<%# Should be a form %>
+<%= simple_form_for @monster do |f| %>
+<%= f.input :name%>
+<%= f.input :species_type%>
+  <%= f.submit "Choose this Monster", class: "cta-button" %>
+<% end %>
 </div>
 
 <%# testing %>
