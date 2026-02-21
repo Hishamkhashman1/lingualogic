@@ -1,4 +1,4 @@
-class MonsterController < ApplicationController
+class MonstersController < ApplicationController
 
   def new
     @monster = Monster.new
