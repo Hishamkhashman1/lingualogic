@@ -4,4 +4,13 @@
     <h1><%= @monster.name %></h1>
 
   </div>
+
+  <% @tasks.each do |task| %>
+  <%= task.goal %>
+  <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
+    <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
+    <%= f.submit "Do Task" %>
+  <% end %>
+ <%end%>
+
 </div>
