@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%# <!DOCTYPE html>
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
@@ -96,5 +96,85 @@
 
 <h2 id="message"></h2>
 <p id='speed-display'> Speed: </p>
+</body>
+</html> %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lingualogic - Landing Page</title>
+    <!-- Link to your CSS file for styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header/Navigation Section -->
+    <header>
+        <nav>
+            <h1>Lingua Logic</h1>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <%# <li><a href="#download">Download</a></li> %>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section (Main attention area) -->
+    <section id="hero">
+        <div class="hero-content">
+            <h2>Welcome to the Fun way of coding</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+            <!-- Call to Action Button -->
+            <%= link_to "Play Now!", new_monster_path, class: "cta-button" %>
+        </div>
+        <!-- Placeholder for a hero image or video -->
+        <div class="hero-media">
+            <!-- Add an <img> tag or <video> tag here -->
+            <img src="placeholder-image.jpg" alt="Game Screenshot/Trailer Placeholder">
+        </div>
+    </section>
+
+    <!-- About/Description Section -->
+    <section id="about">
+        <h3>About the Game</h3>
+        <p>Dive deep into the world of lingualand. Explore the story, the challenges, and the excitement.</p>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <h3>Key Features</h3>
+        <ul>
+            <li>
+                <strong>Feature 1:</strong> Description of an exciting feature.
+            </li>
+            <li>
+                <strong>Feature 2:</strong> Description of another key benefit.
+            </li>
+            <li>
+                <strong>Feature 3:</strong> Description of a third unique aspect.
+            </li>
+        </ul>
+    </section>
+
+    <!-- Download/CTA Section -->
+    <%# <section id="download">
+        <h3>Ready to Play?</h3>
+        <p>Download [Game Name] now and start your adventure.</p>
+        <a href="link-to-game-file" class="cta-button">Download Now</a>
+    </section> %>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Lingualogic Game Inc. All rights reserved.</p>
+        <!-- Add social media links here -->
+    </footer>
+
+    <!-- Link to your JavaScript file for interactivity (if any) -->
+    <script src="script.js"></script>
+
 </body>
 </html>
