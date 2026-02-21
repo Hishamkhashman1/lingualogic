@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
+</head>
+
+<body>
+
+  <h1> This is a task. </h1>
+
+  <div id="task-info">
+    <h2> Task Name </h2>
+    <p> Level: # </p>
+    <p> Task information and instructions go here. </p>
+  </div>
+
+  <div id="task-phaserjs">
+    <script>
+      class Example extends Phaser.Scene {
+        preload() {
+          this.load.setBaseURL('https://labs.phaser.io');
+
+          this.load.image('sky', 'assets/skies/space3.png');
+          this.load.image('logo', 'assets/sprites/phaser3-logo.png');
+          this.load.image('red', 'assets/particles/red.png');
+        }
+
+        create() {
+          this.add.image(400, 300, 'sky');
+
+          var partspeed = 10
+
+          var particles = this.add.particles(0, 0, 'red', {
+            speed: partspeed,
+            scale: { start: 2, end: 0.5 },
+            blendMode: 'ADD'
+          });
+
+          var logospeed = 100
+          document.getElementById('speed-display').innerText = `Speed: ${logospeed}`
+
+          var logo = this.physics.add.image(400, 100, 'logo');
+
+          logo.setVelocity(logospeed, logospeed);
+          logo.setBounce(1, 1);
+          logo.setCollideWorldBounds(true);
+
+          particles.startFollow(logo);
+
+          var eventEmitter = new Phaser.Events.EventEmitter();
+          eventEmitter.on('speed-update', () => console.log("speed changed " + logospeed, this));
+
+          function updatespeed(event) {
+            var speeddisplay = `Speed: ${logospeed}`;
+            document.getElementById('speed-display').innerText = speeddisplay;
+            if (logospeed > 500) {
+              document.getElementById('speed-display').style.backgroundColor = "green";
+            }
+            else if (logospeed < 0) {
+              document.getElementById('speed-display').style.backgroundColor = "red";
+            }
+            if (logospeed == 800) {
+              document.getElementById('message').innerText = "Congratulations, task solved!";
+            }
+          }
+
+          eventEmitter.on('speed-update+', () => logospeed += 100, this);
+          eventEmitter.on('speed-update+', () => logo.setVelocity(logospeed, logospeed), this);
+          eventEmitter.on('speed-update-', () => logospeed -= 100, this);
+          eventEmitter.on('speed-update-', () => logo.setVelocity(logospeed, logospeed), this);
+          // eventEmitter.on('example-event', () => document.getElementById('speed-display').innerText = `Speed: ${logospeed}`, this);
+          document.getElementById('speed+').addEventListener('click', () => eventEmitter.emit('speed-update+'));
+          document.getElementById('speed+').addEventListener('click', () => updatespeed());
+          document.getElementById('speed-').addEventListener('click', () => eventEmitter.emit('speed-update-'));
+          document.getElementById('speed-').addEventListener('click', () => updatespeed());
+        }
+
+
+      }
+
+      const config = {
+        type: Phaser.AUTO,
+        width: 600,
+        height: 400,
+        scene: Example,
+        physics: {
+          default: 'arcade',
+          arcade: {
+            gravity: { y: 200 }
+          }
+        }
+      };
+
+      const game = new Phaser.Game(config);
+    </script>
+  </div>
+
+  <h2 id="message"></h2>
+  <p id='speed-display'> Speed: </p>
+
+  <div id="task-control">
+    <button id="speed+"> + Speed </button>
+    <button id="speed-"> - Speed </button>
+  </div>
+
+</html>
+</body>
