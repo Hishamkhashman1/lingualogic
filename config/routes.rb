@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :monsters, only: [:new, :create, :show] do
-    resources :monster_tasks, only: [:new, :create, :show]
+    resources :monster_tasks, only: [:new, :create]
   end
-
+  resources :monster_tasks, only: [:show]
   resources :tasks, only: [:index, :show]
 
   resources :items, only: [:index, :show]

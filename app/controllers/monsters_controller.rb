@@ -15,6 +15,7 @@ class MonstersController < ApplicationController
 
   def show
     @monster = Monster.find(params[:id])
+    @tasks = Task.all
   end
 
 end
