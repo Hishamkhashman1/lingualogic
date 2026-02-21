@@ -3,7 +3,6 @@ class TasksController < ApplicationController
 
   def index
     tasks = Task.available_for(current_user)
-
     render json: tasks
   end
 

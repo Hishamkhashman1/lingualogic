@@ -4,27 +4,28 @@ class MonsterTasksController < ApplicationController
   # end
 
   def show
-    @monsterTask = MonsterTask.find(params[:id])
+    @monster_task = MonsterTask.find(params[:id])
   end
 
   def new
-      @monsterTask = MonsterTask.new
+      @monster_task = MonsterTask.new
   end
 
   def create
-    @monsterTask = MonsterTask.new(monstertask_params)
-
-    if @monsterTask.save
-      redirect_to monster_monster_task_path(@monsterTask)
+    @monster_task = MonsterTask.new(monstertask_params)
+    @monster_task.monster = Monster.find(params[:monster_id])
+    if @monster_task.save
+      redirect_to monster_task_path(@monster_task)
     else
       render :new, status: :unprocessable_entity
     end
 
+    # "monster_task"=>{"task_id"=>"1"}, "commit"=>"Do Task", "monster_id"=>"1"
   end
 
   private
   def monstertask_params
-    params.require(:monstertask).permit(:monster_id, :task_id)
+    params.require(:monster_task).permit(:monster_id, :task_id)
   end
 
 end
