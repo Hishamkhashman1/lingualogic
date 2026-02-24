@@ -8,3 +8,5 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/tasks", under: "tasks"
 pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
+pin "tasks/platform", to: "tasks/platform.js"
+pin "tasks/test", to: "tasks/test.js"
