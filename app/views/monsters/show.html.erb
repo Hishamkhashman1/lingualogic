@@ -1,22 +1,61 @@
-<div class="monster-container">
+<div class="monster-container tama-shell">
+  <div class="tama-screen">
+    <div class="tama-hud">
+      <div class="tama-title">
+        <h1 class="tama-name"><%= @monster.name %></h1>
+      </div>
+      <div class="tama-bars">
+        <div class="tama-bar">
+          <span class="tama-bar-label">Health</span>
+          <span class="tama-bar-track">
+            <span class="tama-bar-fill" style="width: 80%"></span>
+          </span>
+        </div>
+        <div class="tama-bar">
+          <span class="tama-bar-label">Energy</span>
+          <span class="tama-bar-track">
+            <span class="tama-bar-fill tama-bar-fill--energy" style="width: 60%"></span>
+          </span>
+        </div>
+      </div>
+    </div>
 
-  <div class="monster-info">
-    <h1><%= @monster.name %></h1>
-  <% @tasks.each do |task| %>
-    <%= task.goal %>
-    <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
-      <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-      <%= f.submit "Do Task" %>
-    <% end %>
-  <%end%>
+    <div class="tama-monster">
+      <div class="tama-monster-wrap">
+        <%= image_tag "monster-pixel-1.png", alt: "pixel Monster", size: "240x280" %>
+      </div>
+    </div>
+
+    <div class="monster-info tama-quests">
+      <div class="tama-quest-list">
+        <% @tasks.each_with_index do |task, index| %>
+          <div class="tama-quest">
+            <div class="tama-quest-text">
+              <% if index == 0 %>
+                <span class="tama-quest-label">Feed Cyborg Apples</span>
+              <% end %>
+              <span class="tama-quest-goal"><%= task.goal %></span>
+            </div>
+            <div class="tama-quest-action">
+              <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
+                <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
+                <%= f.submit "Do Task", class: "tama-start" %>
+              <% end %>
+            </div>
+            <div class="tama-hint">Press START to begin</div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <% @tasks.each do |task| %>
-  <%= task.goal %>
-  <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
-    <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-    <%= f.submit "Do Task" %>
-  <% end %>
- <%end%>
-
+  <div class="tama-quests tama-quests--duplicate" hidden>
+    <% @tasks.each do |task| %>
+      <%= task.goal %>
+      <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
+        <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
+        <%= f.submit "Do Task" %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
