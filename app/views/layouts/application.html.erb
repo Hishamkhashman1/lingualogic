@@ -8,13 +8,25 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body class="app-body">
     <div class="app-shell">
       <header class="app-header">
-        <div class="brand-title">Lingualogic</div>
-        <p class="brand-subtitle">Retro coding arena</p>
+        <div class="header-left">
+          <div class="brand-title">Lingualogic</div>
+          <p class="brand-subtitle">Retro coding arena</p>
+        </div>
+
+        <% if student_signed_in? %>
+          <div class="header-right">
+            <%= button_to "Logout",
+                destroy_student_session_path,
+                method: :delete,
+                class: "btn btn-sm btn-outline-light" %>
+            </div>
+        <% end %>
       </header>
 
       <main class="app-main">
