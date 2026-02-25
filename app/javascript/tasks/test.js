@@ -23,6 +23,7 @@ class Example extends Phaser.Scene
                 blendMode: 'ADD'
             });
 
+            //display the speed in the HTML
             var logospeed = 100
             document.getElementById('speed-display').innerText = `Speed: ${logospeed}`
 
@@ -34,6 +35,7 @@ class Example extends Phaser.Scene
 
             particles.startFollow(logo);
 
+            // use eventEmitter to create event
             var eventEmitter = new Phaser.Events.EventEmitter();
             eventEmitter.on('speed-update', () => console.log("speed changed " + logospeed, this));
 
