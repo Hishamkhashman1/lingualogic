@@ -23,7 +23,7 @@
             <h2>Welcome to the Fun way of coding</h2>
             <p>Coding logic has never been this fun! Try it now!</p>
             <!-- Call to Action Button -->
-            <%= link_to "Play Now!", new_monster_path, class: "cta-button" %>
+            <%= link_to "Play Now!", student_signed_in? ? new_monster_path : new_student_session_path, class: "cta-button" %>
         </div>
         <!-- Placeholder for a hero image or video -->
         <div class="hero-media">
