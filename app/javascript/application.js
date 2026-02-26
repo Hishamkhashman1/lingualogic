@@ -78,15 +78,15 @@ function bootTaskPhaser() {
       const bg = this.add.image(0, 0, "bg").setOrigin(0, 0);
       bg.setDisplaySize(this.scale.width, this.scale.height);
 
-      this.groundY = this.scale.height - 30;
+      this.groundY = this.scale.height - 90;
 
       this.monster = this.add.image(this.startX, this.groundY, "monster");
       this.monster.setOrigin(0.5, 1);
-      this.monster.setScale(0.1);
+      this.monster.setScale(0.11);
 
-      this.apple = this.add.image(this.scale.width - 60, this.groundY, "apple");
-      this.apple.setOrigin(0.5, 1);
-      this.apple.setScale(0.1);
+      this.apple = this.add.image(this.scale.width - 40, this.groundY, "apple");
+      this.apple.setOrigin(0.7, 1);
+      this.apple.setScale(0.06);
 
       if (this.textures.exists("monster")) {
         this.textures.get("monster").setFilter(Phaser.Textures.FilterMode.NEAREST);
