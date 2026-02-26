@@ -10,3 +10,4 @@ pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
 pin "tasks/platform", to: "tasks/platform.js"
 pin "tasks/test", to: "tasks/test.js"
+pin "phaser", to: "https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.esm.js"
