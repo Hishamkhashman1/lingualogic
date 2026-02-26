@@ -7,6 +7,7 @@ import * as PhaserNS from "phaser"
 // import "tasks/hello"
 // import "tasks/test"
 import "tasks/platform"
+import "tasks/task1"
 
 const Phaser = PhaserNS.default || PhaserNS;
 
@@ -66,27 +67,61 @@ function bootTaskPhaser() {
       this.isRunning = false;
       this.monster = null;
       this.apple = null;
+      //need to make this change successfully
+      this.task_success = false;
     }
 
     preload() {
       this.load.image("bg", "/assets/background_1.png");
       this.load.image("monster", "/assets/pixel-monster-right.png");
       this.load.image("apple", "/assets/apple.png");
+
+      this.load.image("box_transparent", "/assets/transparent_box.png")
+      this.load.image("box_pink", "/assets/pink_box.png")
     }
 
     create() {
+
       const bg = this.add.image(0, 0, "bg").setOrigin(0, 0);
       bg.setDisplaySize(this.scale.width, this.scale.height);
 
-      this.groundY = this.scale.height - 90;
+      this.groundY = this.scale.height - 130;
 
-      this.monster = this.add.image(this.startX, this.groundY, "monster");
+      this.monster = this.physics.add.image(this.startX, this.groundY - 10, "monster");
       this.monster.setOrigin(0.5, 1);
       this.monster.setScale(0.11);
+      this.monster.body.setCircle(this.monster.scale.width * 0.8)
 
-      this.apple = this.add.image(this.scale.width - 40, this.groundY, "apple");
+      this.apple = this.physics.add.image(this.scale.width - 30, this.groundY, "apple");
       this.apple.setOrigin(0.7, 1);
       this.apple.setScale(0.06);
+      // this.apple.body.setCircle(this.apple.body.scale.width * 1.2)
+
+      this.apple.body.allowGravity = false;
+
+      // this.physics.addCollider(this.monster, this.apple, function (monster, apple) {
+      //   this.monster.setVelocityX(0);
+      //   this.monster.setVelocityY(0);
+      //   this.monster.angle += 180;
+      // })
+
+      this.box1 = this.physics.add.image(this.scale.width - 160, this.groundY - 50, "box_pink")
+      this.box1.setScale(3)
+      this.box2 = this.physics.add.image(this.scale.width - 160, this.groundY - 20, "box_pink")
+      this.box2.setScale(3)
+      this.box3 = this.physics.add.image(this.scale.width - 130, this.groundY - 20, "box_pink")
+      this.box3.setScale(3)
+      this.box1.body.allowGravity = false;
+      this.box2.body.allowGravity = false;
+      this.box3.body.allowGravity = false;
+      //added physics
+      this.physics.add.collider(this.monster, [this.box1, this.box2, this.box3], function (monster, box) {
+        monster.setVelocityX(0);
+        monster.setVelocityY(0);
+        box.setVelocityX(0)
+        box.setVelocityY(0)
+      })
+
 
       if (this.textures.exists("monster")) {
         this.textures.get("monster").setFilter(Phaser.Textures.FilterMode.NEAREST);
@@ -128,15 +163,24 @@ function bootTaskPhaser() {
     }
 
     executeMove(done) {
+      // problem physics-wise is that this teleports the monster instead of moving it
       const targetX = this.monster.x + MOVE_STEP;
+      this.monster.setVelocityX(90)
+      // this.time.stopMove({
+      //   delay: 250,
+      //   callback: this.monster.setVelocityX(0)})
+
       this.tweens.add({
         targets: this.monster,
-        x: targetX,
-        duration: 250,
+        // x: targetX,
+        // duration: 250,
         ease: "Quad.easeOut",
         onComplete: () => {
           if (this.monster.x >= this.apple.x - 20) {
+            // should set success variable here
+            this.task_success = true;
             log("Task Complete!");
+            log(task_success);
             this.isRunning = false;
             return;
           }
@@ -146,16 +190,30 @@ function bootTaskPhaser() {
     }
 
     executeJump(done) {
+      this.monster.setVelocityY(-100)
       this.tweens.add({
         targets: this.monster,
-        y: this.groundY - 60,
-        yoyo: true,
+        // y: this.groundY - 60,
+        // yoyo: true,
         duration: 220,
         ease: "Quad.easeOut",
         onComplete: () => {
           setTimeout(done, COMMAND_DELAY);
         },
       });
+    }
+
+    update(){
+      //make sure monster doesn't fall through ground
+        if (this.monster.y > this.groundY ) {
+          this.monster.setVelocityY(0);
+          this.monster.y = this.groundY;
+      }
+
+        if (this.monster.x == this.apple.x && this.monster.y == this.apple.y) {
+          this.monster.setVelocityX(0);
+          this.monster.setVelocityY(0);
+        }
     }
   }
 
@@ -171,6 +229,13 @@ function bootTaskPhaser() {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
+    physics: {
+      default: 'arcade',
+      arcade: {
+        gravity: {y: 50 },
+        debug: false
+      }
+    }
   };
 
   TASK_GAME = new Phaser.Game(config);
