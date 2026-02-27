@@ -35,6 +35,7 @@ function bootTaskPhaser() {
   const H = mount.clientHeight || 360;
   const MOVE_STEP = 40;
   const COMMAND_DELAY = 500;
+  const COMMAND_DELAY_P = 1000;
 
   const log = (message) => {
     if (!outputEl) return;
@@ -73,8 +74,8 @@ function bootTaskPhaser() {
 
     preload() {
       this.load.image("bg", "/assets/background_1.png");
-      this.load.image("monster", "/assets/pixel-monster-right.png");
-      this.load.image("apple", "/assets/apple.png");
+      this.load.image("monster", "/assets/pixel-monster-right-s.png");
+      this.load.image("apple", "/assets/apple-s.png");
 
       this.load.image("box_transparent", "/assets/transparent_box.png")
       this.load.image("box_pink", "/assets/pink_box.png")
@@ -85,16 +86,16 @@ function bootTaskPhaser() {
       const bg = this.add.image(0, 0, "bg").setOrigin(0, 0);
       bg.setDisplaySize(this.scale.width, this.scale.height);
 
-      this.groundY = this.scale.height - 130;
+      this.groundY = this.scale.height - 135;
 
-      this.monster = this.physics.add.image(this.startX, this.groundY - 10, "monster");
+      this.monster = this.physics.add.image(this.startX, this.groundY - 15, "monster");
       this.monster.setOrigin(0.5, 1);
-      this.monster.setScale(0.11);
-      this.monster.body.setCircle(this.monster.scale.width * 0.8)
+      // this.monster.setScale(0.11);
+      // this.monster.body.setCircle(this.monster.scale.width * 0.8)
 
       this.apple = this.physics.add.image(this.scale.width - 30, this.groundY, "apple");
       this.apple.setOrigin(0.7, 1);
-      this.apple.setScale(0.06);
+      this.apple.setScale(0.8);
       // this.apple.body.setCircle(this.apple.body.scale.width * 1.2)
 
       this.apple.body.allowGravity = false;
@@ -165,7 +166,8 @@ function bootTaskPhaser() {
     executeMove(done) {
       // problem physics-wise is that this teleports the monster instead of moving it
       const targetX = this.monster.x + MOVE_STEP;
-      this.monster.setVelocityX(90)
+      this.monster.setVelocityX(80)
+      setTimeout(done, COMMAND_DELAY_P);
       // this.time.stopMove({
       //   delay: 250,
       //   callback: this.monster.setVelocityX(0)})
@@ -190,7 +192,8 @@ function bootTaskPhaser() {
     }
 
     executeJump(done) {
-      this.monster.setVelocityY(-100)
+      this.monster.setVelocityY(-120)
+      setTimeout(done, COMMAND_DELAY_P);
       this.tweens.add({
         targets: this.monster,
         // y: this.groundY - 60,
@@ -210,10 +213,14 @@ function bootTaskPhaser() {
           this.monster.y = this.groundY;
       }
 
-        if (this.monster.x == this.apple.x && this.monster.y == this.apple.y) {
+      //check for task success
+         if ((this.monster.x >= this.apple.x - 20)) {
           this.monster.setVelocityX(0);
-          this.monster.setVelocityY(0);
+          log("Task Complete!");
+            log(task_success);
         }
+
+
     }
   }
 
