@@ -6,7 +6,7 @@ const config = {
 width: 300,
 height: 300,
 backgroundColor: 0x000000, //hex, JS requires 0xhex prefix
-parent: 'task-phaserjs',
+parent: 'task-phaserjs-2',
 scene: {
   preload,
   create,
@@ -26,7 +26,6 @@ physics: {
 
 function preload() {
   this.load.image('test', 'https://res.cloudinary.com/dy23qnruf/image/upload/v1769078637/development/215wus6bl7ta3g3e1m2htd97cg2z.png')
-  this.load.image('test2', '../app/assets/images/bird.png')
 }
 
 let test_image
@@ -41,7 +40,7 @@ function create() {
 
   test_image = this.physics.add.image(150, 150, 'test')
   test_image.scale = 0.1;
-  test_image.setVelocityX(0)
+  test_image.setVelocityX(100)
   test_image.setVelocityY(0)
   test_image.setBounce(1,1)
   test_image.setCollideWorldBounds(true)
@@ -53,7 +52,7 @@ function create() {
 
   // this.imageContainer = this.add.container(test_image, emotion)
 
-  keyControl = this.input.createCursorKeys()
+  // keyControl = this.input.createCursorKeys()
 
   // emotion = this.add.text(this.test_image.x,this.test_image.y+50, " :) ")
 
@@ -66,10 +65,10 @@ function update() {
   // this.input.keyboard.on('keydown-W', (event) => { test_image.y +=5 });
   // this.input.keyboard.on('keydown-S', (event) => { test_image.y -=5 });
 
-  if (keyControl.left.isDown) {
-    test_image.setVelocityX(-100)}
-  else if(keyControl.right.isDown)
-    {test_image.setVelocityX(100)}
+  // if (keyControl.left.isDown) {
+  //   test_image.setVelocityX(-100)}
+  // else if(keyControl.right.isDown)
+  //   {test_image.setVelocityX(100)}
 
 
 
