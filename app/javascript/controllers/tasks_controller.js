@@ -11,6 +11,8 @@ export default class extends Controller {
     imgPinkBox: String,
   }
 
+  static targets = [ 'messagebox', 'message', 'info' ]
+
   connect() {
     console.log("Stimulus connected")
     const Phaser = PhaserNS.default || PhaserNS;
@@ -20,6 +22,8 @@ export default class extends Controller {
 
     this.TASK_GAME = null;
     this.TASK_SCENE = null;
+
+    let task_status = false;
 
     const mount = document.getElementById("task-phaser");
     if (!mount) return;
@@ -192,8 +196,10 @@ export default class extends Controller {
             if (this.monster.x >= this.apple.x - 20) {
               // should set success variable here
               this.task_success = true;
+              task_status = true;
               log("Task Complete!");
               log(task_success);
+              log(task_status);
               this.isRunning = false;
               return;
             }
@@ -225,10 +231,28 @@ export default class extends Controller {
         }
 
         //check for task success
-        if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y)) {
+        if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y) && (this.task_success == false)) {
           this.monster.setVelocityX(0);
           log("Task Complete!");
-          log(task_success);
+          this.task_success = true;
+          log(this.task_success);
+
+          task_status = true;
+          console.log(task_status);
+
+          // success message popup
+          controller.messageTarget.innerText = "Task Completed!";
+          controller.messageTarget.classList.toggle('success-message');
+          controller.infoTarget.innerText = "Rewards: +100xp, +Funny Hat";
+          controller.messageboxTarget.classList.toggle('hidden');
+
+          // hint message popup
+          controller.messageTarget.innerText = "Here's a hint!";
+          controller.messageTarget.classList.toggle('hint-message');
+          controller.infoTarget.innerText = "Try using a combination of MOVE then JUMP commands";
+          controller.messageboxTarget.classList.toggle('hidden');
+
+          return;
         }
       }
     }
@@ -268,6 +292,13 @@ export default class extends Controller {
         this.TASK_SCENE.runCommands(commands);
       };
     }
+  }
+
+  //message box
+
+
+  message_success() {
+
   }
 
 }
