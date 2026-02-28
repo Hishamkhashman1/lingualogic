@@ -8,13 +8,13 @@
         <div class="tama-bar">
           <span class="tama-bar-label">Health</span>
           <span class="tama-bar-track">
-            <span class="tama-bar-fill" style="width: 80%"></span>
+            <span class="tama-bar-fill" style="width:<%= @monster.health %>%"></span>
           </span>
         </div>
         <div class="tama-bar">
           <span class="tama-bar-label">Energy</span>
           <span class="tama-bar-track">
-            <span class="tama-bar-fill tama-bar-fill--energy" style="width: 60%"></span>
+            <span class="tama-bar-fill tama-bar-fill--energy" style="width: <%= @monster.energy %>%"></span>
           </span>
         </div>
       </div>

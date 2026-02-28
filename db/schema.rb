@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_24_122155) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_28_072718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,12 +38,24 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_24_122155) do
     t.bigint "student_id", null: false
     t.string "name"
     t.integer "happiness"
-    t.integer "energy"
+    t.integer "energy", default: 15
     t.string "species_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
+    t.integer "health", default: 50
     t.index ["student_id"], name: "index_monsters_on_student_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "task_id", null: false
+    t.string "message"
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_notifications_on_student_id"
+    t.index ["task_id"], name: "index_notifications_on_task_id"
   end
 
   create_table "student_items", force: :cascade do |t|
@@ -85,6 +97,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_24_122155) do
   add_foreign_key "monster_tasks", "monsters"
   add_foreign_key "monster_tasks", "tasks"
   add_foreign_key "monsters", "students"
+  add_foreign_key "notifications", "students"
+  add_foreign_key "notifications", "tasks"
   add_foreign_key "student_items", "items"
   add_foreign_key "student_items", "students"
 end

@@ -15,7 +15,8 @@ class MonstersController < ApplicationController
 
   def show
     @monster = Monster.find(params[:id])
-    @tasks = Task.all
+    @tasks = []
+    @tasks << MonsterEnergyService.check_and_assign(@monster)
   end
 
 end
