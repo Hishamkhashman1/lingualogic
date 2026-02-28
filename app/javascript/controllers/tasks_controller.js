@@ -3,8 +3,20 @@ import * as PhaserNS from "phaser"
 
 // Connects to data-controller="tasks"
 export default class extends Controller {
+  static values = {
+    imgBackground: String,
+    imgMonsterRight: String,
+    imgApple: String,
+    imgTransparentBox: String,
+    imgPinkBox: String,
+  }
+
   connect() {
+    console.log("Stimulus connected")
     const Phaser = PhaserNS.default || PhaserNS;
+
+    // from now on use controller. to refer to stimuls controller instead of this.
+    const controller = this
 
     this.TASK_GAME = null;
     this.TASK_SCENE = null;
@@ -54,6 +66,7 @@ export default class extends Controller {
       return commands;
     };
 
+
     //PhaserJS starts here
 
     class TaskScene extends Phaser.Scene {
@@ -69,12 +82,14 @@ export default class extends Controller {
       }
 
       preload() {
-        this.load.image("bg", "/assets/background_1.png");
-        this.load.image("monster", "/assets/pixel-monster-right-s.png");
-        this.load.image("apple", "/assets/apple-s.png");
+        console.log(controller.imgBackgroundValue)
+        // use stimuulus value instead of asset path
+        this.load.image("bg", controller.imgBackgroundValue);
+        this.load.image("monster", controller.imgMonsterRightValue);
+        this.load.image("apple", controller.imgAppleValue);
 
-        this.load.image("box_transparent", "/assets/transparent_box.png")
-        this.load.image("box_pink", "/assets/pink_box.png")
+        this.load.image("box_transparent", controller.imgTransparentBoxValue)
+        this.load.image("box_pink", controller.imgPinkBoxValue)
       }
 
       create() {
@@ -245,6 +260,7 @@ export default class extends Controller {
 
     if (runBtn && codeEl) {
       runBtn.onclick = () => {
+        console.log("Clicked button!")
         if (!this.TASK_SCENE) return;
         if (outputEl) outputEl.textContent = "";
         const commands = parseCommands(codeEl.value || "");
