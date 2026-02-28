@@ -54,6 +54,8 @@ export default class extends Controller {
       return commands;
     };
 
+    //PhaserJS starts here
+
     class TaskScene extends Phaser.Scene {
       constructor() {
         super("TaskScene");
@@ -238,6 +240,8 @@ export default class extends Controller {
     };
 
     this.TASK_GAME = new Phaser.Game(config);
+
+    // PhaserJS ends here above
 
     if (runBtn && codeEl) {
       runBtn.onclick = () => {
