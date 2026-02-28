@@ -214,13 +214,11 @@ function bootTaskPhaser() {
       }
 
       //check for task success
-         if ((this.monster.x >= this.apple.x - 20)) {
+         if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y)) {
           this.monster.setVelocityX(0);
           log("Task Complete!");
-            log(task_success);
+          log(task_success);
         }
-
-
     }
   }
 
