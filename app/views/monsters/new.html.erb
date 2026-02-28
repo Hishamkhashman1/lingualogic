@@ -1,15 +1,150 @@
-<div class="monster-container">
-<h1><%= @monster.name %></h1>
-<%= image_tag "monster-pixel-1.png", alt: "pixel Monster", size: "115x140" %>
+<div class="monster-container starter-screen">
+  <h1 class="starter-title">Choose Your Starter Monster</h1>
 
+  <%= simple_form_for @monster do |f| %>
+    <div class="starter-grid" role="radiogroup" aria-label="Starter monster selection">
+      <div class="starter-option">
+        <%= f.radio_button :species_type, "cat", id: "starter-cat", class: "starter-radio" %>
+        <label for="starter-cat" class="starter-card">
+          <span class="starter-selected">Selected</span>
+          <div class="starter-image">
+            <%= image_tag "pixel-monster-nobkg.png", alt: "Pixel Cat", size: "160x160" %>
+          </div>
+          <div class="starter-name">Pixel Cat</div>
+          <div class="starter-desc">Agile, curious, and neon-fast. Hisham's Favorite</div>
+        </label>
+      </div>
 
-<%# Should be a form %>
-<%= simple_form_for @monster do |f| %>
-<%= f.input :name%>
-<%= f.input :species_type%>
-  <%= f.submit "Choose this Monster", class: "cta-button" %>
-<% end %>
+      <div class="starter-option">
+        <%= f.radio_button :species_type, "fox", id: "starter-fox", class: "starter-radio" %>
+        <label for="starter-fox" class="starter-card">
+          <span class="starter-selected">Selected</span>
+          <div class="starter-image">
+            <%= image_tag "fox-fornt-nobkg.png", alt: "Cyber Fox", size: "160x160" %>
+          </div>
+          <div class="starter-name">Cyber Fox</div>
+          <div class="starter-desc">Tactical, clever, and stealth-bright.</div>
+        </label>
+      </div>
+
+      <div class="starter-option">
+        <%= f.radio_button :species_type, "guinea_pig", id: "starter-gpig", class: "starter-radio" %>
+        <label for="starter-gpig" class="starter-card">
+          <span class="starter-selected">Selected</span>
+          <div class="starter-image">
+            <%= image_tag "gpig-front-nobkg.png", alt: "Purple Guinea Pig", size: "160x160" %>
+          </div>
+          <div class="starter-name">Purple Guinea Pig</div>
+          <div class="starter-desc">Friendly, sturdy, and pulse-powered.</div>
+        </label>
+      </div>
+    </div>
+
+    <%= f.input :name %>
+    <%= f.submit "Choose this Monster", class: "cta-button" %>
+  <% end %>
 </div>
 
-<%# testing %>
-<%# testing %>
+<style>
+  .starter-screen {
+    color: #e9f5f5;
+  }
+
+  .starter-title {
+    margin-bottom: 16px;
+  }
+
+  .starter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .starter-option {
+    position: relative;
+  }
+
+  .starter-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .starter-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 16px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(8, 18, 24, 0.95), rgba(6, 10, 14, 0.98));
+    border: 1px solid rgba(46, 255, 214, 0.18);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 0 0 rgba(46, 255, 214, 0);
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    cursor: pointer;
+    min-height: 260px;
+  }
+
+  .starter-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(46, 255, 214, 0.45);
+  }
+
+  .starter-radio:focus-visible + .starter-card {
+    outline: 2px solid rgba(46, 255, 214, 0.65);
+    outline-offset: 3px;
+  }
+
+  .starter-radio:checked + .starter-card {
+    border-color: rgba(46, 255, 214, 0.8);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 26px rgba(46, 255, 214, 0.45);
+  }
+
+  .starter-radio:checked + .starter-card .starter-selected {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .starter-selected {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    background: rgba(46, 255, 214, 0.15);
+    color: #2effd6;
+    border: 1px solid rgba(46, 255, 214, 0.45);
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+
+  .starter-image img {
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.45));
+  }
+
+  .starter-name {
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 18px;
+    color: #e7ffff;
+    text-align: center;
+  }
+
+  .starter-desc {
+    margin-top: 6px;
+    font-size: 13px;
+    color: rgba(233, 245, 245, 0.7);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .starter-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
