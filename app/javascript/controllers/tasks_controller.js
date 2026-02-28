@@ -261,10 +261,10 @@ export default class extends Controller {
           controller.messageboxTarget.classList.toggle('hidden');
 
           // hint message popup
-          controller.messageTarget.innerText = "Here's a hint!";
-          controller.messageTarget.classList.toggle('hint-message');
-          controller.infoTarget.innerText = "Try using a combination of MOVE then JUMP commands";
-          controller.messageboxTarget.classList.toggle('hidden');
+          // controller.messageTarget.innerText = "Here's a hint!";
+          // controller.messageTarget.classList.toggle('hint-message');
+          // controller.infoTarget.innerText = "Try using a combination of MOVE then JUMP commands";
+          // controller.messageboxTarget.classList.toggle('hidden');
 
           return;
         }
