@@ -142,7 +142,7 @@ export default class extends Controller {
           this.textures.get("apple").setFilter(Phaser.Textures.FilterMode.NEAREST);
         }
 
-        this.TASK_SCENE = this;
+        controller.TASK_SCENE = this;
       }
 
       reset() {
