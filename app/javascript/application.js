@@ -74,9 +74,9 @@ function bootTaskPhaser() {
 
     preload() {
       this.load.image("bg", "/assets/background_1.png");
-      this.load.spritesheet("monster", "/assets/pixel-monster-right_1.png", {
-        frameWidth: 800,
-        frameHeight: 1100,
+      this.load.spritesheet("monster", "/assets/spritesheet-cat.png", {
+        frameWidth: 256,
+        frameHeight: 512,
         });
       this.load.image("apple", "/assets/apple-s.png");
 
@@ -93,7 +93,7 @@ function bootTaskPhaser() {
 
       this.monster = this.physics.add.sprite(this.startX, this.groundY - 15, "monster"); // change image to sprite
       this.monster.setOrigin(0.5, 1);
-      this.monster.setScale(0.08);
+      this.monster.setScale(0.25);
       this.monster.refreshBody();
       // this.monster.setScale(0.11);
       // this.monster.body.setCircle(this.monster.scale.width * 0.8)
@@ -107,13 +107,15 @@ function bootTaskPhaser() {
 
       this.anims.create({
         key: "walk",
-        frames: this.anims.generateFrameNumbers("monster", { start: 3, end: 5 }),
-        frameRate: 6,
+        frames: this.anims.generateFrameNumbers("monster", {
+          frames: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+        }),
+        frameRate: 24,
         repeat: -1
       });
 
       // start idle right away
-     //this.monster.play("idle",true);
+     this.monster.play("idle",true);
       // this.monster.setScale(0.15);
 
       this.apple = this.physics.add.image(this.scale.width - 30, this.groundY, "apple");
