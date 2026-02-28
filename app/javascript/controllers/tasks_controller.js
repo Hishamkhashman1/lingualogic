@@ -85,7 +85,11 @@ export default class extends Controller {
         console.log(controller.imgBackgroundValue)
         // use stimuulus value instead of asset path
         this.load.image("bg", controller.imgBackgroundValue);
-        this.load.image("monster", controller.imgMonsterRightValue);
+        this.load.spritesheet("monster", controller.imgMonsterRightValue, {
+          frameWidth:264,
+          frameHeight:512,
+        }
+        );
         this.load.image("apple", controller.imgAppleValue);
 
         this.load.image("box_transparent", controller.imgTransparentBoxValue)
@@ -99,10 +103,20 @@ export default class extends Controller {
 
         this.groundY = this.scale.height - 135;
 
-        this.monster = this.physics.add.image(this.startX, this.groundY - 15, "monster");
+        this.monster = this.physics.add.sprite(this.startX, this.groundY - 15, "monster");
         this.monster.setOrigin(0.5, 1);
-        // this.monster.setScale(0.11);
+        this.monster.setScale(0.25);
         // this.monster.body.setCircle(this.monster.scale.width * 0.8)
+
+        this.anims.create({
+        key: 'walk', // A unique key to reference the animation
+        frames: this.anims.generateFrameNumbers('monster', {
+            frames: [0,1,2]
+        }),
+        frameRate: 2, // Frames per second
+        repeat: -1    // -1 means loop forever
+        });
+        this.monster.play("walk", true);
 
         this.apple = this.physics.add.image(this.scale.width - 30, this.groundY, "apple");
         this.apple.setOrigin(0.7, 1);
