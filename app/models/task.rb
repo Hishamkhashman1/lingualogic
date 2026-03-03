@@ -1,5 +1,8 @@
 class Task < ApplicationRecord
   has_many :monster_tasks
+
+  store_accessor :reward, :exp, :item1, :item2
+
   def self.available_for(student)
     monster = student.monster
     student_level = student.level

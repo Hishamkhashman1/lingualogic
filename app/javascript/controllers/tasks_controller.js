@@ -9,6 +9,9 @@ export default class extends Controller {
     imgApple: String,
     imgTransparentBox: String,
     imgPinkBox: String,
+    rewardExp: Number,
+    rewardItem1: String,
+    rewardItem2: String,
   }
 
   static targets = [ 'messagebox', 'message', 'info' ]
@@ -257,7 +260,7 @@ export default class extends Controller {
           // success message popup
           controller.messageTarget.innerText = "Task Completed!";
           controller.messageTarget.classList.toggle('success-message');
-          controller.infoTarget.innerText = "Rewards: +100xp, +Funny Hat";
+          controller.infoTarget.innerText = `Rewards: +${controller.rewardExpValue} exp, ${controller.rewardItem1Value}, ${controller.rewardItem2Value}`;
           controller.messageboxTarget.classList.toggle('hidden');
 
           // hint message popup
