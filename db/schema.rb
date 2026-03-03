@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_28_072718) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_02_041330) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,6 +92,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_28_072718) do
     t.integer "attempts"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reward_exp"
+    t.string "reward_item1"
+    t.string "reward_item2"
   end
 
   add_foreign_key "monster_tasks", "monsters"

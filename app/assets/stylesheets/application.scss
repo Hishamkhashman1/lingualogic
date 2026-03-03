@@ -13,3 +13,15 @@
 
 // Theme overrides
 @import "components/theme";
+
+.hidden {
+  display: none;
+}
+
+.success-message {
+  background: green;
+}
+
+.hint-message {
+  background: rgb(0, 148, 178);
+}

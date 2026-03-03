@@ -26,6 +26,10 @@ physics: {
 
 function preload() {
   this.load.image('test', 'https://res.cloudinary.com/dy23qnruf/image/upload/v1769078637/development/215wus6bl7ta3g3e1m2htd97cg2z.png')
+
+  this.load.image('spark', 'https://cdn.phaserfiles.com/v355/assets/particles/blue.png');
+  this.load.atlas('flares', 'https://cdn.phaserfiles.com/v35/5assets/particles/flares.png', 'assets/particles/flares.json');
+  this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
 }
 
 let test_image
@@ -48,7 +52,40 @@ function create() {
   crash_cat = this.physics.add.image(150,300, 'test')
   crash_cat.setCollideWorldBounds(true)
   crash_cat.scale = 0.1
-  this.physics.add.collider(test_image, crash_cat)
+
+
+  //particles test
+  var particlesTest = this.add.particles(0, 0, 'red', {
+    speed: 100,
+    scale: { start: 0.5, end: 0.1 },
+    blendMode: 'ADD',
+    tint: 0x22BBDD,
+    lifespan: 1000
+  });
+
+  particlesTest.startFollow(test_image);
+
+  var particlesCollide = this.add.particles(crash_cat.x, crash_cat.y - 20, 'red', {
+    speed: 50,
+    scale: {start: 0.5, end: 0.05},
+    lifespan: 500,
+    blendMode: 'ADD',
+    duration: 5000,
+    emitting: false
+  });
+
+  this.physics.add.collider(test_image, crash_cat, () => {
+    particlesCollide.start();
+  })
+
+  // var particlesCollideStart = { particlesCollide.emitParticleAt(9,9) };
+
+  this.input.on('pointerdown', () => {
+
+            particlesCollide.start();
+
+        });
+
 
   // this.imageContainer = this.add.container(test_image, emotion)
 

@@ -9,16 +9,31 @@
 
 <body>
 <%= link_to "Play Now!", new_monster_path, class: "cta-button" %>
-  <h1> This is a task. </h1>
+  <h1> Time to get some food! </h1>
 
   <div id="task-info">
-    <h2> Task Name </h2>
-    <%= @monster_task.task.goal %>
-    <p> Level: # </p>
-    <p> Task information and instructions go here. </p>
+    <h2> Cyborg apple </h2>
+    <%# <%= @monster_task.task.goal %>
+    <p> Level: 1 </p>
+    <p> Use the MOVE and JUMP commands by typing in the console to get to the apple , Click Run to execute code! Good luck!</p>
   </div>
 
-  <div id="task-phaserjs">
+  <div id="task-phaserjs" data-controller="tasks"
+  data-tasks-img-background-value="<%= image_path("background_1.png") %>"
+  data-tasks-img-monster-right-value="<%= image_path("spritesheet-cat-2.png") %>"
+  data-tasks-img-apple-value="<%= image_path("apple-s.png") %>"
+  data-tasks-img-transparent-box-value="<%= image_path("transparent_box.png") %>"
+  data-tasks-img-pink-box-value="<%= image_path("pink_box.png") %>"
+  data-tasks-reward-exp-value="<%= Task.find(2).reward_exp %>"
+  data-tasks-reward-item1-value="<%= Task.find(2).reward_item1 %>"
+  data-tasks-reward-item2-value="<%= Task.find(2).reward_item2 %>"
+  >
+
+    <div id="task-message" data-tasks-target="messagebox" class="hidden" style="gap: 10px; margin-bottom: 18px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
+    <h3 id="task-message-status" data-tasks-target="message"> Task Status </h3>
+    <p id="task-message-info" data-tasks-target="info"> Task message </p>
+    </div>
+
     <div id="task-split" style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: stretch;">
       <div id="task-phaser" style="width: 100%; height: 360px;"></div>
       <div id="task-code-panel" style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
