@@ -98,6 +98,11 @@ export default class extends Controller {
 
         this.load.image("box_transparent", controller.imgTransparentBoxValue)
         this.load.image("box_pink", controller.imgPinkBoxValue)
+
+        //particles
+        this.load.image('spark', 'https://cdn.phaserfiles.com/v355/assets/particles/blue.png');
+        this.load.atlas('flares', 'https://cdn.phaserfiles.com/v35/5assets/particles/flares.png', 'assets/particles/flares.json');
+        this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
       }
 
       create() {
@@ -151,6 +156,36 @@ export default class extends Controller {
           box.setVelocityX(0)
           box.setVelocityY(0)
         })
+
+        //particle effects
+
+         //particles test
+        // var particlesTest = this.add.particles(0, 0, 'red', {
+        //   speed: 100,
+        //   scale: { start: 0.5, end: 0.1 },
+        //   blendMode: 'ADD'
+        // });
+
+        // particlesTest.startFollow(this.monster);
+
+        var particlesApple = this.add.particles(this.apple.x -5, this.apple.y -15,'red', {
+          speed: 50,
+          scale: {start: 0.5, end: 0.1},
+          blendMode: 'ADD',
+          duration: 1500,
+          lifespan: 3000,
+          tint: 0x22BB44,
+          emitting: false
+        })
+
+        // Emit particles if monster and apple touch, only once
+        this.physics.add.overlap(this.monster, this.apple, () => {
+          if (task_status == false) {
+            particlesApple.start();
+          }
+        })
+
+            //particles end
 
 
         if (this.textures.exists("monster")) {
@@ -243,6 +278,8 @@ export default class extends Controller {
           this.monster.setVelocityY(0);
           this.monster.y = this.groundY;
         }
+
+
 
         //check for task success
         if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y) && (this.task_success == false)) {
