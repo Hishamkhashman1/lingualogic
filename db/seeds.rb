@@ -21,4 +21,6 @@ test_monster = Monster.create!(name: "Testasaur", student_id: 1, happiness: 1, e
 
 test_task = Task.create!(goal: "Set speed to 800", difficulty: 0)
 
+feeding_task = Task.create!(goal: "Feed monster", difficulty: 0)
+
 puts "Seeding finished."

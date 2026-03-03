@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   has_many :monster_tasks
+  has_many :monsters, through: :monster_tasks
 
   store_accessor :reward, :exp, :item1, :item2
 
