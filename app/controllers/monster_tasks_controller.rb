@@ -4,6 +4,7 @@ class MonsterTasksController < ApplicationController
   # end
 
   def show
+    @monster = MonsterTask.find(params[:id]).monster_id
     @monster_task = MonsterTask.find(params[:id])
   end
 
@@ -21,6 +22,18 @@ class MonsterTasksController < ApplicationController
     end
 
     # "monster_task"=>{"task_id"=>"1"}, "commit"=>"Do Task", "monster_id"=>"1"
+  end
+
+  #custom method to distribute rewards by updating monster, user, user_items table
+  def rewards
+    @monster_task = MonsterTask.find(params[:id])
+    monster = MonsterTask.find(params[:id]).monster_id
+    @task = MonsterTask.find(params[:id]).task_id
+    student = current_user
+
+    monster.update(health: monster.health + @task.reward_health, energy: monster.energy + @task.reward_energy)
+    puts "Rewards claimed!"
+
   end
 
   private
