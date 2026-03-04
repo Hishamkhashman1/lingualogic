@@ -60,16 +60,19 @@
   </div>
 </div>
 
-<div id="inventory">
+<div id="inventory" class="inventory">
+  <h3> My Items </h3>
+  <p> Current student: <%= @current_student.id %> </p>
+  <% @my_items.each do |item|%>
+    <div class="item-box">
+      <p> <%= Item.find(item.item_id).name %> x <%= item.qty %> <p>
+    </div>
+  <% end %>
+</div>
+
+<div id="item-list" class="inventory">
   <h3> Items </h3>
   <% @items.each do |item| %>
     <p> <%= item.name %> - <%= item.description %> - <%= item.price %> </p>
-  <% end %>
-
-  <p> Current student: <%= @current_student.id %> </p>
-
-  <h3> My Items </h3>
-  <% @my_items.each do |item|%>
-    <p> #<%= item.item_id %> : <%= Item.find(item.item_id).name %> : <%= item.qty %>
   <% end %>
 </div>
