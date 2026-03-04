@@ -16,6 +16,11 @@ class MonstersController < ApplicationController
   def show
     @monster = Monster.find(params[:id])
     @tasks = Task.all
+    @items =  Item.all
+    @student_items = StudentItem.all
+    @my_items = @student_items.where(student_id: current_student)
+    @current_student = current_student
+    # @student_items = StudentItem.where(StudentItem.student_id == current_student.id)
   end
 
 end
