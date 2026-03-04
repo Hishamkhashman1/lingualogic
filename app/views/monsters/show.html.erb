@@ -60,14 +60,15 @@
   </div>
 </div>
 
-<div id="inventory" class="inventory">
-  <h3> My Items </h3>
-  <p> Current student: <%= @current_student.id %> </p>
-  <% @my_items.each do |item|%>
-    <div class="item-box">
-      <p> <%= Item.find(item.item_id).name %> x <%= item.qty %> <p>
-    </div>
-  <% end %>
+<div id="inventory" class="inventory" data-controller="items">
+  <button data-items-target="inventory" data-action="click->items#toggle"> My Items </button>
+  <div id="itemlist" data-items-target="itemlist" class="hidden">
+    <% @my_items.each do |item|%>
+      <div class="item-box">
+        <p> <%= Item.find(item.item_id).name %> x <%= item.qty %> <p>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <div id="item-list" class="inventory">
