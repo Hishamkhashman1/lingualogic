@@ -9,8 +9,8 @@ class MonsterEnergyService
 
     level = monster.student.level
 
-    Task.find_by(goal: "Feed monster", difficulty: level)
-    # return unless task
+    task = Task.find_by(goal: "Feed monster", difficulty: level)
+    # return unless task.nil?
 
     # monster_possible_tasks = task.all
 
