@@ -27,25 +27,31 @@
     </div>
 
     <div class="monster-info tama-quests">
-      <div class="tama-quest-list">
-        <% @tasks.each_with_index do |task, index| %>
-          <div class="tama-quest">
-            <div class="tama-quest-text">
-              <% if index == 0 %>
-                <span class="tama-quest-label">Feed Cyborg Apples</span>
-              <% end %>
-              <span class="tama-quest-goal"><%= task.goal %></span>
+      <% if @tasks.present? %>
+        <div class="tama-quest-list">
+          <% @tasks.each_with_index do |task, index| %>
+            <div class="tama-quest">
+              <div class="tama-quest-text">
+                <% if index == 0 %>
+                  <span class="tama-quest-label">Feed Cyborg Apples</span>
+                <% end %>
+                <span class="tama-quest-goal"><%= task.goal %></span>
+              </div>
+              <div class="tama-quest-action">
+                <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
+                  <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
+                  <%= f.submit "Do Task", class: "tama-start" %>
+                <% end %>
+              </div>
+              <div class="tama-hint">Press START to begin</div>
             </div>
-            <div class="tama-quest-action">
-              <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
-                <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-                <%= f.submit "Do Task", class: "tama-start" %>
-              <% end %>
+
             </div>
-            <div class="tama-hint">Press START to begin</div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
+      <% end %>
       </div>
+
     </div>
   </div>
 
