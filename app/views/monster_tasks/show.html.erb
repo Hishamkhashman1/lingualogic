@@ -15,7 +15,7 @@
     <h2> Cyborg apple </h2>
     <%# <%= @monster_task.task.goal %>
     <p> Level: 1 </p>
-    <p> Use the MOVE and JUMP commands by typing in the console to get to the apple , Click Run to execute code! Good luck!</p>
+    <p> After solving the code console mini challenge by dragging and dropping the correct code snippets Use the MOVE and JUMP commands by typing in the console to get to the apple , Click Run to execute code! Good luck!</p>
   </div>
 
   <div id="task-phaserjs" data-controller="tasks"
@@ -38,6 +38,24 @@
       <div id="task-phaser" style="width: 100%; height: 360px;"></div>
       <div id="task-code-panel" style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
         <div class="task-code-header" style="font-family: monospace; letter-spacing: 0.12em; text-transform: uppercase;">Code Console</div>
+        <div id="task-mini-challenge" style="display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 10px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(6, 12, 18, 0.85); color: #cfe9ff; font-family: monospace;">
+          <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;">Mini Challenge</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <div class="task-block" draggable="true" data-value="isRunning" style="padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">isRunning</div>
+            <div class="task-block" draggable="true" data-value="queue.length" style="padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">queue.length</div>
+            <div class="task-block" draggable="true" data-value="executeMove()" style="padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">executeMove()</div>
+            <div class="task-block" draggable="true" data-value="executeJump()" style="padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">executeJump()</div>
+            <div class="task-block" draggable="true" data-value="monster.hp" style="padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(12, 22, 30, 0.75); color: #cfe9ff; cursor: grab; user-select: none; font-size: 12px;">monster.hp</div>
+            <div class="task-block" draggable="true" data-value="speed" style="padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(12, 22, 30, 0.75); color: #cfe9ff; cursor: grab; user-select: none; font-size: 12px;">speed</div>
+            <div class="task-block" draggable="true" data-value="run()" style="padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(12, 22, 30, 0.75); color: #cfe9ff; cursor: grab; user-select: none; font-size: 12px;">run()</div>
+          </div>
+          <div style="display: grid; gap: 4px; font-size: 12px;">
+            <div>IF <span class="task-slot" data-slot="1" style="display: inline-block; min-width: 110px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span> AND <span class="task-slot" data-slot="2" style="display: inline-block; min-width: 110px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span></div>
+            <div>IF cmd == "MOVE" -> <span class="task-slot" data-slot="3" style="display: inline-block; min-width: 120px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span></div>
+            <div>IF cmd == "JUMP" -> <span class="task-slot" data-slot="4" style="display: inline-block; min-width: 120px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span></div>
+          </div>
+          <div style="font-size: 11px; color: #9bfef2; opacity: 0.8;">Hint: Use the runner's state and queue.</div>
+        </div>
         <textarea id="task-code" spellcheck="false" style="flex: 1; width: 100%; min-height: 160px; resize: vertical; padding: 10px; border-radius: 8px; border: 1px solid rgba(90, 200, 255, 0.4); background: rgba(6, 12, 18, 0.9); color: #e8f0ff; font-family: monospace;">MOVE
 MOVE
 JUMP

@@ -34,6 +34,7 @@ export default class extends Controller {
     const codeEl = document.getElementById("task-code");
     const runBtn = document.getElementById("task-run");
     const outputEl = document.getElementById("task-output");
+    const challengeEl = document.getElementById("task-mini-challenge");
 
     if (this.TASK_GAME) {
       try { this.TASK_GAME.destroy(true); } catch (e) { }
@@ -56,22 +57,67 @@ export default class extends Controller {
       outputEl.scrollTop = outputEl.scrollHeight;
     };
 
-    const parseCommands = (source) => {
+    const setOutput = (message) => {
+      if (!outputEl) return;
+      outputEl.textContent = message ? `${message}\n` : "";
+      outputEl.scrollTop = outputEl.scrollHeight;
+    };
+
+    const parseCommands = (source, onError) => {
       const commands = [];
       const lines = source.split(/\r?\n/);
-      for (const raw of lines) {
+      for (let i = 0; i < lines.length; i++) {
+        const raw = lines[i];
         const line = raw.trim();
         if (!line) continue;
         const upper = line.toUpperCase();
         if (upper === "MOVE" || upper === "JUMP") {
           commands.push(upper);
         } else {
-          log(`Invalid command: ${line}`);
+          if (onError) onError(`Invalid command on line ${i + 1}. Use MOVE/JUMP.`);
           return null;
         }
       }
       return commands;
     };
+
+    const initMiniChallenge = () => {
+      if (!challengeEl) return null;
+      const blockEls = Array.from(challengeEl.querySelectorAll(".task-block"));
+      const slotEls = Array.from(challengeEl.querySelectorAll(".task-slot"));
+      const slotMap = {};
+      slotEls.forEach((slot) => {
+        slotMap[slot.dataset.slot] = slot;
+        slot.ondragover = (event) => {
+          event.preventDefault();
+          if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
+        };
+        slot.ondrop = (event) => {
+          event.preventDefault();
+          const value = event.dataTransfer ? event.dataTransfer.getData("text/plain") : "";
+          if (!value) return;
+          slot.dataset.value = value;
+          slot.textContent = value;
+        };
+      });
+
+      blockEls.forEach((block) => {
+        block.ondragstart = (event) => {
+          if (!event.dataTransfer) return;
+          event.dataTransfer.setData("text/plain", block.dataset.value || "");
+          event.dataTransfer.effectAllowed = "copy";
+        };
+      });
+
+      const getSlotValue = (slotId) => {
+        const slot = slotMap[slotId];
+        return slot ? (slot.dataset.value || "") : "";
+      };
+
+      return { getSlotValue, slotEls };
+    };
+
+    const miniChallenge = initMiniChallenge();
 
 
     //PhaserJS starts here
@@ -340,8 +386,32 @@ export default class extends Controller {
       runBtn.onclick = () => {
         console.log("Clicked button!")
         if (!this.TASK_SCENE) return;
-        if (outputEl) outputEl.textContent = "";
-        const commands = parseCommands(codeEl.value || "");
+        setOutput("");
+
+        if (miniChallenge && miniChallenge.slotEls.length) {
+          const required = [
+            { slot: "1", value: "isRunning" },
+            { slot: "2", value: "queue.length" },
+            { slot: "3", value: "executeMove()" },
+            { slot: "4", value: "executeJump()" },
+          ];
+
+          const missing = required.some((rule) => !miniChallenge.getSlotValue(rule.slot));
+          if (missing) {
+            setOutput("Fill all blanks.");
+            return;
+          }
+
+          const correct = required.every((rule) => miniChallenge.getSlotValue(rule.slot) === rule.value);
+          if (!correct) {
+            setOutput("Hint: one blank checks if commands are left.");
+            return;
+          }
+
+          setOutput("Correct! Running...");
+        }
+
+        const commands = parseCommands(codeEl.value || "", (message) => setOutput(message));
         if (!commands) return;
         this.TASK_SCENE.runCommands(commands);
       };
