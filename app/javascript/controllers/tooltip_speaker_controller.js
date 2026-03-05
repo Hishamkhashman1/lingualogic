@@ -11,48 +11,97 @@ export default class extends Controller {
       return
     }
 
-    this.delayMs = 320
-    this.activeElement = null
-    this.pendingTimer = null
-    this.pendingText = null
     this.speech = window.speechSynthesis
+    this.voices = []
+    this.voice = null
+    this.pendingText = null
+    this.waitingForVoices = false
+    this.boundVoicesChanged = this.onVoicesChanged.bind(this)
 
-    this.boundUpdateVoices = this.updateVoices.bind(this)
-    this.boundMouseOver = this.onMouseOver.bind(this)
-    this.boundMouseOut = this.onMouseOut.bind(this)
-    this.boundFocusIn = this.onFocusIn.bind(this)
-    this.boundFocusOut = this.onFocusOut.bind(this)
-
-    this.updateVoices()
-    this.speech.addEventListener("voiceschanged", this.boundUpdateVoices)
-
-    this.element.addEventListener("mouseover", this.boundMouseOver)
-    this.element.addEventListener("mouseout", this.boundMouseOut)
-    this.element.addEventListener("focusin", this.boundFocusIn)
-    this.element.addEventListener("focusout", this.boundFocusOut)
+    this.ensureVoices()
   }
 
   disconnect() {
-    if (!this.supported) {
+    if (!this.supported || !this.speech) {
       return
     }
 
-    this.clearPending()
-    this.cancelSpeech()
-
-    this.element.removeEventListener("mouseover", this.boundMouseOver)
-    this.element.removeEventListener("mouseout", this.boundMouseOut)
-    this.element.removeEventListener("focusin", this.boundFocusIn)
-    this.element.removeEventListener("focusout", this.boundFocusOut)
-
-    if (this.speech) {
-      this.speech.removeEventListener("voiceschanged", this.boundUpdateVoices)
-    }
+    this.speech.removeEventListener("voiceschanged", this.boundVoicesChanged)
   }
 
-  updateVoices() {
-    this.voices = this.speech.getVoices()
-    this.voice = this.pickVoice(this.voices)
+  speak(event) {
+    if (!this.supported || !this.speech) {
+      return
+    }
+
+    if (event) {
+      if (event.type === "keydown") {
+        event.preventDefault()
+      }
+      event.stopPropagation()
+    }
+
+    if (this.speech.speaking || this.speech.pending) {
+      this.speech.cancel()
+      return
+    }
+
+    const button = event?.currentTarget || event?.target
+    const host = this.findTooltipHost(button)
+    if (!host) {
+      return
+    }
+
+    const text = host.getAttribute("data-tooltip")
+    if (!text) {
+      return
+    }
+
+    if (!this.ensureVoices()) {
+      this.pendingText = text
+      return
+    }
+
+    this.speakText(text)
+  }
+
+  blockDrag(event) {
+    if (!event) {
+      return
+    }
+
+    event.preventDefault()
+    event.stopPropagation()
+  }
+
+  ensureVoices() {
+    const voices = this.speech.getVoices()
+
+    if (!voices || voices.length === 0) {
+      if (!this.waitingForVoices) {
+        this.waitingForVoices = true
+        this.speech.addEventListener("voiceschanged", this.boundVoicesChanged)
+      }
+      return false
+    }
+
+    this.waitingForVoices = false
+    this.speech.removeEventListener("voiceschanged", this.boundVoicesChanged)
+    this.voices = voices
+    this.voice = this.pickVoice(voices)
+    return true
+  }
+
+  onVoicesChanged() {
+    if (!this.ensureVoices()) {
+      return
+    }
+
+    if (this.pendingText) {
+      const text = this.pendingText
+      this.pendingText = null
+      this.speakText(text)
+    }
   }
 
   pickVoice(voices) {
@@ -61,105 +110,35 @@ export default class extends Controller {
     }
 
     return (
-      voices.find((voice) => voice.lang === "ja-JP") ||
+      voices.find((voice) => (voice.lang || "") === "ja-JP") ||
       voices.find((voice) => (voice.lang || "").startsWith("ja")) ||
       null
     )
   }
 
-  onMouseOver(event) {
-    const element = this.tooltipElementFor(event.target)
-    if (!element) {
-      return
-    }
-
-    const related = event.relatedTarget
-    if (related && element.contains(related)) {
-      return
-    }
-
-    this.queueSpeak(element)
-  }
-
-  onMouseOut(event) {
-    const element = this.tooltipElementFor(event.target)
-    if (!element) {
-      return
-    }
-
-    const related = event.relatedTarget
-    if (related && element.contains(related)) {
-      return
-    }
-
-    this.stopSpeak()
-  }
-
-  onFocusIn(event) {
-    const element = this.tooltipElementFor(event.target)
-    if (!element) {
-      return
-    }
-
-    this.queueSpeak(element)
-  }
-
-  onFocusOut(event) {
-    const element = this.tooltipElementFor(event.target)
-    if (!element) {
-      return
-    }
-
-    const related = event.relatedTarget
-    if (related && element.contains(related)) {
-      return
-    }
-
-    this.stopSpeak()
-  }
-
-  tooltipElementFor(target) {
-    if (!target || !(target instanceof Element)) {
+  findTooltipHost(button) {
+    if (!button || !(button instanceof Element)) {
       return null
     }
 
-    const element = target.closest(".has-tooltip")
-    if (!element || !this.element.contains(element)) {
+    const closest = button.closest("[data-tooltip]")
+    if (closest && closest !== button) {
+      return closest
+    }
+
+    const parent = button.parentElement
+    if (!parent) {
       return null
     }
 
-    return element
+    if (parent.hasAttribute("data-tooltip")) {
+      return parent
+    }
+
+    return parent.querySelector("[data-tooltip]")
   }
 
-  queueSpeak(element) {
-    if (!this.supported) {
-      return
-    }
-
-    const text = element.getAttribute("data-tooltip")
-    if (!text) {
-      return
-    }
-
-    this.clearPending()
-    this.cancelSpeech()
-
-    this.activeElement = element
-    this.pendingText = text
-    this.pendingTimer = window.setTimeout(() => {
-      if (this.activeElement !== element) {
-        return
-      }
-
-      this.speak(text)
-    }, this.delayMs)
-  }
-
-  speak(text) {
-    if (!this.supported || !text) {
-      return
-    }
-
+  speakText(text) {
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = "ja-JP"
     utterance.rate = 1.0
@@ -170,25 +149,5 @@ export default class extends Controller {
     }
 
     this.speech.speak(utterance)
-  }
-
-  stopSpeak() {
-    this.clearPending()
-    this.cancelSpeech()
-    this.activeElement = null
-    this.pendingText = null
-  }
-
-  clearPending() {
-    if (this.pendingTimer) {
-      window.clearTimeout(this.pendingTimer)
-      this.pendingTimer = null
-    }
-  }
-
-  cancelSpeech() {
-    if (this.speech) {
-      this.speech.cancel()
-    }
   }
 }
