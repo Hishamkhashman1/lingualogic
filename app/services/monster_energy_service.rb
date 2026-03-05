@@ -9,15 +9,7 @@ class MonsterEnergyService
 
     level = monster.student.level
 
-    task = Task.find_by(goal: "Feed monster", difficulty: level)
-    # return unless task.nil?
-
-    # monster_possible_tasks = task.all
-
-  # if notification.new_record?
-  #     notification.message = "I am hungry! Give me apple 🍎"
-  #     notification.read = false
-  #     notification.save!
-  #   end
+    task = Task.find_by(difficulty: level)
+    return  task.nil?
   end
 end

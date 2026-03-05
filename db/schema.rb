@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_04_012247) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_05_112651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_04_012247) do
     t.json "user_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
     t.index ["monster_id"], name: "index_monster_tasks_on_monster_id"
     t.index ["task_id"], name: "index_monster_tasks_on_task_id"
   end
@@ -96,9 +97,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_04_012247) do
     t.integer "reward_exp"
     t.string "reward_item1"
     t.string "reward_item2"
-    t.integer "reward_health"
-    t.integer "reward_energy"
-    t.integer "reward_money"
   end
 
   add_foreign_key "monster_tasks", "monsters"
