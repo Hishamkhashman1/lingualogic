@@ -189,11 +189,11 @@ export default class extends Controller {
         //   this.monster.angle += 180;
         // })
 
-        this.box1 = this.physics.add.image(this.scale.width - 160, this.groundY - 50, "box_pink")
+        this.box1 = this.physics.add.image(this.scale.width - 160, this.groundY - 50, "box_transparent")
         this.box1.setScale(3)
-        this.box2 = this.physics.add.image(this.scale.width - 160, this.groundY - 20, "box_pink")
+        this.box2 = this.physics.add.image(this.scale.width - 160, this.groundY - 20, "box_transparent")
         this.box2.setScale(3)
-        this.box3 = this.physics.add.image(this.scale.width - 130, this.groundY - 20, "box_pink")
+        this.box3 = this.physics.add.image(this.scale.width - 130, this.groundY - 20, "box_transparent")
         this.box3.setScale(3)
         this.box1.body.allowGravity = false;
         this.box2.body.allowGravity = false;
