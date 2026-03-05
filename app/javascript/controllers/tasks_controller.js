@@ -15,9 +15,10 @@ export default class extends Controller {
     rewardMoney: Number,
     rewardEnergy: Number,
     rewardHealth: Number,
+    completed: Number
   }
 
-  static targets = [ 'messagebox', 'message', 'info' ]
+  static targets = [ 'messagebox', 'message', 'info', 'rewardsclaim' ]
 
   connect() {
     console.log("Stimulus connected")
@@ -30,6 +31,12 @@ export default class extends Controller {
     this.TASK_SCENE = null;
 
     let task_status = false;
+    let rewards_claimed = false;
+
+    // check if task completed and rewards claimed on load of task
+    if (controller.completedValue == 2) {
+      rewards_claimed = true;
+    }
 
     const mount = document.getElementById("task-phaser");
     if (!mount) return;
@@ -294,6 +301,7 @@ export default class extends Controller {
 
           task_status = true;
           console.log(task_status);
+          console.log(rewards_claimed);
 
           // success message popup
           controller.messageTarget.innerText = "Task Completed!";
@@ -312,6 +320,16 @@ export default class extends Controller {
           // controller.messageboxTarget.classList.toggle('hidden');
 
           return;
+        }
+
+        //submit update of rewards when task completed
+        if (task_status == true) {
+          if (rewards_claimed == false) {
+            //submit hidden form that runs the monster_tasks#rewards function to update models with rewards
+            console.log("Claiming rewards")
+            controller.rewardsclaimTarget.requestSubmit();
+            rewards_claimed = true;
+          }
         }
       }
     }
