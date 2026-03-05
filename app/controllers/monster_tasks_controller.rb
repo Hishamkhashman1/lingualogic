@@ -4,6 +4,7 @@ class MonsterTasksController < ApplicationController
   # end
 
   def show
+    @monster = MonsterTask.find(params[:id]).monster_id
     @monster_task = MonsterTask.find(params[:id])
   end
 
