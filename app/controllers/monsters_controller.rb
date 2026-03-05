@@ -21,9 +21,16 @@ class MonstersController < ApplicationController
     @my_items = @student_items.where(student_id: current_student)
     @current_student = current_student
     # @student_items = StudentItem.where(StudentItem.student_id == current_student.id)
-    @tasks = []
-    task = MonsterEnergyService.check_and_assign(@monster)
-    @tasks << task if task.present?
-    @tasks.compact
+    # @tasks = []
+    # task = MonsterEnergyService.check_and_assign(@monster)
+    # @tasks << task if task.present?
+    # @tasks.compact
+    active_monster_task = @monster.monster_tasks.joins(:task).find_by(completed: false)
+
+      if active_monster_task
+        @task = active_monster_task.task
+      else
+        @task = MonsterEnergyService.check_and_assign(@monster)
+      end
+    end
   end
-end
