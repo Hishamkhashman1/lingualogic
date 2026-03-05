@@ -110,6 +110,48 @@
       height: 20px;
       font-size: 11px;
     }
+
+    #task-complete-modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6, 12, 18, 0.65);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 80;
+    }
+
+    #task-complete-card {
+      width: min(520px, 92vw);
+      padding: 22px 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(57, 244, 183, 0.55);
+      background: rgba(8, 14, 22, 0.95);
+      color: #e8f0ff;
+      text-align: center;
+      box-shadow: 0 0 18px rgba(57, 244, 183, 0.35), 0 14px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    #task-complete-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    #task-complete-card p {
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    #task-message:not(.hidden) ~ #task-complete-modal {
+      opacity: 1;
+      pointer-events: auto;
+    }
   </style>
 </head>
 
@@ -145,6 +187,13 @@
     <h3 id="task-message-status" data-tasks-target="message"> Task Status </h3>
     <p id="task-message-info" data-tasks-target="info"> Task message </p>
     <p id="task-message-link" data-tasks-target="linkb"> <%= link_to "Return Home", monster_path(@monster), class: "cta-button" %> </p>
+    </div>
+    <div id="task-complete-modal">
+      <div id="task-complete-card">
+        <h3>Congrats! よくできました! 😆</h3>
+        <p>Task finished. Great job!</p>
+        <%= link_to "Continue Quest", monster_path(@monster_task.monster), class: "cta-button" %>
+      </div>
     </div>
 
     <div id="task-split" style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: stretch;">
@@ -192,13 +241,13 @@ MOVE</textarea>
     </div>
   </div>
 
-  <div id="task-phaserjs-2x">
-    <p> Test Task </p>
+  <%# <div id="task-phaserjs-2x">
+    <p> Test Task </p> %>
   </div>
 
-  <p>v3 </p>
+  <%# <p>v3 </p> %>
 
-  <%= link_to "← Back to Monster Home", monster_path(@monster_task.monster), class: "btn btn-secondary" %>
+  <%# <%= link_to "← Back to Monster Home", monster_path(@monster_task.monster), class: "btn btn-secondary" %>
 
 </html>
 </body>
