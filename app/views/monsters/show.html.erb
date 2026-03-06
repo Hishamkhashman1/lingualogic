@@ -70,8 +70,15 @@
   <button data-items-target="inventory" data-action="click->items#toggle"> My Items </button>
   <div id="itemlist" data-items-target="itemlist" class="hidden">
     <% @my_items.each do |item|%>
+      <% current_item = Item.find(item.item_id) %>
       <div class="item-box">
-        <p> <%= Item.find(item.item_id).name %> x <%= item.qty %> <p>
+        <p> <%= current_item.name %> x <%= item.qty %> </p>
+          <% item_image = current_item.image %>
+        <div id="item-image" class="item-image">
+          <% if current_item.image.present? %>
+          <%= image_tag File.basename(current_item.image), alt: "item", size: "64x64" %>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

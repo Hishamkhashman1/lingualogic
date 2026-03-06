@@ -763,7 +763,7 @@ pre {
   border-radius: 28px;
   border: 4px solid rgba(90, 200, 255, 0.35);
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 28px rgba(57, 244, 183, 0.2);
-  padding: clamp(18px, 3vw, 28px);
+  padding: clamp(8px, 3vw, 8px);
   margin-top: 8px;
   margin-bottom: 8px;
   position: relative;
@@ -771,6 +771,23 @@ pre {
 
   text-align: center;
 }
+
+.item-box img {
+  padding: 8px;
+}
+
+.item-image {
+  background: none;
+  padding: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  position: relative;
+  overflow: hidden;
+
+  text-align: center;
+}
+
+
 
 @media (max-width: 640px) {
   .tama-hud {
