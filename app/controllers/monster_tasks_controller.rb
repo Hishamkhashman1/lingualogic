@@ -33,7 +33,7 @@ class MonsterTasksController < ApplicationController
     student = current_student
 
     monster.update(health: monster.health + (@task.reward_health.nil? ? 0 : @task.reward_health), energy: monster.energy + (@task.reward_energy.nil? ? 0 : @task.reward_energy))
-    student.update(exp: student.exp + @task.reward_exp)
+    student.update(exp: student.exp + (@task.reward_exp.nil? ? 0 : @task.reward_exp))
 
     # make this a method for each item#
     if @task.item1.present?
