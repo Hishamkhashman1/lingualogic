@@ -12,9 +12,13 @@ export default class extends Controller {
     rewardExp: Number,
     rewardItem1: String,
     rewardItem2: String,
+    rewardMoney: Number,
+    rewardEnergy: Number,
+    rewardHealth: Number,
+    completed: Number
   }
 
-  static targets = [ 'messagebox', 'message', 'info' ]
+  static targets = [ 'messagebox', 'message', 'info', 'rewardsclaim' ]
 
   connect() {
     console.log("Stimulus connected")
@@ -27,6 +31,12 @@ export default class extends Controller {
     this.TASK_SCENE = null;
 
     let task_status = false;
+    let rewards_claimed = false;
+
+    // check if task completed and rewards claimed on load of task
+    if (controller.completedValue == 2) {
+      rewards_claimed = true;
+    }
 
     const mount = document.getElementById("task-phaser");
     if (!mount) return;
@@ -328,8 +338,6 @@ export default class extends Controller {
           this.monster.y = this.groundY;
         }
 
-
-
         //check for task success
         if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y) && (this.task_success == false)) {
           this.monster.setVelocityX(0);
@@ -339,11 +347,16 @@ export default class extends Controller {
 
           task_status = true;
           console.log(task_status);
+          console.log(rewards_claimed);
 
           // success message popup
           controller.messageTarget.innerText = "Task Completed!";
           controller.messageTarget.classList.toggle('success-message');
-          controller.infoTarget.innerText = `Rewards: +${controller.rewardExpValue} exp, ${controller.rewardItem1Value}, ${controller.rewardItem2Value}`;
+          controller.infoTarget.innerText = `Rewards: ${controller.rewardItem1Value}, ${controller.rewardItem2Value}`;
+          if (controller.rewardExpValue != null && controller.rewardExpValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardExpValue} exp`) };
+          if (controller.rewardHealthValue != null && controller.rewardHealthValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardHealthValue} health`) };
+          if (controller.rewardEnergyValue != null && controller.rewardEnergyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardEnergyValue} energy`) };
+          if (controller.rewardMoneyValue != null && controller.rewardMoneyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardMoneyValue} money`) };
           controller.messageboxTarget.classList.toggle('hidden');
 
           // hint message popup
@@ -353,6 +366,16 @@ export default class extends Controller {
           // controller.messageboxTarget.classList.toggle('hidden');
 
           return;
+        }
+
+        //submit update of rewards when task completed
+        if (task_status == true) {
+          if (rewards_claimed == false) {
+            //submit hidden form that runs the monster_tasks#rewards function to update models with rewards
+            console.log("Claiming rewards")
+            controller.rewardsclaimTarget.requestSubmit();
+            rewards_claimed = true;
+          }
         }
       }
     }

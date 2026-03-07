@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_05_112651) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_05_115820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_05_112651) do
   create_table "monster_tasks", force: :cascade do |t|
     t.bigint "monster_id", null: false
     t.bigint "task_id", null: false
-    t.integer "progress"
+    t.integer "progress", default: 0
     t.json "user_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -81,6 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_05_112651) do
     t.string "language"
     t.integer "level", default: 0
     t.integer "money", default: 0
+    t.integer "exp", default: 0
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   end
@@ -97,6 +98,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_05_112651) do
     t.integer "reward_exp"
     t.string "reward_item1"
     t.string "reward_item2"
+    t.integer "reward_health"
+    t.integer "reward_energy"
+    t.integer "reward_money"
   end
 
   add_foreign_key "monster_tasks", "monsters"
