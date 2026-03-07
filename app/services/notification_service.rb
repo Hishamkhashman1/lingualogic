@@ -1,31 +1,22 @@
-class NotificationService
-  def initialize(user)
-    @user = user
-  end
+class TaskNotificationService
+  def self.check(student)
+    monster = student.monster
+    return unless monster
 
-  def notify_new_tasks
-    available_tasks.each do |task|
-      next if already_notified?(task)
+    task = Task.available_for(student).first
+    return unless task
 
-      create_notification(task)
-    end
-  end
+    existing = Notification.where(
+      student: student,
+      task: task
+    ).exists?
 
-  private
+    return if existing
 
-  def available_tasks
-    Task.available_for(@user)
-  end
-
-  def already_notified?(task)
-    Notification.exists?(user: @user, task: task, kind: "task_available")
-  end
-
-  def create_notification(task)
-    Notification.create!(
-      user: @user,
+    Notification.create(
+      student: student,
       task: task,
-      kind: "task_available"
+      message: "Oh! Seems like you have your first task!"
     )
   end
 end
