@@ -4,8 +4,11 @@ class MonsterTasksController < ApplicationController
   # end
 
   def show
-    @monster = MonsterTask.find(params[:id]).monster_id
     @monster_task = MonsterTask.find(params[:id])
+    @monster = @monster_task.monster
+    @task = @monster_task.task
+
+    @task_assets = build_task(@task)
   end
 
   def new
@@ -67,6 +70,26 @@ class MonsterTasksController < ApplicationController
   private
   def monstertask_params
     params.require(:monster_task).permit(:monster_id, :task_id)
+  end
+
+  def build_task(task)
+    case (task.name)
+    when ("level1")
+      #
+    when ("level2")
+      #
+      images = {
+      background: ActionController::Base.helpers.image_path("background_1.png"),
+      monsterright: ActionController::Base.helpers.image_path("spritesheet-cat-2.png"),
+      apple: ActionController::Base.helpers.image_path("apple-s.png"),
+      transparentbox: ActionController::Base.helpers.image_path("transparent_box.png"),
+      pinkbox: ActionController::Base.helpers.image_path("pink_box.png")
+    }
+    when ("level3")
+      #
+    else
+      #
+    end
   end
 
 end
