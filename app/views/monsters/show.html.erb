@@ -33,10 +33,13 @@
             <div class="tama-quest">
               <div class="tama-quest-text">
                 <% if index == 0 %>
-                  <span class="tama-quest-label">Feed Cyborg Apples</span>
+                <span class="tama-quest-label">Cyborg says:</span>
                 <% end %>
-                <span class="tama-quest-goal"><%= task.goal %></span>
-              </div>
+
+      <span class="tama-quest-goal">
+      "<%= link_to task.goal, monster_monster_tasks_path(@monster, monster_task: { task_id: task.id }), method: :post %>"
+      </span>
+      </div>
               <div class="tama-quest-action">
                 <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
                   <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
@@ -55,7 +58,7 @@
     </div>
   </div>
 
-  <div class="tama-quests tama-quests--duplicate" hidden>
+  <div class="tama-quests tama-quests--duplicate">
     <% @tasks.each do |task| %>
       <%= task.goal %>
       <%= simple_form_for [@monster, MonsterTask.new] do |f| %>

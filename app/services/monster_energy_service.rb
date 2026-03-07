@@ -10,6 +10,6 @@ class MonsterEnergyService
     level = monster.student.level
 
     task = Task.find_by(difficulty: level)
-    return  task.nil?
+    return  task
   end
 end

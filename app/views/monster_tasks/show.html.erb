@@ -152,6 +152,16 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+  .bottom-home-button {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 9999;
+}
+
   </style>
 </head>
 
@@ -262,7 +272,11 @@ MOVE</textarea>
 
   <%# <p>v3 </p> %>
 
-  <%# <%= link_to "← Back to Monster Home", monster_path(@monster_task.monster), class: "btn btn-secondary" %>
+<div class="bottom-home-button">
+  <%= link_to "Back to Monster Home",
+  monster_path(@monster_task.monster),
+  class: "btn btn-secondary" %>
+</div>
 
 </html>
 </body>
