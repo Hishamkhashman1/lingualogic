@@ -21,6 +21,9 @@ test_monster = Monster.create!(name: "Testasaur", student_id: 1, happiness: 1, e
 
 # test_task = Task.create!(goal: "Set speed to 800", difficulty: 0)
 
-feeding_task = Task.create!(goal: "Feed monster", difficulty: 0)
+feeding_task = Task.create!(goal: "Feed monster", difficulty: 0, reward_exp: 100, reward_health: 20, reward_item1: "apple", reward_item2: "funny_hat")
+
+item_apple = Item.create!(price: 25, description: "+ energy", accessory: false, name: "apple", image: "assets/images/apple-s.png")
+item_hat = Item.create!(price: 100, description: "hat", accessory: true, name: "funny_hat", image: "top_hat.png")
 
 puts "Seeding finished."

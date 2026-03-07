@@ -199,10 +199,8 @@
         <%= button_to "Claim Rewards", rewards_monster_task_path(@monster_task), method: :patch, form: {style: "display: none", data: {tasks_target: "rewardsclaim"} } %>
       </div>
 
-    <h3 id="task-message-status" data-tasks-target="message"> Task Status </h3>
-    <p id="task-message-info" data-tasks-target="info"> Task message </p>
-    <p id="task-message-link" data-tasks-target="linkb"> <%= link_to "Return Home", monster_path(@monster), class: "cta-button" %> </p>
     </div>
+
     <div id="task-complete-modal">
       <div id="task-complete-card">
          <h3 id="task-message-status" data-tasks-target="message"> Task Status </h3>
