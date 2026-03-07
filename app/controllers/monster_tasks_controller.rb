@@ -39,7 +39,7 @@ class MonsterTasksController < ApplicationController
     if @task.item1.present?
       item = Item.find_by(name: @task.item1)
 
-      if StudentItem.where(student_id: student.id).where(item_id: item.id)
+      if StudentItem.where(student_id: student.id).where(item_id: item.id).present?
         current_item = StudentItem.where(student_id: student.id).where(item_id: item.id).first
         current_item.qty = (current_item.qty + 1)
         current_item.save
