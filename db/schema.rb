@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_06_040829) do
     t.json "user_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
     t.index ["monster_id"], name: "index_monster_tasks_on_monster_id"
     t.index ["task_id"], name: "index_monster_tasks_on_task_id"
   end

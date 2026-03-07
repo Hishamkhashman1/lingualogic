@@ -1,0 +1,239 @@
+[33mcommit 287b59557f25e1aec6cdd2bc9b9125d4d7476a1a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 77f0275 7907344
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Tue Mar 3 20:11:12 2026 +0900
+
+    Merge pull request #44 from Hishamkhashman1/notification-system
+    
+    Notification system
+
+[33mcommit 79073440eca03c618e4260ed21d23a97b388f33f[m
+Merge: 661c227 77f0275
+Author: exec zsh <leticiamiwa5@gmail.com>
+Date:   Tue Mar 3 19:55:33 2026 +0900
+
+    Merge branch 'master' of github.com:Hishamkhashman1/lingualogic into notification-system
+
+[33mcommit 77f0275d46db05e493eb9c2683693b116e142607[m
+Merge: 984c239 7884afe
+Author: Letícia Miwa Takahara <leticiamiwa5@gmail.com>
+Date:   Tue Mar 3 19:11:35 2026 +0900
+
+    Merge pull request #42 from Hishamkhashman1/apple-particles
+    
+    apple particles
+
+[33mcommit 984c2392f6016e0b72a61d68ce66f23b5498c409[m
+Merge: 35a4cbe 8fb8596
+Author: Letícia Miwa Takahara <leticiamiwa5@gmail.com>
+Date:   Tue Mar 3 19:11:22 2026 +0900
+
+    Merge pull request #41 from Hishamkhashman1/rewards-columns
+    
+    rewards now pulled and shown from Task in database
+
+[33mcommit 7884afebdace02c2382529570a7dc60187b912fe[m[33m ([m[1;31morigin/apple-particles[m[33m, [m[1;32mapple-particles[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Tue Mar 3 16:50:18 2026 +0900
+
+    added particle effect on getting apple
+
+[33mcommit 8fb8596b7207668a1db65c58b48c2148b2ec5aed[m[33m ([m[1;31morigin/rewards-columns[m[33m, [m[1;32mrewards-columns[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Mon Mar 2 13:50:44 2026 +0900
+
+    rewards now pulled and shown from Task in database
+
+[33mcommit 661c22713d31482a398e3a293ba98f20fa8e497d[m
+Author: exec zsh <leticiamiwa5@gmail.com>
+Date:   Sat Feb 28 19:28:22 2026 +0900
+
+    filtered tasks by goal and level
+
+[33mcommit 35a4cbedd1c924c629314522f75acd4794e89620[m[33m ([m[1;31mheroku/master[m[33m)[m
+Merge: a5679b6 f32d1ad
+Author: Hishamkhashman1 <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 18:14:23 2026 +0900
+
+    Merge pull request #40 from Hishamkhashman1/completed-popup-fix
+    
+    commented out hint
+
+[33mcommit f32d1adf574adb504691c9a6cdfde06369ea3008[m[33m ([m[1;31morigin/completed-popup-fix[m[33m, [m[1;32mcompleted-popup-fix[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 18:13:41 2026 +0900
+
+    commented out hint
+
+[33mcommit a5679b6c8ac23b537019a292c9fb105e043b0717[m
+Merge: f7ff82e 77b40f3
+Author: Hishamkhashman1 <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 18:06:59 2026 +0900
+
+    Merge pull request #39 from Hishamkhashman1/popup-css-fix
+    
+    css fix
+
+[33mcommit 77b40f3be87d104972edc94bf10bce709eaa8be4[m[33m ([m[1;31morigin/popup-css-fix[m[33m, [m[1;32mpopup-css-fix[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 18:05:58 2026 +0900
+
+    css fix
+
+[33mcommit f7ff82ecaf6ce4e8a2a1753d9e2c0cb9fcf7b1a5[m[33m ([m[1;32mtask-message-box[m[33m)[m
+Merge: 71b9eba 0ba0cb6
+Author: Hishamkhashman1 <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 18:02:32 2026 +0900
+
+    Merge pull request #37 from Hishamkhashman1/task-message-box
+    
+    working task success popup
+
+[33mcommit 71b9eba98e8c37aa95cbb34bad46322d89c029b5[m
+Merge: 8072f8d fc440a6
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 18:02:07 2026 +0900
+
+    Merge pull request #38 from Hishamkhashman1/sprite-cat-v3
+    
+    Sprite cat v3
+
+[33mcommit fc440a67c33bb34cffac03b6bfd07b45a074e378[m
+Author: Hisham <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 18:01:16 2026 +0900
+
+    removed sprtisheet 1
+
+[33mcommit f8f77d3af9a831cdf380a221c5e45f53c5ca7a6c[m
+Author: Hisham <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 17:57:01 2026 +0900
+
+    walk animation working, pending idle
+
+[33mcommit 0ba0cb6617918271086bb7998d13f1a357d0a972[m[33m ([m[1;31morigin/task-message-box[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 17:51:23 2026 +0900
+
+    working task success popup
+
+[33mcommit 8072f8d7ce20fbd0cb08d07a61bd4ba8f2b5f075[m
+Merge: 784b5c1 d0467ed
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 15:58:09 2026 +0900
+
+    Merge pull request #35 from Hishamkhashman1/sprite-animation
+    
+    Sprite animation
+
+[33mcommit d0467ed048157f42a05868b8029631e47f654e15[m
+Merge: fcf4efe 784b5c1
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 15:57:44 2026 +0900
+
+    Merge branch 'master' into sprite-animation
+
+[33mcommit 784b5c1aac233059e577efd5e4d045d1d5752161[m
+Merge: 60a5c68 34937f0
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 15:56:56 2026 +0900
+
+    Merge pull request #32 from Hishamkhashman1/monster-choose-page
+    
+    Monster choose page
+    
+    rejected changes to application.js because that was moved to stimulus controller, will manually readd later
+
+[33mcommit 34937f0082a8ff2a3156f26a4fd653e236e49d77[m
+Merge: 3994a60 60a5c68
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 15:56:20 2026 +0900
+
+    Merge branch 'master' into monster-choose-page
+
+[33mcommit 60a5c68e9f117485e85091ccc319e296340a7d69[m
+Merge: 0b903c9 1aa7be5
+Author: Hishamkhashman1 <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 15:45:47 2026 +0900
+
+    Merge pull request #34 from Hishamkhashman1/stimulus-run-task-fix
+    
+    run works now
+
+[33mcommit fcf4efe2673cd62d84cb04a311e14608d21fb372[m
+Author: Hisham <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 15:39:19 2026 +0900
+
+    sprite working
+
+[33mcommit 1aa7be5344411a1b27f44bfac4ec7b42cd253dd7[m[33m ([m[1;31morigin/stimulus-run-task-fix[m[33m, [m[1;32mstimulus-run-task-fix[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 15:35:33 2026 +0900
+
+    run works now
+
+[33mcommit 0b903c96a626a91d4eb5d1407eac8e79505a2405[m
+Merge: e903631 10ca83b
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 15:14:42 2026 +0900
+
+    Merge pull request #33 from Hishamkhashman1/add-stimulus
+    
+    Add stimulus
+
+[33mcommit 10ca83b6cf95877721388c013deb552ba8ae7e5d[m[33m ([m[1;31morigin/add-stimulus[m[33m, [m[1;32madd-stimulus[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 15:11:10 2026 +0900
+
+    changed images to stimulus framework
+
+[33mcommit 3994a609a1070165ff032bfc57e5d0e2dd2f303c[m
+Author: Hisham <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 14:03:22 2026 +0900
+
+    Monster choose page - hardcoded
+
+[33mcommit 38464b92cb22680f976d76186244955c32b2ee23[m
+Author: Hisham <hisham.khashman@gmail.com>
+Date:   Sat Feb 28 13:28:43 2026 +0900
+
+    testing animation and sprites
+
+[33mcommit ae09764588283505cc6283639db1ac8808b886de[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 12:31:38 2026 +0900
+
+    saved show page
+
+[33mcommit bc0cdafd79d169d69d70f975abca66fdff6be850[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 12:27:37 2026 +0900
+
+    added stimulus tasks_controller.js
+
+[33mcommit e9036315ea97757b6fdcdbcbdde7e87485f59878[m
+Merge: d0dec53 90cc887
+Author: Letícia Miwa Takahara <leticiamiwa5@gmail.com>
+Date:   Sat Feb 28 09:33:10 2026 +0900
+
+    Merge pull request #31 from Hishamkhashman1/task-physics
+    
+    Task physics
+
+[33mcommit 90cc8879173994c5a0dd3857c34d63aeb5e78ea8[m[33m ([m[1;31morigin/task-physics[m[33m)[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 09:31:47 2026 +0900
+
+    improved success detection
+
+[33mcommit bd6cfb33bcde4c66a3a6f720568eeeaacb1278fa[m
+Author: Adrian J <113844357+xAxJx@users.noreply.github.com>
+Date:   Sat Feb 28 02:04:57 2026 +0900
+
+    updated task completion
+
+[33mcommit d0dec53973b41b7e20df2a1cdc55105259e3b57a[m
+Merge: f89aa12 a24c09b
+Author: Hishamkhashman1 <hisham.khashman@gmail.com>
+Date:   Fri Feb 27 19:11:11 2026 +0900
+
+    Merge pull request #3
