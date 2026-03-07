@@ -178,13 +178,13 @@
   data-tasks-img-apple-value="<%= image_path("apple-s.png") %>"
   data-tasks-img-transparent-box-value="<%= image_path("transparent_box.png") %>"
   data-tasks-img-pink-box-value="<%= image_path("pink_box.png") %>"
-  data-tasks-reward-exp-value="<%= Task.find(2).reward_exp %>"
-  data-tasks-reward-item1-value="<%= Task.find(2).reward_item1 %>"
-  data-tasks-reward-item2-value="<%= Task.find(2).reward_item2 %>"
-  data-tasks-reward-money-value="<%= Task.find(2).reward_money %>"
-  data-tasks-reward-health-value="<%= Task.find(2).reward_health %>"
-  data-tasks-reward-energy-value="<%= Task.find(2).reward_energy %>"
-  data-tasks-completed-value="<%= MonsterTask.find(2).progress%>"
+  data-tasks-reward-exp-value="<%= @monster_task.task.reward_exp %>"
+  data-tasks-reward-item1-value="<%= @monster_task.task.reward_item1 %>"
+  data-tasks-reward-item2-value="<%= @monster_task.task.reward_item2 %>"
+  data-tasks-reward-money-value="<%= @monster_task.task.reward_money %>"
+  data-tasks-reward-health-value="<%= @monster_task.task.reward_health %>"
+  data-tasks-reward-energy-value="<%= @monster_task.task.reward_energy %>"
+  data-tasks-completed-value="<%= @monster_task.progress%>"
   >
 
     <div id="task-message" data-tasks-target="messagebox" class="hidden" style="gap: 10px; margin-bottom: 18px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
@@ -203,10 +203,10 @@
 
     <div id="task-complete-modal">
       <div id="task-complete-card">
-         <h3 id="task-message-status" data-tasks-target="message"> Task Status </h3>
+         <h3 id="task-message-status" data-tasks-target="modalmessage"> Task Status </h3>
         <h3>Congrats! よくできました! 😆</h3>
         <p>Task finished. Great job!</p>
-         <p id="task-message-info" data-tasks-target="info"> Task message </p>
+         <p id="task-message-info" data-tasks-target="modalinfo"> Task message </p>
         <%= link_to "Continue Quest", monster_path(@monster_task.monster), class: "cta-button" %>
       </div>
     </div>
