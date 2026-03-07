@@ -37,7 +37,7 @@ class MonsterTasksController < ApplicationController
 
     # make this a method for each item#
     if @task.item1.present?
-      item = Item.find_by(name: @task.item1)
+      item = Item.find_by(name: @task.reward_item1)
 
       if StudentItem.where(student_id: student.id).where(item_id: item.id).present?
         current_item = StudentItem.where(student_id: student.id).where(item_id: item.id).first
@@ -49,7 +49,7 @@ class MonsterTasksController < ApplicationController
     end
 
     if @task.item2.present?
-      item = Item.find_by(name: @task.item2)
+      item = Item.find_by(name: @task.reward_item2)
 
       if StudentItem.where(student_id: student.id).where(item_id: item.id).any?
         current_item = StudentItem.where(student_id: student.id).where(item_id: item.id).first
