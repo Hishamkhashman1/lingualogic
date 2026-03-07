@@ -19,6 +19,8 @@ puts "Creating test seeds..."
 
 test_monster = Monster.create!(name: "Testasaur", student_id: 1, happiness: 1, energy: 100, species_type: "bulbasaur", image: "https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png");
 
-test_task = Task.create!(goal: "Set speed to 800", difficulty: 0)
+# test_task = Task.create!(goal: "Set speed to 800", difficulty: 0)
+
+feeding_task = Task.create!(goal: "Feed monster", difficulty: 0)
 
 puts "Seeding finished."
