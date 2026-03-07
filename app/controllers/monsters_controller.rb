@@ -15,7 +15,7 @@ class MonstersController < ApplicationController
 
   def show
     @monster = Monster.find(params[:id])
-    @tasks = Task.all
+    # @tasks = Task.all
     @items =  Item.all
     @student_items = StudentItem.all
     @my_items = @student_items.where(student_id: current_student)
@@ -31,6 +31,9 @@ class MonstersController < ApplicationController
         @task = active_monster_task.task
       else
         @task = MonsterEnergyService.check_and_assign(@monster)
+
+        TaskNotificationService.check(current_student) if @task
       end
+
+      @notifications = Notification.where(student: current_student, read: false)
     end
-  end
