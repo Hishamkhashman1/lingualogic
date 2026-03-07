@@ -36,7 +36,7 @@ class MonsterTasksController < ApplicationController
     student.update(exp: student.exp + (@task.reward_exp.nil? ? 0 : @task.reward_exp))
 
     # make this a method for each item#
-    if @task.item1.present?
+    if @task.reward_item1.present?
       item = Item.find_by(name: @task.reward_item1)
 
       if StudentItem.where(student_id: student.id).where(item_id: item.id).present?
@@ -48,7 +48,7 @@ class MonsterTasksController < ApplicationController
       end
     end
 
-    if @task.item2.present?
+    if @task.reward_item2.present?
       item = Item.find_by(name: @task.reward_item2)
 
       if StudentItem.where(student_id: student.id).where(item_id: item.id).any?
