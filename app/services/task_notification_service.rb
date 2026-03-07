@@ -1,7 +1,7 @@
 class TaskNotificationService
   def self.check(student)
     monster = student.monster
-    return unless monster
+    return none unless monster
 
     task = Task.available_for(student).first
     return unless task
