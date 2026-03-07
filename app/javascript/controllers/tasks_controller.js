@@ -18,7 +18,7 @@ export default class extends Controller {
     completed: Number
   }
 
-  static targets = [ 'messagebox', 'message', 'info', 'rewardsclaim' ]
+  static targets = [ 'messagebox', 'message', 'info', 'rewardsclaim', 'modalmessage', 'modalinfo' ]
 
   connect() {
     console.log("Stimulus connected")
@@ -358,6 +358,9 @@ export default class extends Controller {
           if (controller.rewardEnergyValue != null && controller.rewardEnergyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardEnergyValue} energy`) };
           if (controller.rewardMoneyValue != null && controller.rewardMoneyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardMoneyValue} money`) };
           controller.messageboxTarget.classList.toggle('hidden');
+
+          controller.modalmessageTarget.innerHTML = controller.messageTarget.innerHTML;
+          controller.modalinfoTarget.innerHTML = controller.infoTarget.innerHTML;
 
           // hint message popup
           // controller.messageTarget.innerText = "Here's a hint!";
