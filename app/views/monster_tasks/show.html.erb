@@ -6,13 +6,11 @@
   <%= javascript_import_module_tag "tasks/task1" %>
   <%= javascript_import_module_tag "tasks/platform" %>
   <style>
-    .has-tooltip {
+    .tooltip-root {
       position: relative;
       cursor: help;
     }
-
-    .has-tooltip::after {
-      content: attr(data-tooltip);
+    .tooltip-root .tooltip-content {
       position: absolute;
       bottom: 120%;
       left: 50%;
@@ -36,47 +34,41 @@
       z-index: 30;
     }
 
-    .has-tooltip::before {
+
+
+    .tooltip-root .tooltip-content::before {
       content: "";
       position: absolute;
-      bottom: 112%;
       left: 50%;
       transform: translateX(-50%);
       border-width: 8px;
       border-style: solid;
       border-color: rgba(57, 244, 183, 0.6) transparent transparent transparent;
-      opacity: 0;
       transition: opacity 0.2s;
     }
 
-    .has-tooltip:hover::after,
-    .has-tooltip:hover::before {
+    .tooltip-root .tooltip-content::before {
+      top: 100%;
+    }
+
+    .tooltip-root:hover .tooltip-content {
       opacity: 1;
       transform: translateX(-50%) scale(1);
     }
 
-    #task-mini-challenge:has(.has-tooltip:hover)::after,
-    #task-mini-challenge:has(.has-tooltip:hover)::before {
-      opacity: 0;
-      transform: translateX(-50%) scale(0.95);
+    .task-block {
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(90, 200, 255, 0.35);
+      background: rgba(12, 22, 30, 0.9);
+      color: #9bfef2;
+      cursor: grab;
+      user-select: none;
+      font-size: 12px;
     }
 
-    .tooltip-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tooltip-wrap--block {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .tooltip-wrap--block > .has-tooltip {
-      flex: 1;
-      min-width: 0;
+    .task-block.active {
+      border: 1px solid rgba(57, 244, 183, 0.6);
     }
 
     .speak-btn {
@@ -166,18 +158,22 @@
 </head>
 
 <body>
-  <span class="tooltip-wrap">
-    <%= link_to "Play Now!", new_monster_path, class: "cta-button has-tooltip", data: { tooltip: "ミニチャレンジ画面へ行くよ！準備できたら押してね。" } %>
+  <span>
+    <%= link_to new_monster_path, class: "cta-button tooltip-root" do %>
+      Play Now!
+      <div class="tooltip-content">ミニチャレンジ<ruby><rb>画面<rt>がめん</rt></ruby>へ行くよ！<ruby><rb>準備<rt>じゅんび</rt></ruby>できたら押してね。</div>
+    <% end %>
     <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
   </span>
   <h1> Time to get some food! </h1>
 
-  <div class="tooltip-wrap tooltip-wrap--block">
-    <div id="task-info" class="has-tooltip" data-tooltip="このレベルの説明だよ。ミニチャレンジを解いて、MOVE/JUMPでリンゴを取りに行こう！">
+  <div>
+    <div id="task-info" class="tooltip-root">
       <h2> Cyborg apple </h2>
       <%# <%= @monster_task.task.goal %>
       <p> Level: 1 </p>
       <p> After solving the code console mini challenge by dragging and dropping the correct code snippets Use the MOVE and JUMP commands by typing in the console to get to the apple , Click Run to execute code! Good luck!</p>
+      <div class="tooltip-content">このレベルの<ruby><rb>説明<rt>せつめい</rt></ruby>だよ。ミニチャレンジを解いて、MOVE/JUMPでリンゴを取りに行こう！</div>
     </div>
     <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
   </div>
@@ -225,42 +221,65 @@
       <div id="task-phaser" style="width: 100%; height: 360px;"></div>
       <div id="task-code-panel" style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
         <div class="task-code-header" style="font-family: monospace; letter-spacing: 0.12em; text-transform: uppercase;">Code Console</div>
-        <div class="tooltip-wrap tooltip-wrap--block">
-          <div id="task-mini-challenge" class="has-tooltip" data-tooltip="ここで“正しいコードの形”を作るよ。ブロックを空欄に入れてね。" style="display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 10px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(6, 12, 18, 0.85); color: #cfe9ff; font-family: monospace;">
-            <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;">Mini Challenge</div>
+        <div class="">
+          <div id="task-mini-challenge" class="" style="display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 10px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(6, 12, 18, 0.85); color: #cfe9ff; font-family: monospace;">
+            <div class="tooltip-root" style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;">
+              Mini Challenge
+              <div class="tooltip-content">ここで“<ruby><rb>正しい<rt>ただしい</rt></ruby>コードの<ruby><rb>形<rt>かたち</rt></ruby>”を作るよ。ブロックを<ruby><rb>空欄<rt>くうらん</rt></ruby>に入れてね。</div>
+            </div>
             <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-              <div class="task-block has-tooltip" draggable="true" data-value="isRunning" data-tooltip="いま実行中？（動いている最中ならtrue）" style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">isRunning<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></div>
-              <div class="task-block has-tooltip" draggable="true" data-value="queue.length" data-tooltip="キューに残っている命令の数（0ならもう命令がない）" style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">queue.length<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></div>
-              <div class="task-block has-tooltip" draggable="true" data-value="executeMove()" data-tooltip="MOVEのときに呼ぶ：1マス進む動き" style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">executeMove()<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></div>
-              <div class="task-block has-tooltip" draggable="true" data-value="executeJump()" data-tooltip="JUMPのときに呼ぶ：ジャンプする動き" style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;">executeJump()<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></div>
-              <div class="task-block has-tooltip" draggable="true" data-value="monster.hp" data-tooltip="モンスターの体力（今回はミニチャレンジでは使わないよ）" style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(12, 22, 30, 0.75); color: #cfe9ff; cursor: grab; user-select: none; font-size: 12px;">monster.hp<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></div>
-              <div class="task-block has-tooltip" draggable="true" data-value="speed" data-tooltip="動く速さ（今回はミニチャレンジでは使わないよ）" style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(12, 22, 30, 0.75); color: #cfe9ff; cursor: grab; user-select: none; font-size: 12px;">speed<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></div>
-              <div class="task-block has-tooltip" draggable="true" data-value="run()" data-tooltip="実行開始（今回は別ボタンのRunで実行するよ）" style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(12, 22, 30, 0.75); color: #cfe9ff; cursor: grab; user-select: none; font-size: 12px;">run()<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></div>
+              <div class="task-block active tooltip-root" draggable="true" data-value="isRunning">isRunning<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+                <div class="tooltip-content">いま<ruby><rb>実行中<rt>じっこうちゅう</rt></ruby>？（<ruby><rb>動いている最中<rt>うごいているさいちゅう</rt></ruby>ならtrue）</div>
+              </div>
+              <div class="task-block active tooltip-root" draggable="true" data-value="queue.length">queue.length<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+                <div class="tooltip-content">キューに残っている<ruby><rb>命令<rt>めいれい</rt></ruby>の数（0ならもう<ruby><rb>命令<rt>めいれい</rt></ruby>がない）</div>
+              </div>
+              <div class="task-block active tooltip-root" draggable="true" data-value="executeMove()">executeMove()<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+                <div class="tooltip-content">MOVEのときに呼ぶ：1マス進む<ruby><rb>動き<rt>うごき</rt></ruby></div>
+              </div>
+              <div class="task-block tooltip-root" draggable="true" data-value="executeJump()">executeJump()<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+                <div class="tooltip-content">JUMPのときに呼ぶ：ジャンプする<ruby><rb>動き<rt>うごき</rt></ruby></div>
+              </div>
+              <div class="task-block tooltip-root" draggable="true" data-value="monster.hp">monster.hp<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+                <div class="tooltip-content">モンスターの<ruby><rb>体力<rt>たいりょく</rt></ruby>（今回はミニチャレンジでは使わないよ）</div>
+              </div>
+              <div class="task-block tooltip-root" draggable="true" data-value="speed">speed<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+                <div class="tooltip-content">動く<ruby><rb>速さ<rt>はやさ</rt></ruby>（今回はミニチャレンジでは使わないよ）</div>
+              </div>
+              <div class="task-block tooltip-root" draggable="true" data-value="run()">run()<button type="button" class="speak-btn speak-btn--pill" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+                <div class="tooltip-content"><ruby><rb>実行開始<rt>じっこうかいし</rt></ruby>（今回は別ボタンのRunで<ruby><rb>実行<rt>じっこう</rt></ruby>するよ）</div>
+              </div>
             </div>
             <div style="display: grid; gap: 4px; font-size: 12px;">
-              <div>IF <span class="tooltip-wrap"><span class="task-slot has-tooltip" data-slot="1" data-tooltip="ここは「実行中かどうか」のチェックを入れる場所" style="display: inline-block; min-width: 110px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span> AND <span class="tooltip-wrap"><span class="task-slot has-tooltip" data-slot="2" data-tooltip="ここは「キューが空じゃないか」のチェックを入れる場所" style="display: inline-block; min-width: 110px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span></div>
-              <div>IF cmd == "MOVE" -> <span class="tooltip-wrap"><span class="task-slot has-tooltip" data-slot="3" data-tooltip="MOVEのときに呼ぶ関数を入れる場所" style="display: inline-block; min-width: 120px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span></div>
-              <div>IF cmd == "JUMP" -> <span class="tooltip-wrap"><span class="task-slot has-tooltip" data-slot="4" data-tooltip="JUMPのときに呼ぶ関数を入れる場所" style="display: inline-block; min-width: 120px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____</span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span></div>
+              <div>IF <span><span class="task-slot tooltip-root" data-slot="1" style="display: inline-block; min-width: 110px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____<div class="tooltip-content">ここは「<ruby><rb>実行中<rt>じっこうちゅう</rt></ruby>かどうか」のチェックを入れる場所</div></span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span> AND <span><span class="task-slot tooltip-root" data-slot="2" style="display: inline-block; min-width: 110px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____<div class="tooltip-content">ここは「キューが空じゃないか」のチェックを入れる場所</div></span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span></div>
+              <div>IF cmd == "MOVE" -> <span><span class="task-slot tooltip-root" data-slot="3" style="display: inline-block; min-width: 120px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____<div class="tooltip-content">MOVEのときに呼ぶ関数を入れる場所</div></span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span></div>
+              <div>IF cmd == "JUMP" -> <span><span class="task-slot tooltip-root" data-slot="4" style="display: inline-block; min-width: 120px; padding: 2px 6px; border-radius: 6px; border: 1px dashed rgba(90, 200, 255, 0.5); background: rgba(8, 14, 22, 0.9); color: #e8f0ff;">____<div class="tooltip-content">JUMPのときに呼ぶ関数を入れる場所</div></span><button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button></span></div>
             </div>
             <div style="font-size: 11px; color: #9bfef2; opacity: 0.8;">Hint: Use the runner's state and queue.</div>
           </div>
           <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
         </div>
-        <div class="tooltip-wrap tooltip-wrap--block" style="flex: 1; width: 100%;">
-          <textarea id="task-code" class="has-tooltip" data-tooltip="ここに命令を書くよ（1行に1つ）。例：MOVE / JUMP" spellcheck="false" style="flex: 1; width: 100%; min-height: 160px; resize: vertical; padding: 10px; border-radius: 8px; border: 1px solid rgba(90, 200, 255, 0.4); background: rgba(6, 12, 18, 0.9); color: #e8f0ff; font-family: monospace;">MOVE
+          <div style="flex: 1; width: 100%;">
+          <div class="tooltip-root" style="flex: 1; width: 100%;">
+            <textarea id="task-code" spellcheck="false" style="flex: 1; width: 100%; min-height: 160px; resize: vertical; padding: 10px; border-radius: 8px; border: 1px solid rgba(90, 200, 255, 0.4); background: rgba(6, 12, 18, 0.9); color: #e8f0ff; font-family: monospace;">MOVE
 MOVE
 JUMP
 MOVE
 MOVE</textarea>
+            <div class="tooltip-content">ここに<ruby><rb>命令<rt>めいれい</rt></ruby>を書くよ（1行に1つ）。例：MOVE / JUMP</div>
+          </div>
           <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
         </div>
-        <div class="tooltip-wrap" style="align-self: flex-start;">
-          <button id="task-run" class="has-tooltip" data-tooltip="書いた命令を実行するよ（モンスターが動く！）" style="align-self: flex-start;">Run</button>
+        <div style="align-self: flex-start;">
+          <button id="task-run" class="tooltip-root" style="align-self: flex-start;">Run<div class="tooltip-content">書いた<ruby><rb>命令<rt>めいれい</rt></ruby>を<ruby><rb>実行<rt>じっこう</rt></ruby>するよ（モンスターが動く！）</div></button>
           <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
         </div>
-        <div class="tooltip-wrap tooltip-wrap--block">
-          <pre id="task-output" class="has-tooltip" data-tooltip="ここに結果やメッセージが出るよ（エラーもここ）" style="min-height: 80px; margin: 0; padding: 8px; border-radius: 8px; border: 1px solid rgba(90, 200, 255, 0.2); background: rgba(6, 12, 18, 0.85); color: #9bfef2; font-family: monospace;"></pre>
-          <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
+        <div>
+          <div class="tooltip-root" style="flex: 1;">
+            <pre id="task-output" style="min-height: 80px; margin: 0; padding: 8px; border-radius: 8px; border: 1px solid rgba(90, 200, 255, 0.2); background: rgba(6, 12, 18, 0.85); color: #9bfef2; font-family: monospace;"></pre>
+            <div class="tooltip-content">ここに<ruby><rb>結果<rt>けっか</rt></ruby>やメッセージが出るよ（エラーもここ）</div>
+          </div>
+            <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
         </div>
       </div>
     </div>
