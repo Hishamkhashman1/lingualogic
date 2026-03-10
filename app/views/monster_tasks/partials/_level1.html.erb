@@ -10,11 +10,11 @@
   <h1> Time to get the apple! </h1>
 
   <div class="tooltip-wrap tooltip-wrap--block">
-    <div id="task-info" class="has-tooltip" data-tooltip="このレベルの説明だよ。ミニチャレンジを解いて、MOVE/JUMPでリンゴを取りに行こう！">
+    <div id="task-info" class="has-tooltip" data-tooltip="レベル1の説明だよ。MOVEの使い方を学んで、正しいコマンドをドラッグしてリンゴまで進もう。Runを押すと実行できるよ。">
       <h2> Easy apple </h2>
       <%# <%= @monster_task.task.goal %>
       <p> Level: 1 </p>
-      <p> WIP </p>
+      <p> Beginner quest. Learn how MOVE works, drag the correct command, and guide your monster to the apple. Click Run to execute. No jump needed.</p>
     </div>
     <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
   </div>
