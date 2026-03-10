@@ -23,6 +23,21 @@
     <div class="tama-monster">
       <div class="tama-monster-wrap">
         <%= image_tag "monster-pixel-1.png", alt: "pixel Monster", size: "240x280" %>
+        <% if @notifications.any? %>
+  <% @notifications.each do |notification| %>
+    <div class="tama-notification">
+      <span><%= notification.message %></span>
+
+      <% if notification.task %>
+        <%= button_to "Do Task",
+        monster_monster_tasks_path(@monster),
+        params: { monster_task: { task_id: notification.task.id } },
+        class: "tama-task-button" %>
+      <% end %>
+
+    </div>
+  <% end %>
+<% end %>
       </div>
     </div>
 
@@ -93,3 +108,84 @@
     <p> <%= item.name %> - <%= item.description %> - <%= item.price %> </p>
   <% end %>
 </div>
+
+<style>
+.tama-notification {
+  position: absolute;
+  top: -50px;
+  right: 200px;
+
+  display: inline-block;
+  max-width: 160px;
+
+  padding: 10px 12px;
+
+  border-radius: 12px;
+  border: 1px solid var(--theme-accent);
+  background: rgba(8, 14, 22, 0.95);
+  box-shadow: 0 0 10px rgba(57, 244, 183, 0.25);
+
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  text-align: center;
+}
+
+.tama-notification span {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.tama-notification form {
+  display: flex;
+  justify-content: center;
+}
+
+.tama-notification button {
+  font-size: 0.6rem;
+  padding: 5px 10px;
+}
+
+.tama-notification::after {
+  content: "";
+  position: absolute;
+
+  left: 14px;
+  bottom: -6px;
+
+  width: 10px;
+  height: 10px;
+
+  background: rgba(8, 14, 22, 0.95);
+  border-left: 1px solid var(--theme-accent);
+  border-bottom: 1px solid var(--theme-accent);
+
+  transform: rotate(45deg);
+}
+
+  .tama-notification::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: 18px;
+    width: 12px;
+    height: 12px;
+    background: rgba(8, 14, 22, 0.95);
+    border-left: 1px solid var(--theme-accent);
+    border-bottom: 1px solid var(--theme-accent);
+    transform: rotate(315deg);
+    }
+
+.tama-task-button {
+  padding: 4px 10px;
+  font-size: 0.65rem;
+  border-radius: 8px;
+  letter-spacing: 0.1em;
+  min-width: auto;
+  margin-top: 8px;
+
+  box-shadow: 0 0 6px rgba(57, 244, 183, 1);
+}
+</style>
