@@ -20,6 +20,66 @@
       </div>
     </div>
 
+    <div class="tama-inventory" data-controller="inventory-popup">
+      <button
+        type="button"
+        class="tama-inventory-trigger"
+        data-inventory-popup-target="trigger"
+        data-action="click->inventory-popup#toggle"
+        aria-expanded="false"
+        aria-controls="monster-inventory-panel"
+      >
+        My Items
+      </button>
+      <div
+        class="tama-inventory-backdrop"
+        data-inventory-popup-target="backdrop"
+        data-action="click->inventory-popup#close"
+        aria-hidden="true"
+      ></div>
+      <div
+        id="monster-inventory-panel"
+        class="tama-inventory-panel"
+        data-inventory-popup-target="panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="My Items"
+        aria-hidden="true"
+      >
+        <div class="tama-inventory-header">
+          <span class="tama-inventory-title">My Items</span>
+          <button
+            type="button"
+            class="tama-inventory-close"
+            data-action="click->inventory-popup#close"
+            aria-label="Close inventory"
+          >
+            Close
+          </button>
+        </div>
+        <div class="tama-inventory-list">
+          <% if @my_items.present? %>
+            <% @my_items.each do |item| %>
+              <% current_item = Item.find(item.item_id) %>
+              <div class="tama-inventory-item">
+                <div class="tama-inventory-media">
+                  <% if current_item.image.present? %>
+                    <%= image_tag File.basename(current_item.image), alt: "item", size: "56x56" %>
+                  <% end %>
+                </div>
+                <div class="tama-inventory-meta">
+                  <span class="tama-inventory-name"><%= current_item.name %></span>
+                  <span class="tama-inventory-qty">Qty <%= item.qty %></span>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="tama-inventory-empty">No items yet.</div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <div class="tama-monster">
       <div class="tama-monster-wrap">
         <%= image_tag "monster-pixel-1.png", alt: "pixel Monster", size: "240x280" %>
@@ -50,6 +110,11 @@
                 <% if index == 0 %>
                 <span class="tama-quest-label">Cyborg says:</span>
                 <% end %>
+
+                <div class="tama-quest-meta">
+                  <span class="tama-quest-level">LV. 5</span>
+                  <span class="tama-quest-difficulty">DIFFICULT</span>
+                </div>
 
       <span class="tama-quest-goal">
       "<%= link_to task.goal, monster_monster_tasks_path(@monster, monster_task: { task_id: task.id }), method: :post %>"
@@ -84,25 +149,7 @@
   </div>
 </div>
 
-<div id="inventory" class="inventory" data-controller="items">
-  <button data-items-target="inventory" data-action="click->items#toggle"> My Items </button>
-  <div id="itemlist" data-items-target="itemlist" class="hidden">
-    <% @my_items.each do |item|%>
-      <% current_item = Item.find(item.item_id) %>
-      <div class="item-box">
-        <p> <%= current_item.name %> x <%= item.qty %> </p>
-          <% item_image = current_item.image %>
-        <div id="item-image" class="item-image">
-          <% if current_item.image.present? %>
-          <%= image_tag File.basename(current_item.image), alt: "item", size: "64x64" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<div id="item-list" class="inventory">
+<%# <div id="item-list" class="inventory">
   <h3> Items </h3>
   <% @items.each do |item| %>
     <p> <%= item.name %> - <%= item.description %> - <%= item.price %> </p>
@@ -189,3 +236,6 @@
   box-shadow: 0 0 6px rgba(57, 244, 183, 1);
 }
 </style>
+    <%# <p> <%= item.name - <%= item.description - <%= item.price </p> %>
+  <%# <% end %>
+<%# </div> %>

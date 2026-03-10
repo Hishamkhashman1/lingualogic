@@ -7,36 +7,49 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="landing-page">
 
 
-    <header>
-        <nav>
-            <h1>Lingua Logic</h1>
+    <div class="landing-shell">
+        <main class="landing-main">
+        <!-- Hero Section (Main attention area) -->
+        <section id="hero" class="landing-hero">
+            <div class="landing-hero-panel landing-hero-text">
+                <div class="hero-content landing-hero-content">
+                    <h2>Welcome to the Fun way of coding</h2>
+                    <p>Turn coding into an adventure.
+Solve challenges, guide your monster, and unlock new quests while learning real programming logic.</p>
+                    <!-- Call to Action Button -->
+                    <div class="landing-cta">
+                        <%= link_to "Play Now!", student_signed_in? ? new_monster_path : new_student_session_path, class: "cta-button" %>
+                    </div>
+                </div>
+            </div>
+            <!-- Placeholder for a hero image or video -->
+            <div class="landing-hero-panel landing-hero-preview">
+                <div class="landing-preview-frame">
+                    <div class="hero-media landing-hero-media">
+                        <!-- Add an <img> tag or <video> tag here -->
+                        <%= image_tag "placeholder-hero.png", alt: "Placeholder"%>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        </nav>
-    </header>
+        <!-- About/Description Section -->
+        <section id="about" class="landing-about">
+            <div class="landing-about-panel">
+                <div class="landing-about-content">
+                    <h3>About the Game</h3>
+                    <p>Enter Lingualand, a playful world where logic and creativity power your journey.
 
-    <!-- Hero Section (Main attention area) -->
-    <section id="hero">
-        <div class="hero-content">
-            <h2>Welcome to the Fun way of coding</h2>
-            <p>Coding logic has never been this fun! Try it now!</p>
-            <!-- Call to Action Button -->
-            <%= link_to "Play Now!", student_signed_in? ? new_monster_path : new_student_session_path, class: "cta-button" %>
-        </div>
-        <!-- Placeholder for a hero image or video -->
-        <div class="hero-media">
-            <!-- Add an <img> tag or <video> tag here -->
-            <%= image_tag "placeholder-hero.png", alt: "Placeholder"%>
-        </div>
-    </section>
+Guide your monster using simple commands, solve coding challenges, and unlock new levels as your skills grow.
 
-    <!-- About/Description Section -->
-    <section id="about">
-        <h3>About the Game</h3>
-        <p>Dive deep into the world of lingualand. Explore the story, the challenges, and the excitement.</p>
-    </section>
+Perfect for beginners, curious minds, and anyone who wants to learn coding in a fun and interactive way.</p>
+                </div>
+            </div>
+        </section>
+        </main>
 
     <!-- Features Section -->
 
@@ -48,10 +61,13 @@
     </section> %>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Lingualogic Game Inc. All rights reserved.</p>
-        <!-- Add social media links here -->
-    </footer>
+        <footer class="landing-footer">
+            <div class="landing-footer-inner">
+                <p>&copy; 2026 Lingualogic Game Inc. All rights reserved.</p>
+                <!-- Add social media links here -->
+            </div>
+        </footer>
+    </div>
 
     <!-- Link to your JavaScript file for interactivity (if any) -->
     <script src="script.js"></script>

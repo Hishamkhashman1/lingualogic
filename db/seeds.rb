@@ -8,23 +8,27 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# puts "Cleaning database..."
+puts "Cleaning database..."
+Notification.destroy_all
+StudentItem.destroy_all
+MonsterTask.destroy_all
 Item.destroy_all
+Task.destroy_all
 Monster.destroy_all
-# Task.destroy_all
 Student.destroy_all
 
 puts "Creating test seeds..."
 
 test_user = Student.create!(email: "testing@testing.test", password: "123456");
 
-# test_monster = Monster.create!(name: "Testasaur", student_id: 1, happiness: 1, energy: 100, species_type: "bulbasaur", image: "https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png");
+test_monster = Monster.create!(name: "Testasaur", student_id: test_user.id, health: 50, energy: 50, species_type: "bulbasaur", image: "https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png");
 
-# test_task = Task.create!(goal: "Set speed to 800", difficulty: 0)
+task_level1 = Task.create!(goal: "First task", difficulty: 1, reward_exp: 100, reward_item1: "apple", reward_item2: "funny hat", name: "level1")
+task_level5 = Task.create!(goal: "Feed monster", difficulty: 5, reward_exp: 150, reward_health: 20, reward_energy: 10, reward_item1: "apple", name: "level5")
+task_level6 = Task.create!(goal: "Get energy", difficulty: 6, reward_exp: 150, reward_health: 0, reward_energy: 25, reward_item1: "apple", name: "level6")
 
-feeding_task = Task.create!(goal: "Feed monster", difficulty: 0, reward_exp: 100, reward_health: 20, reward_item1: "apple", reward_item2: "funny_hat")
 
-item_apple = Item.create!(price: 25, description: "+ energy", accessory: false, name: "apple", image: "assets/images/apple-s.png")
-item_hat = Item.create!(price: 100, description: "hat", accessory: true, name: "funny_hat", image: "top_hat.png")
+item_apple = Item.create!(price: 25, description: "+ energy", accessory: false, name: "apple", image: "apple-s.png")
+item_hat = Item.create!(price: 100, description: "hat", accessory: true, name: "funny hat", image: "top-hat.png")
 
 puts "Seeding finished."

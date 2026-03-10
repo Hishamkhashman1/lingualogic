@@ -102,6 +102,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_10_113028) do
     t.integer "reward_health"
     t.integer "reward_energy"
     t.integer "reward_money"
+    t.string "name"
   end
 
   add_foreign_key "monster_tasks", "monsters"
