@@ -21,9 +21,9 @@ puts "Creating test seeds..."
 
 test_user = Student.create!(email: "testing@testing.test", password: "123456");
 
-test_monster = Monster.create!(name: "Testasaur", student_id: 1, health: 50, energy: 50, species_type: "bulbasaur", image: "https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png");
+test_monster = Monster.create!(name: "Testasaur", student_id: test_user.id, health: 50, energy: 50, species_type: "bulbasaur", image: "https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png");
 
-task_level1 = Task.create!(goal: "First task", difficulty: 1, reward_exp: 100, reward_item1: "apple", reward_item2: "funny_hat", name: "level1")
+task_level1 = Task.create!(goal: "First task", difficulty: 1, reward_exp: 100, reward_item1: "apple", reward_item2: "funny hat", name: "level1")
 task_level5 = Task.create!(goal: "Feed monster", difficulty: 5, reward_exp: 150, reward_health: 20, reward_energy: 10, reward_item1: "apple", name: "level5")
 task_level6 = Task.create!(goal: "Get energy", difficulty: 6, reward_exp: 150, reward_health: 0, reward_energy: 25, reward_item1: "apple", name: "level6")
 
