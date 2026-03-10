@@ -230,8 +230,8 @@ export default class extends Controller {
         });
         this.monster.play("walk", true);
 
-        this.apple = this.physics.add.image(this.scale.width - 30, this.groundY, "apple");
-        this.apple.setOrigin(4, 1);
+        this.apple = this.physics.add.image(this.scale.width - 250, this.groundY - 25, "apple");
+        // this.apple.setOrigin(4, 1);
         this.apple.setScale(0.8);
         // this.apple.body.setCircle(this.apple.body.scale.width * 1.2)
 
@@ -271,7 +271,7 @@ export default class extends Controller {
 
         // particlesTest.startFollow(this.monster);
 
-        var particlesApple = this.add.particles(this.apple.x -170, this.apple.y -15,'red', {
+        var particlesApple = this.add.particles(this.apple.x, this.apple.y,'red', {
           speed: 50,
           scale: {start: 0.5, end: 0.1},
           blendMode: 'ADD',
@@ -377,7 +377,7 @@ export default class extends Controller {
         }
 
         //check for task success
-        if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y) && (this.task_success == false)) {
+        if ((this.monster.x >= this.apple.x - 35) && (this.task_success == false)) {
           this.monster.setVelocityX(0);
           log("Task Complete!");
           this.task_success = true;
