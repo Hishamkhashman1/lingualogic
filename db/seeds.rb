@@ -10,8 +10,9 @@
 
 # puts "Cleaning database..."
 Item.destroy_all
+MonsterTask.destroy_all
+Task.destroy_all
 Monster.destroy_all
-# Task.destroy_all
 Student.destroy_all
 
 puts "Creating test seeds..."
@@ -22,9 +23,10 @@ test_user = Student.create!(email: "testing@testing.test", password: "123456");
 
 # test_task = Task.create!(goal: "Set speed to 800", difficulty: 0)
 
-feeding_task = Task.create!(goal: "Feed monster", difficulty: 0, reward_exp: 100, reward_health: 20, reward_item1: "apple", reward_item2: "funny_hat")
+task_level1 = Task.create!(goal: "First task", difficulty: 0, reward_exp: 100, reward_health: 20, reward_item1: "apple", reward_item2: "funny_hat")
+task_level5 = Task.create!(goal: "Feed monster", difficulty: 1, reward_exp: 150, reward_health: 20, reward_energy: 10, reward_item1: "apple")
 
-item_apple = Item.create!(price: 25, description: "+ energy", accessory: false, name: "apple", image: "assets/images/apple-s.png")
+item_apple = Item.create!(price: 25, description: "+ energy", accessory: false, name: "apple", image: "apple-s.png")
 item_hat = Item.create!(price: 100, description: "hat", accessory: true, name: "funny_hat", image: "top_hat.png")
 
 puts "Seeding finished."
