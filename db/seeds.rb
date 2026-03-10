@@ -8,6 +8,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+Notification.destroy_all
+
 # puts "Cleaning database..."
 Item.destroy_all
 MonsterTask.destroy_all
