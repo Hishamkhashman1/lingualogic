@@ -1,3 +1,8 @@
+<head>
+
+</head>
+
+<body>
   <span class="tooltip-wrap">
     <%= link_to "Play Now!", new_monster_path, class: "cta-button has-tooltip", data: { tooltip: "ミニチャレンジ画面へ行くよ！準備できたら押してね。" } %>
     <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
@@ -182,3 +187,4 @@
   monster_path(@monster_task.monster),
   class: "btn btn-secondary" %>
 </div>
+</body>

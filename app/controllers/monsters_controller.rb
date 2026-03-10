@@ -22,6 +22,7 @@ class MonstersController < ApplicationController
     @current_student = current_student
 
     @student_items = StudentItem.where(student_id: @current_student.id)
+    # @tasks = Task.all
     @tasks = []
     task = MonsterEnergyService.check_and_assign(@monster)
     @tasks << task if task.present?
