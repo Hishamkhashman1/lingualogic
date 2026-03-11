@@ -17,7 +17,8 @@ export default class extends Controller {
     rewardHealth: Number,
     completed: Number,
     taskId: Number,
-    monsterId: Number
+    monsterId: Number,
+    monsterHealth: Number
   }
 
   static targets = [ 'messagebox', 'message', 'info', 'rewardsclaim', 'modalmessage', 'modalinfo' ]
@@ -42,6 +43,16 @@ export default class extends Controller {
         localStorage.setItem(key, "done");
       } catch (e) {
         // Ignore storage errors (private mode, blocked storage, etc.)
+      }
+    };
+
+    const persistPrevHealth = () => {
+      if (!controller.hasMonsterIdValue || !controller.hasMonsterHealthValue) return;
+      try {
+        const key = `lingualogic:monster:${controller.monsterIdValue}:prevHealth`;
+        localStorage.setItem(key, String(controller.monsterHealthValue));
+      } catch (e) {
+        // Ignore storage errors
       }
     };
 
@@ -428,6 +439,7 @@ export default class extends Controller {
           if (rewards_claimed == false) {
             //submit hidden form that runs the monster_tasks#rewards function to update models with rewards
             console.log("Claiming rewards")
+            persistPrevHealth();
             controller.rewardsclaimTarget.requestSubmit();
             rewards_claimed = true;
           }
