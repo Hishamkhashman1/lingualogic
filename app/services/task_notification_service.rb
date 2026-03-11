@@ -1,22 +1,30 @@
 class TaskNotificationService
   def self.check(student)
     monster = student.monster
-    return none unless monster
+    return unless monster
 
+    # pega próxima task disponível
     task = Task.available_for(student).first
     return unless task
 
-    existing = Notification.where(
-      student: student,
-      task: task
-    ).exists?
+    # evita criar notification duplicada
+    return if Notification.exists?(student: student, task: task)
 
-    return if existing
+    # verifica se já completou alguma task
+    completed_tasks = monster.monster_tasks.where(progress: :completed).count
 
-    Notification.create(
+    message =
+      if completed_tasks > 0
+        "Great job! I have another quest for you!"
+      else
+        "Oh! Seems like you have your first task!"
+      end
+
+    Notification.create!(
       student: student,
       task: task,
-      message: "Oh! Seems like you have your first task!"
+      message: message,
+      read: false
     )
   end
 end

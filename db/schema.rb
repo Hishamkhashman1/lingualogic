@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_10_113028) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_11_140111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_10_113028) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "language"
-    t.integer "level", default: 0
+    t.integer "level", default: 1
     t.integer "money", default: 0
     t.integer "exp", default: 0
     t.index ["email"], name: "index_students_on_email", unique: true

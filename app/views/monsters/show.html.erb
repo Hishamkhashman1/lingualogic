@@ -149,7 +149,7 @@
   </div>
 </div>
 
-<%# <div id="item-list" class="inventory">
+<div id="item-list" class="inventory">
   <h3> Items </h3>
   <% @items.each do |item| %>
     <p> <%= item.name %> - <%= item.description %> - <%= item.price %> </p>
@@ -236,6 +236,14 @@
   box-shadow: 0 0 6px rgba(57, 244, 183, 1);
 }
 </style>
-    <%# <p> <%= item.name - <%= item.description - <%= item.price </p> %>
-  <%# <% end %>
-<%# </div> %>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+    const notification = document.getElementById("tama-notification");
+    if (notification) {
+      notification.style.display = "block";
+    }
+  }, 3000);
+});
+</script>
