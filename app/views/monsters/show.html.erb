@@ -1,4 +1,4 @@
-<div class="monster-container tama-shell">
+<div class="monster-container tama-shell" data-controller="task-status" data-task-status-monster-id-value="<%= @monster.id %>">
   <div class="tama-screen">
     <div class="tama-hud">
       <div class="tama-title">
@@ -92,7 +92,8 @@
         <%= button_to "Do Task",
         monster_monster_tasks_path(@monster),
         params: { monster_task: { task_id: notification.task.id } },
-        class: "tama-task-button" %>
+        class: "tama-task-button",
+        data: { task_status_target: "button", task_id: notification.task.id } %>
       <% end %>
 
     </div>
@@ -135,7 +136,7 @@
               <div class="tama-quest-action">
                 <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
                   <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-                  <%= f.submit "Do Task", class: "tama-start" %>
+                  <%= f.submit "Do Task", class: "tama-start", data: { task_status_target: "button", task_id: task.id } %>
                 <% end %>
               </div>
               <div class="tama-hint">Press START to begin</div>
@@ -155,7 +156,7 @@
       <%= task.goal %>
       <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
         <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-        <%= f.submit "Do Task" %>
+        <%= f.submit "Do Task", data: { task_status_target: "button", task_id: task.id } %>
       <% end %>
     <% end %>
   </div>
