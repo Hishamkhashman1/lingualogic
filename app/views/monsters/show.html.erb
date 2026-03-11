@@ -111,10 +111,22 @@
                 <span class="tama-quest-label">Cyborg says:</span>
                 <% end %>
 
-                <div class="tama-quest-meta">
-                  <span class="tama-quest-level">LV. 5</span>
-                  <span class="tama-quest-difficulty">DIFFICULT</span>
-                </div>
+              <div class="tama-quest-meta">
+                <span class="tama-quest-level">LV. <%= task.difficulty %></span>
+                <span class="tama-quest-difficulty">
+                  <% if task.difficulty == 1 %>
+                    EASY
+                  <% elsif task.difficulty > 2 && task.difficulty < 5 %>
+                    MEDIUM
+                  <% elsif task.difficulty == 5 %>
+                    DIFFICULT
+                  <% else %>
+                    PRO
+                  <% end %>
+                </span>
+              </div>
+
+
 
       <span class="tama-quest-goal">
       "<%= link_to task.goal, monster_monster_tasks_path(@monster, monster_task: { task_id: task.id }), method: :post %>"
