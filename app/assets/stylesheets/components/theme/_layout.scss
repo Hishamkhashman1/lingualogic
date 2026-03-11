@@ -19,6 +19,21 @@
   justify-content: space-between;
 }
 
+.app-header .header-right .btn {
+  font-size: 0.7rem;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(160, 160, 160, 0.15);
+  border-color: rgba(180, 180, 180, 0.4);
+  color: #cfd6dc;
+  box-shadow: none;
+}
+
+.app-header .header-right .btn:hover {
+  background: rgba(160, 160, 160, 0.25);
+  color: #e6ecf2;
+}
+
 .brand-title {
   margin: 0;
   font-family: "Orbitron", "Rajdhani", "Arial Black", "Trebuchet MS", sans-serif;
