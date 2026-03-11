@@ -1,0 +1,68 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 10px unquote("clamp(16px, 4vw, 48px)");
+  border-bottom: 1px solid rgba(57, 244, 183, 0.3);
+  background: linear-gradient(120deg, rgba(10, 18, 30, 0.92), rgba(16, 26, 40, 0.88));
+  backdrop-filter: blur(16px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: space-between;
+}
+
+.brand-title {
+  margin: 0;
+  font-family: "Orbitron", "Rajdhani", "Arial Black", "Trebuchet MS", sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: unquote("clamp(1.4rem, 3vw, 2.1rem)");
+  text-shadow: 0 0 14px rgba(57, 244, 183, 0.5);
+}
+
+.brand-subtitle {
+  margin: 6px 0 0;
+  color: var(--theme-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.app-main {
+  flex: 1;
+  padding: var(--theme-gap-lg) unquote("clamp(16px, 4vw, 48px)");
+  display: flex;
+  justify-content: center;
+}
+
+.app-content {
+  width: 100%;
+  max-width: var(--theme-max-width);
+  display: grid;
+  gap: var(--theme-gap);
+}
+
+.app-content > * {
+  margin: 0;
+}
+
+.flash-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.app-footer {
+  padding: 18px unquote("clamp(16px, 4vw, 48px)") 28px;
+  border-top: 1px solid rgba(57, 244, 183, 0.25);
+  color: var(--theme-muted);
+  text-align: center;
+  font-size: 0.85rem;
+}
