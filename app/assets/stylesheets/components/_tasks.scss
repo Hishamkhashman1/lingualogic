@@ -155,21 +155,31 @@
     }
 
     .task-reward-list .tama-inventory-item {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: flex-start;
       border: 0 !important;
       background: transparent !important;
       box-shadow: none !important;
-      padding: 6px 0;
-      grid-template-columns: 1fr 56px;
+      padding: 4px 0;
+      gap: 6px;
     }
 
     .task-reward-list .tama-inventory-media {
       order: 2;
-      justify-self: end;
+      flex: 0 0 44px;
     }
 
     .task-reward-list .tama-inventory-meta {
       order: 1;
-      text-align: left;
+      text-align: right;
+    }
+
+    .task-reward-list {
+      width: fit-content;
+      margin: 0 auto;
+      justify-items: center;
     }
 
     .bottom-home-button--left {
