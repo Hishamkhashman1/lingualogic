@@ -1,0 +1,32 @@
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Orbitron", "Rajdhani", "Arial Black", "Trebuchet MS", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  color: var(--theme-text);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: unquote("clamp(2rem, 4.4vw, 3.4rem)");
+}
+
+h2 {
+  font-size: unquote("clamp(1.5rem, 3.2vw, 2.4rem)");
+}
+
+h3 {
+  font-size: unquote("clamp(1.15rem, 2.4vw, 1.7rem)");
+}
+
+p {
+  margin: 0;
+  color: var(--theme-text);
+}
+
+p + p {
+  margin-top: 12px;
+}

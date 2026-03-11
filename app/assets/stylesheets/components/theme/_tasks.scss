@@ -1,0 +1,12 @@
+#task-control {
+  display: grid;
+  gap: 12px;
+}
+
+#task-control button {
+  min-width: 90px;
+}
+
+#task-control input[type="text"] {
+  width: 100%;
+}

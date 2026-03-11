@@ -1,0 +1,17 @@
+.panel,
+section,
+.monster-container,
+.monster-info,
+#task-info,
+#task-control,
+#task-phaserjs,
+.hero-content,
+.hero-media,
+nav,
+.app-main footer {
+  background: linear-gradient(160deg, rgba(18, 28, 43, 0.95), rgba(8, 14, 24, 0.92));
+  border: 1px solid rgba(57, 244, 183, 0.35);
+  border-radius: var(--theme-radius-lg);
+  padding: unquote("clamp(16px, 2.4vw, 28px)");
+  box-shadow: var(--theme-shadow);
+}

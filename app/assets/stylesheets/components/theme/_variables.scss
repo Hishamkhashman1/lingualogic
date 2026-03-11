@@ -1,0 +1,20 @@
+:root {
+  --theme-bg: #090b10;
+  --theme-bg-2: #0b1220;
+  --theme-panel: rgba(13, 22, 34, 0.9);
+  --theme-panel-strong: rgba(8, 15, 24, 0.95);
+  --theme-border: rgba(57, 244, 183, 0.55);
+  --theme-border-soft: rgba(90, 200, 255, 0.35);
+  --theme-accent: #39f4b7;
+  --theme-accent-2: #5ac8ff;
+  --theme-danger: #ff4d7d;
+  --theme-text: #e8f0ff;
+  --theme-muted: #9db0c9;
+  --theme-shadow: 0 14px 32px rgba(2, 8, 18, 0.6);
+  --theme-glow: 0 0 26px rgba(57, 244, 183, 0.22);
+  --theme-radius: 12px;
+  --theme-radius-lg: 18px;
+  --theme-gap: unquote("clamp(16px, 2.8vw, 28px)");
+  --theme-gap-lg: unquote("clamp(24px, 3.8vw, 44px)");
+  --theme-max-width: 1080px;
+}
