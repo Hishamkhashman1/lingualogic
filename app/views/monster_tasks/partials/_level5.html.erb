@@ -151,6 +151,12 @@
           </div>
         </div>
       </div>
+
+      <div class="bottom-home-button bottom-home-button--left">
+        <%= link_to "Back to Monster Home",
+        monster_path(@monster_task.monster),
+        class: "btn btn-secondary btn-muted" %>
+      </div>
     </div>
 
     <%# Task Ends %>
@@ -161,11 +167,6 @@
 
     <%# <p>v3 </p> %>
 
-  <div class="bottom-home-button">
-    <%= link_to "Back to Monster Home",
-    monster_path(@monster_task.monster),
-    class: "btn btn-secondary" %>
-  </div>
 </div>
 </html>
 </body>

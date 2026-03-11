@@ -147,3 +147,22 @@
       width: 100%;
       text-align: center;
     }
+
+    .bottom-home-button--left {
+      text-align: left;
+    }
+
+    .bottom-home-button .btn-muted {
+      background: linear-gradient(135deg, rgba(120, 129, 138, 0.9), rgba(98, 108, 118, 0.9));
+      border-color: rgba(98, 108, 118, 0.9);
+      color: #e1e4e8;
+      box-shadow: 0 10px 18px rgba(20, 24, 28, 0.4);
+      filter: saturate(0.6);
+    }
+
+    .bottom-home-button .btn-muted:hover,
+    .bottom-home-button .btn-muted:focus-visible {
+      transform: none;
+      box-shadow: 0 10px 18px rgba(20, 24, 28, 0.45);
+      filter: saturate(0.6) brightness(0.98);
+    }
