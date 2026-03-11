@@ -15,7 +15,9 @@ export default class extends Controller {
     rewardMoney: Number,
     rewardEnergy: Number,
     rewardHealth: Number,
-    completed: Number
+    completed: Number,
+    taskId: Number,
+    monsterId: Number
   }
 
   static targets = [ 'messagebox', 'message', 'info', 'rewardsclaim', 'modalmessage', 'modalinfo' ]
@@ -32,6 +34,16 @@ export default class extends Controller {
 
     let task_status = false;
     let rewards_claimed = false;
+
+    const persistCompletion = () => {
+      if (!controller.hasTaskIdValue || !controller.hasMonsterIdValue) return;
+      try {
+        const key = `lingualogic:monster:${controller.monsterIdValue}:task:${controller.taskIdValue}`;
+        localStorage.setItem(key, "done");
+      } catch (e) {
+        // Ignore storage errors (private mode, blocked storage, etc.)
+      }
+    };
 
     // check if task completed and rewards claimed on load of task
     if (controller.completedValue == 2) {
@@ -305,6 +317,7 @@ export default class extends Controller {
               // should set success variable here
               this.task_success = true;
               task_status = true;
+              persistCompletion();
               log("Task Complete!");
               log(task_success);
               log(task_status);
@@ -346,6 +359,7 @@ export default class extends Controller {
           log(this.task_success);
 
           task_status = true;
+          persistCompletion();
           console.log(task_status);
           console.log(rewards_claimed);
 
