@@ -50,7 +50,7 @@
 
         <div id="hidden-rewards-form">
           <%# hidden button that runs monster_task controller's #rewards function - updates rewards %>
-          <%= button_to "Claim Rewards", rewards_monster_task_path(@monster_task), method: :patch, form: {style: "display: none", data: {task5_target: "rewardsclaim"} } %>
+          <%= button_to "Claim Rewards", rewards_monster_task_path(@monster_task), method: :patch, form: {style: "display: none", data: {task5_target: "rewardsclaim", page_transition_ignore: true} } %>
         </div>
 
       </div>
