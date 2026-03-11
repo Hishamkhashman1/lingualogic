@@ -377,11 +377,11 @@ export default class extends Controller {
           // success message popup
           controller.messageTarget.innerText = "Task Completed!";
           controller.messageTarget.classList.toggle('success-message');
-          controller.infoTarget.innerText = `Rewards: ${controller.rewardItem1Value}, ${controller.rewardItem2Value}`;
-          if (controller.rewardExpValue != null && controller.rewardExpValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardExpValue} exp`) };
-          if (controller.rewardHealthValue != null && controller.rewardHealthValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardHealthValue} health`) };
-          if (controller.rewardEnergyValue != null && controller.rewardEnergyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardEnergyValue} energy`) };
-          if (controller.rewardMoneyValue != null && controller.rewardMoneyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardMoneyValue} money`) };
+          controller.infoTarget.innerText = "Rewards:";
+          if (controller.rewardExpValue != null && controller.rewardExpValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardExpValue} exp`) };
+          if (controller.rewardHealthValue != null && controller.rewardHealthValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardHealthValue} health`) };
+          if (controller.rewardEnergyValue != null && controller.rewardEnergyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardEnergyValue} energy`) };
+          if (controller.rewardMoneyValue != null && controller.rewardMoneyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardMoneyValue} money`) };
           controller.messageboxTarget.classList.toggle('hidden');
 
           controller.modalmessageTarget.innerHTML = controller.messageTarget.innerHTML;

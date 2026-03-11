@@ -61,6 +61,30 @@
           <h3>Congrats! よくできました! 😆</h3>
           <p>Task finished. Great job!</p>
           <p id="task-message-info" data-task5-target="modalinfo"> Task message </p>
+          <% reward_items = [] %>
+          <% [@monster_task.task.reward_item1, @monster_task.task.reward_item2].each do |reward_name| %>
+            <% next if reward_name.blank? %>
+            <% if (item = Item.find_by(name: reward_name)) %>
+              <% reward_items << item %>
+            <% end %>
+          <% end %>
+          <% if reward_items.any? %>
+            <div class="tama-inventory-list task-reward-list">
+              <% reward_items.each do |item| %>
+                <div class="tama-inventory-item">
+                  <div class="tama-inventory-media">
+                    <% if item.image.present? %>
+                      <%= image_tag File.basename(item.image), alt: item.name, size: "56x56" %>
+                    <% end %>
+                  </div>
+                  <div class="tama-inventory-meta">
+                    <span class="tama-inventory-name"><%= item.name %></span>
+                    <span class="tama-inventory-qty">Reward</span>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
           <%= link_to "Continue Quest", monster_path(@monster_task.monster), class: "cta-button" %>
         </div>
       </div>
