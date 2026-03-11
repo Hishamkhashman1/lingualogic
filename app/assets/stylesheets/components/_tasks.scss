@@ -148,6 +148,30 @@
       text-align: center;
     }
 
+    .task-reward-list .tama-inventory-media {
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .task-reward-list .tama-inventory-item {
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 6px 0;
+      grid-template-columns: 1fr 56px;
+    }
+
+    .task-reward-list .tama-inventory-media {
+      order: 2;
+      justify-self: end;
+    }
+
+    .task-reward-list .tama-inventory-meta {
+      order: 1;
+      text-align: left;
+    }
+
     .bottom-home-button--left {
       text-align: left;
     }
