@@ -6,5 +6,5 @@ import "bootstrap"
 
 // import "tasks/hello"
 // import "tasks/test"
-import "tasks/platform"
+// import "tasks/platform"
 import "tasks/task1"
