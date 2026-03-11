@@ -5,10 +5,10 @@
         <h1 class="tama-name"><%= @monster.name %></h1>
       </div>
       <div class="tama-bars">
-        <div class="tama-bar">
+        <div class="tama-bar" data-controller="health-animate" data-health-animate-monster-id-value="<%= @monster.id %>" data-health-animate-current-value="<%= @monster.health %>">
           <span class="tama-bar-label">Health</span>
-          <span class="tama-bar-track">
-            <span class="tama-bar-fill" style="width:<%= @monster.health %>%"></span>
+          <span class="tama-bar-track" data-health-animate-target="track">
+            <span class="tama-bar-fill" data-health-animate-target="bar" style="width:<%= @monster.health %>%"></span>
           </span>
         </div>
         <div class="tama-bar">
