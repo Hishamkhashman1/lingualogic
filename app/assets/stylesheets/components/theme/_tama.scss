@@ -171,11 +171,11 @@
 }
 
 .tama-monster-sprite {
-  width: 280px;
+  width: 270px;
   height: 280px;
   background: image-url("pixel-monster-nobkg-sprite.png") 0 0 / 2048px 256px no-repeat;
   image-rendering: pixelated;
-  animation: tama-cat-idle 5.6s steps(8) infinite;
+  animation: tama-cat-idle 3s steps(8) infinite;
 }
 
 @keyframes tama-cat-idle {
