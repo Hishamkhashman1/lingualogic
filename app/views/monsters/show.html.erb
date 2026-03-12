@@ -96,32 +96,17 @@
       <div class="tama-monster-wrap">
         <div class="tama-monster-sprite" role="img" aria-label="<%= t("monsters.show.monster_alt") %>"></div>
         <% if @notifications.any? %>
-  <% @notifications.each do |notification| %>
-    <div class="tama-notification">
-      <span><%= notification.message %></span>
-
-      <% if notification.task %>
-        <%= button_to t("monsters.show.do_task"),
-        monster_monster_tasks_path(@monster),
-        params: { monster_task: { task_id: notification.task.id } },
-        class: "tama-task-button",
-        data: { task_status_target: "button", task_id: notification.task.id } %>
-      <% end %>
-
-      </div>
-      <% if @notifications.any? %>
           <% @notifications.each do |notification| %>
             <div class="tama-notification">
-            <span><%= notification.message %></span>
+              <span><%= notification.message %></span>
 
-            <% if notification.task %>
-              <%= button_to "Do Task",
-              monster_monster_tasks_path(@monster),
-              params: { monster_task: { task_id: notification.task.id } },
-              class: "tama-task-button",
-              data: { task_status_target: "button", task_id: notification.task.id } %>
-            <% end %>
-
+              <% if notification.task %>
+                <%= button_to t("monsters.show.do_task"),
+                monster_monster_tasks_path(@monster),
+                params: { monster_task: { task_id: notification.task.id } },
+                class: "tama-task-button",
+                data: { task_status_target: "button", task_id: notification.task.id } %>
+              <% end %>
             </div>
           <% end %>
         <% end %>
