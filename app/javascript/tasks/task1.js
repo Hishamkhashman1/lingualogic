@@ -2,8 +2,10 @@ import * as PhaserNS from "phaser";
 
 const Phaser = PhaserNS.default || PhaserNS;
 
-if (Phaser && !Phaser.__bgOverlayPatched) {
-  Phaser.__bgOverlayPatched = true;
+let bgOverlayPatched = false;
+
+if (Phaser && !bgOverlayPatched) {
+  bgOverlayPatched = true;
 
   const originalImage = Phaser.Loader.LoaderPlugin.prototype.image;
   Phaser.Loader.LoaderPlugin.prototype.image = function (key, url, xhrSettings) {
