@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_10_134603) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_11_152154) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_10_134603) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.integer "health", default: 50
+    t.string "accessory", default: "none"
     t.index ["student_id"], name: "index_monsters_on_student_id"
   end
 

@@ -8,13 +8,18 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :monsters, only: [:new, :create, :show] do
+    member do
+      patch :equip
+    end
     resources :monster_tasks, only: [:new, :create]
   end
+
   resources :monster_tasks, only: [:show] do
     member do
       patch :rewards
     end
   end
+
   resources :tasks, only: [:index, :show]
 
   resources :items, only: [:index, :show]

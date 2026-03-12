@@ -9,6 +9,8 @@ export default class extends Controller {
     imgApple: String,
     imgTransparentBox: String,
     imgPinkBox: String,
+    imgFunnyHat: String,
+    hatEquipped: String,
     rewardExp: Number,
     rewardItem1: String,
     rewardItem2: String,
@@ -163,6 +165,7 @@ export default class extends Controller {
         this.isRunning = false;
         this.monster = null;
         this.apple = null;
+        this.hatOffsetX = 0;
         //need to make this change successfully
         this.task_success = false;
       }
@@ -177,6 +180,8 @@ export default class extends Controller {
         }
         );
         this.load.image("apple", controller.imgAppleValue);
+
+        this.load.image("funny hat", controller.imgFunnyHatValue);
 
         this.load.image("box_transparent", controller.imgTransparentBoxValue)
         this.load.image("box_pink", controller.imgPinkBoxValue)
@@ -199,6 +204,40 @@ export default class extends Controller {
         this.monster.setScale(0.25);
         // this.monster.body.setCircle(this.monster.scale.width * 0.8)
 
+        // hat
+        console.log("Current accessory:" + controller.hatEquippedValue)
+
+        let accessory = ""
+
+        if ((controller.hatEquippedValue == "none") || (controller.hatEquippedValue == null)) {
+          accessory = "box_transparent";
+        }
+        else {
+          if ((controller.hatEquippedValue == "funny_hat") || (controller.hatEquippedValue == "funny hat")) {
+            accessory = "funny hat";
+          }
+          else
+            accessory = "box_transparent";
+        }
+
+        this.hat = this.physics.add.sprite(this.monster.x + 12, this.monster.y - 52, accessory)
+        this.hat.body.allowGravity = false;
+        this.hat.setScale(0.05)
+        this.hatOffsetX = 0;
+        this.hatOffsetY = 0;
+
+        //hat animation to match cat
+        this.tweens.add({
+          targets: this,
+          hatOffsetX: { from: -2, to: 1 },
+          hatOffsetY: { from: -1, to: 1 },
+          duration: 750,
+          ease: 'Smooth',
+          loop: -1,
+          yoyo: true
+        });
+
+        //animations for monster
         this.anims.create({
         key: 'walk', // A unique key to reference the animation
         frames: this.anims.generateFrameNumbers('monster', {
@@ -282,7 +321,7 @@ export default class extends Controller {
 
       reset() {
         this.isRunning = false;
-        this.tweens.killAll();
+        this.tweens.killTweensOf(this.monster);
         if (this.monster) this.monster.setPosition(this.startX, this.groundY);
       }
 
@@ -361,6 +400,9 @@ export default class extends Controller {
           this.monster.setVelocityY(0);
           this.monster.y = this.groundY;
         }
+
+        //hat
+        this.hat.setPosition(this.monster.x + 12 + this.hatOffsetX, this.monster.y - 52 + this.hatOffsetY);
 
         //check for task success
         if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y) && (this.task_success == false)) {
