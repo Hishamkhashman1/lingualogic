@@ -59,7 +59,7 @@
         </div>
 
         <div id="inventory-wearing">
-          <span class="tama-inventory-wearing" data-inventory-wearing-target="wearingmsg"> Now wearing: <%= @monster.accessory %> </span>
+          <span class="tama-inventory-wearing"> Now wearing: <%= @monster.accessory %> </span>
         </div>
 
         <div class="tama-inventory-list">
@@ -79,7 +79,7 @@
                       <%#  equip items by updating Monster.accessory %>
                   <% if current_item.accessory == true %>
                     <div class="button-equip">
-                      <%= button_to "Equip", equip_monster_path(@monster), method: :patch, params: { item_id: current_item.id}, form: {data: {page_transition_ignore: true}}, data: { action: "click->inventory-wearing#wearingupdate"} %>
+                      <%= button_to "Equip", equip_monster_path(@monster), method: :patch, params: { item_id: current_item.id}, form: {data: {page_transition_ignore: true}} %>
                       <%# set @monster.accessory to @current_item.name %>
                     </div>
                   <% end %>
