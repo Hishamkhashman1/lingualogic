@@ -1,47 +1,47 @@
 <div class="monster-container starter-screen">
-  <h1 class="starter-title">Choose Your Starter Monster</h1>
+  <h1 class="starter-title"><%= t("monsters.new.title") %></h1>
 
   <%= simple_form_for @monster do |f| %>
-    <div class="starter-grid" role="radiogroup" aria-label="Starter monster selection">
+    <div class="starter-grid" role="radiogroup" aria-label="<%= t("monsters.new.aria_selection") %>">
       <div class="starter-option">
         <%= f.radio_button :species_type, "cat", id: "starter-cat", class: "starter-radio" %>
         <label for="starter-cat" class="starter-card">
-          <span class="starter-selected">Selected</span>
+          <span class="starter-selected"><%= t("monsters.new.selected") %></span>
           <div class="starter-image">
             <%= image_tag "pixel-monster-nobkg.png", alt: "Pixel Cat", size: "160x160" %>
           </div>
-          <div class="starter-name">Pixel Cat</div>
-          <div class="starter-desc">Agile, curious, and neon-fast. Hisham's Favorite</div>
+          <div class="starter-name"><%= t("monsters.new.cat_name") %></div>
+          <div class="starter-desc"><%= t("monsters.new.cat_desc") %></div>
         </label>
       </div>
 
       <div class="starter-option">
         <%= f.radio_button :species_type, "fox", id: "starter-fox", class: "starter-radio" %>
         <label for="starter-fox" class="starter-card">
-          <span class="starter-selected">Selected</span>
+          <span class="starter-selected"><%= t("monsters.new.selected") %></span>
           <div class="starter-image">
             <%= image_tag "fox-fornt-nobkg.png", alt: "Cyber Fox", size: "160x160" %>
           </div>
-          <div class="starter-name">Cyber Fox</div>
-          <div class="starter-desc">Tactical, clever, and stealth-bright.</div>
+          <div class="starter-name"><%= t("monsters.new.fox_name") %></div>
+          <div class="starter-desc"><%= t("monsters.new.fox_desc") %></div>
         </label>
       </div>
 
       <div class="starter-option">
         <%= f.radio_button :species_type, "guinea_pig", id: "starter-gpig", class: "starter-radio" %>
         <label for="starter-gpig" class="starter-card">
-          <span class="starter-selected">Selected</span>
+          <span class="starter-selected"><%= t("monsters.new.selected") %></span>
           <div class="starter-image">
             <%= image_tag "gpig-front-nobkg.png", alt: "Purple Guinea Pig", size: "160x160" %>
           </div>
-          <div class="starter-name">Purple Guinea Pig</div>
-          <div class="starter-desc">Friendly, sturdy, and pulse-powered.</div>
+          <div class="starter-name"><%= t("monsters.new.gpig_name") %></div>
+          <div class="starter-desc"><%= t("monsters.new.gpig_desc") %></div>
         </label>
       </div>
     </div>
 
-    <%= f.input :name %>
-    <%= f.submit "Choose this Monster", class: "cta-button" %>
+    <%= f.input :name, label: t("monsters.new.name_label") %>
+    <%= f.submit t("monsters.new.submit"), class: "cta-button" %>
   <% end %>
 </div>
 

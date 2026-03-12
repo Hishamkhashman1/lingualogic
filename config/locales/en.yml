@@ -1,31 +1,100 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  home:
+    hero_title: "Welcome to the Fun way of coding"
+    hero_body: "Turn coding into an adventure. Solve challenges, guide your monster, and unlock new quests while learning real programming logic."
+    play_now: "Play Now!"
+    about_title: "About the Game"
+    about_body: "Enter Lingualand, a playful world where logic and creativity power your journey. Guide your monster using simple commands, solve coding challenges, and unlock new levels as your skills grow. Perfect for beginners, curious minds, and anyone who wants to learn coding in a fun and interactive way."
+    footer: "© 2026 Lingualogic Game Inc. All rights reserved."
+    lang:
+      title: "Choose Your Language"
+      subtitle: "Pick a language to start your quest."
+      english: "English"
+      japanese: "日本語"
+      french: "Français"
+      spanish: "Español"
+      arabic: "العربية"
+      close: "Close"
+  monsters:
+    new:
+      title: "Choose Your Starter Monster"
+      aria_selection: "Starter monster selection"
+      selected: "Selected"
+      cat_name: "Pixel Cat"
+      cat_desc: "Agile, curious, and neon-fast. Hisham's Favorite"
+      fox_name: "Cyber Fox"
+      fox_desc: "Tactical, clever, and stealth-bright."
+      gpig_name: "Purple Guinea Pig"
+      gpig_desc: "Friendly, sturdy, and pulse-powered."
+      name_label: "Name"
+      submit: "Choose this Monster"
+    show:
+      health: "Health"
+      energy: "Energy"
+      my_items: "My Items"
+      close: "Close"
+      close_inventory: "Close inventory"
+      now_wearing: "Now wearing:"
+      qty: "Qty"
+      equip: "Equip"
+      no_items: "No items yet."
+      monster_alt: "Pixel Monster"
+      do_task: "Do Task"
+      cyborg_says: "Cyborg says:"
+      press_start: "Press START to begin"
+      difficulty:
+        easy: "EASY"
+        medium: "MEDIUM"
+        difficult: "DIFFICULT"
+        pro: "PRO"
+  tasks:
+    shared:
+      task_status: "Task Status"
+      task_message: "Task message"
+      return_home: "Return Home"
+      claim_rewards: "Claim Rewards"
+      congrats: "Congrats! Well done! 😆"
+      finished: "Task finished. Great job!"
+      reward_label: "Reward"
+      continue_quest: "Continue Quest"
+      code_console: "Code Console"
+      mini_challenge: "Mini Challenge"
+      run: "Run"
+      back_home: "Back to Monster Home"
+    level1:
+      title: "Time to get the apple!"
+      info_title: "Easy apple"
+      level_label: "Level: %{level}"
+      description: "Beginner quest. Learn how MOVE works, drag the correct command, and guide your monster to the apple. Click Run to execute. No jump needed."
+      info_tooltip: "Level 1 explanation. Learn MOVE, drag the correct command, and reach the apple. Click Run to execute."
+      mini_tooltip: "Use only MOVE here. Watch the blocks and learn how it moves."
+      mini_desc: "Drag the command you need to reach the apple."
+      move_tooltip: "Move forward by 1 tile."
+      use_move: "Use MOVE to go to the apple."
+      hint: "Hint: No jump needed in this level."
+      drop_tooltip: "Drag MOVE here. Each one moves 1 step."
+      drop_placeholder: "Drag MOVE here"
+      run_tooltip: "Run the MOVE you wrote."
+      output_tooltip: "Results appear here."
+    level5:
+      title: "Time to get some food!"
+      info_title: "Cyborg apple"
+      level_label: "Level: %{level}"
+      description: "Solve the mini challenge by dragging the correct code snippets. Then use MOVE and JUMP in the console to reach the apple. Click Run to execute."
+      info_tooltip_html: "This level's explanation. Clear the mini challenge, then use MOVE/JUMP to reach the apple!"
+      mini_tooltip_html: "Build the correct code form here. Put the blocks into the blanks."
+      tooltip_is_running_html: "Is it running? (true while moving)"
+      tooltip_queue_html: "Number of commands left in the queue"
+      tooltip_move_html: "Call this for MOVE: move 1 tile"
+      tooltip_jump_html: "Call this for JUMP: jump"
+      tooltip_hp_html: "Monster HP (not used in this mini challenge)"
+      tooltip_speed_html: "Movement speed (not used here)"
+      tooltip_run_html: "Start execution (Run button handles it here)"
+      slot1_tooltip_html: "Check if running"
+      slot2_tooltip_html: "Check if the queue is not empty"
+      slot3_tooltip_html: "Function to call for MOVE"
+      slot4_tooltip_html: "Function to call for JUMP"
+      hint: "Hint: Use the runner's state and queue."
+      code_tooltip_html: "Write commands here (one per line). Example: MOVE / JUMP"
+      run_tooltip_html: "Run the commands (the monster moves!)"
+      output_tooltip_html: "Results and messages show here (errors too)"

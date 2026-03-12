@@ -11,7 +11,7 @@
 
   </head>
 
-  <body class="app-body" data-controller="page-transition">
+  <body class="app-body <%= "landing-page" if controller_name == "pages" && action_name == "home" %>" data-controller="page-transition">
     <div class="app-shell">
       <header class="app-header">
         <div class="header-left">
