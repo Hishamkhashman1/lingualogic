@@ -35,7 +35,7 @@ class MonstersController < ApplicationController
       else
         @task = MonsterEnergyService.check_and_assign(@monster)
 
-        TaskNotificationService.check(current_student) if @task
+        TaskNotificationService.check(current_student)
       end
 
         @notifications = Notification.where(student: current_student, read: false)

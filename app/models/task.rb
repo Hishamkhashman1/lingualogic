@@ -10,6 +10,7 @@ class Task < ApplicationRecord
     completed_task_ids = monster.monster_tasks.pluck(:task_id)
 
     where.not(id: completed_task_ids)
-    .where("difficulty <= ?", student_level)
+    .where("difficulty <= ?", student.level)
+    .order(:difficulty)
   end
 end
