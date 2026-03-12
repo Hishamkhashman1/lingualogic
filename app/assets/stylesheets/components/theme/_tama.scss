@@ -501,6 +501,31 @@
   color: var(--theme-muted);
   font-size: 0.8rem;
 }
+.tama-notification {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--theme-accent);
+  background: rgba(8, 14, 22, 0.95);
+  box-shadow: 0 0 10px rgba(57, 244, 183, 0.25);
+  font-size: 0.85rem;
+  margin-bottom: 1px;
+  }
+
+// .tama-notification::after {
+//   content: "";
+//   position: absolute;
+//   bottom: -7px;
+//   left: 18px;
+//   width: 12px;
+//   height: 12px;
+//   background: rgba(8, 14, 22, 0.95);
+//   border-left: 1px solid var(--theme-accent);
+//   border-bottom: 1px solid var(--theme-accent);
+//   // transform: rotate(45deg);
+  // }
 
 .tama-quests--duplicate {
   display: none;
