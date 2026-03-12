@@ -43,11 +43,7 @@ class MonstersController < ApplicationController
 
   def equip
     @monster = Monster.find(params[:id])
-    @items = Item.all
     current_item = Item.find(params[:item_id])
-
-    # current_item = Item.find_by(name: item)
-    puts "Attempting to equip: #{current_item}"
 
     if ((@monster.accessory == "none") || (@monster.accessory == nil))
       @monster.update(accessory: current_item.name)
@@ -55,6 +51,11 @@ class MonstersController < ApplicationController
     else
       @monster.update(accessory: "none")
       puts "Removed!"
+    end
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to monster_path(@monster) }
     end
   end
 

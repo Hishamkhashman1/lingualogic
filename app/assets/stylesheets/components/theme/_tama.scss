@@ -170,6 +170,20 @@
   box-shadow: none !important;
 }
 
+.tama-monster-sprite {
+  width: 270px;
+  height: 280px;
+  background: image-url("pixel-monster-nobkg-sprite.png") 0 0 / 2048px 256px no-repeat;
+  image-rendering: pixelated;
+  animation: tama-cat-idle 3s steps(8) infinite;
+}
+
+@keyframes tama-cat-idle {
+  0%, 89% { background-position: 0 0; }        // hold frame 1 for 5 seconds 2
+  100% { background-position: -2048px 0; }     // run animation
+}
+
+
 .tama-monster-placeholder {
   width: 100%;
   max-width: 220px;
