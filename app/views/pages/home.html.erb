@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= I18n.locale %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,12 +16,14 @@
         <section id="hero" class="landing-hero">
             <div class="landing-hero-panel landing-hero-text">
                 <div class="hero-content landing-hero-content">
-                    <h2>Welcome to the Fun way of coding</h2>
-                    <p>Turn coding into an adventure.
-Solve challenges, guide your monster, and unlock new quests while learning real programming logic.</p>
+                    <h2><%= t("home.hero_title") %></h2>
+                    <p><%= t("home.hero_body") %></p>
                     <!-- Call to Action Button -->
                     <div class="landing-cta">
-                        <%= link_to "Play Now!", student_signed_in? ? new_monster_path : new_student_session_path, class: "cta-button" %>
+                        <% play_now_target = student_signed_in? ? :new_monster_path : :new_student_session_path %>
+                        <button type="button" class="cta-button landing-lang-trigger" data-lang-modal-open>
+                          <%= t("home.play_now") %>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -40,12 +42,8 @@ Solve challenges, guide your monster, and unlock new quests while learning real 
         <section id="about" class="landing-about">
             <div class="landing-about-panel">
                 <div class="landing-about-content">
-                    <h3>About the Game</h3>
-                    <p>Enter Lingualand, a playful world where logic and creativity power your journey.
-
-Guide your monster using simple commands, solve coding challenges, and unlock new levels as your skills grow.
-
-Perfect for beginners, curious minds, and anyone who wants to learn coding in a fun and interactive way.</p>
+                    <h3><%= t("home.about_title") %></h3>
+                    <p><%= t("home.about_body") %></p>
                 </div>
             </div>
         </section>
@@ -63,14 +61,80 @@ Perfect for beginners, curious minds, and anyone who wants to learn coding in a 
     <!-- Footer -->
         <footer class="landing-footer">
             <div class="landing-footer-inner">
-                <p>&copy; 2026 Lingualogic Game Inc. All rights reserved.</p>
+                <p><%= t("home.footer") %></p>
                 <!-- Add social media links here -->
             </div>
         </footer>
     </div>
 
+    <div class="landing-lang-modal" aria-hidden="true" role="dialog" aria-label="<%= t("home.lang.title") %>" data-lang-modal>
+      <div class="landing-lang-backdrop" data-lang-modal-close></div>
+      <div class="landing-lang-panel">
+        <button type="button" class="landing-lang-close" aria-label="<%= t("home.lang.close") %>" data-lang-modal-close>
+          ×
+        </button>
+        <h3 class="landing-lang-title"><%= t("home.lang.title") %></h3>
+        <p class="landing-lang-subtitle"><%= t("home.lang.subtitle") %></p>
+        <div class="landing-lang-list">
+          <%= link_to public_send(play_now_target, locale: :en), class: "landing-lang-option" do %>
+            <span class="landing-lang-flag" aria-hidden="true">🇬🇧</span>
+            <span class="landing-lang-label"><%= t("home.lang.english") %></span>
+          <% end %>
+          <%= link_to public_send(play_now_target, locale: :ja), class: "landing-lang-option" do %>
+            <span class="landing-lang-flag" aria-hidden="true">🇯🇵</span>
+            <span class="landing-lang-label"><%= t("home.lang.japanese") %></span>
+          <% end %>
+          <%= link_to public_send(play_now_target, locale: :fr), class: "landing-lang-option" do %>
+            <span class="landing-lang-flag" aria-hidden="true">🇫🇷</span>
+            <span class="landing-lang-label"><%= t("home.lang.french") %></span>
+          <% end %>
+          <%= link_to public_send(play_now_target, locale: :es), class: "landing-lang-option" do %>
+            <span class="landing-lang-flag" aria-hidden="true">🇲🇽</span>
+            <span class="landing-lang-label"><%= t("home.lang.spanish") %></span>
+          <% end %>
+          <%= link_to public_send(play_now_target, locale: :ar), class: "landing-lang-option", dir: "rtl" do %>
+            <span class="landing-lang-flag" aria-hidden="true">🇯🇴</span>
+            <span class="landing-lang-label"><%= t("home.lang.arabic") %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <!-- Link to your JavaScript file for interactivity (if any) -->
     <script src="script.js"></script>
+    <script>
+      (function () {
+        var modal = document.querySelector("[data-lang-modal]");
+        var openBtn = document.querySelector("[data-lang-modal-open]");
+        var closeEls = document.querySelectorAll("[data-lang-modal-close]");
+        if (!modal || !openBtn) return;
+
+        var openModal = function () {
+          modal.classList.add("is-open");
+          modal.setAttribute("aria-hidden", "false");
+        };
+
+        var closeModal = function () {
+          modal.classList.remove("is-open");
+          modal.setAttribute("aria-hidden", "true");
+        };
+
+        openBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          openModal();
+        });
+
+        closeEls.forEach(function (el) {
+          el.addEventListener("click", function () {
+            closeModal();
+          });
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") closeModal();
+        });
+      })();
+    </script>
 
 </body>
 </html>

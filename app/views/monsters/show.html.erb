@@ -6,13 +6,13 @@
       </div>
       <div class="tama-bars">
         <div class="tama-bar" data-controller="health-animate" data-health-animate-monster-id-value="<%= @monster.id %>" data-health-animate-current-value="<%= @monster.health %>">
-          <span class="tama-bar-label">Health</span>
+          <span class="tama-bar-label"><%= t("monsters.show.health") %></span>
           <span class="tama-bar-track" data-health-animate-target="track">
             <span class="tama-bar-fill" data-health-animate-target="bar" style="width:<%= @monster.health %>%"></span>
           </span>
         </div>
         <div class="tama-bar">
-          <span class="tama-bar-label">Energy</span>
+          <span class="tama-bar-label"><%= t("monsters.show.energy") %></span>
           <span class="tama-bar-track">
             <span class="tama-bar-fill tama-bar-fill--energy" style="width: <%= @monster.energy %>%"></span>
           </span>
@@ -29,7 +29,7 @@
         aria-expanded="false"
         aria-controls="monster-inventory-panel"
       >
-        My Items
+        <%= t("monsters.show.my_items") %>
       </button>
       <div
         class="tama-inventory-backdrop"
@@ -43,23 +43,23 @@
         data-inventory-popup-target="panel"
         role="dialog"
         aria-modal="true"
-        aria-label="My Items"
+        aria-label="<%= t("monsters.show.my_items") %>"
         aria-hidden="true"
       >
         <div class="tama-inventory-header">
-          <span class="tama-inventory-title">My Items</span>
+          <span class="tama-inventory-title"><%= t("monsters.show.my_items") %></span>
           <button
             type="button"
             class="tama-inventory-close"
             data-action="click->inventory-popup#close"
-            aria-label="Close inventory"
+            aria-label="<%= t("monsters.show.close_inventory") %>"
           >
-            Close
+            <%= t("monsters.show.close") %>
           </button>
         </div>
 
         <div id="inventory-wearing">
-          <span class="tama-inventory-wearing"> Now wearing: <%= @monster.accessory %> </span>
+          <span class="tama-inventory-wearing"><%= t("monsters.show.now_wearing") %> <%= @monster.accessory %></span>
         </div>
 
         <div class="tama-inventory-list">
@@ -74,19 +74,19 @@
                 </div>
                 <div class="tama-inventory-meta">
                   <span class="tama-inventory-name"><%= current_item.name %></span>
-                  <span class="tama-inventory-qty">Qty <%= item.qty %></span>
+                  <span class="tama-inventory-qty"><%= t("monsters.show.qty") %> <%= item.qty %></span>
                 </div>
                       <%#  equip items by updating Monster.accessory %>
                   <% if current_item.accessory == true %>
                     <div class="button-equip">
-                      <%= button_to "Equip", equip_monster_path(@monster), method: :patch, params: { item_id: current_item.id}, form: {data: {page_transition_ignore: true}} %>
+                      <%= button_to t("monsters.show.equip"), equip_monster_path(@monster), method: :patch, params: { item_id: current_item.id}, form: {data: {page_transition_ignore: true}} %>
                       <%# set @monster.accessory to @current_item.name %>
                     </div>
                   <% end %>
               </div>
             <% end %>
           <% else %>
-            <div class="tama-inventory-empty">No items yet.</div>
+            <div class="tama-inventory-empty"><%= t("monsters.show.no_items") %></div>
           <% end %>
         </div>
       </div>
@@ -94,14 +94,14 @@
 
     <div class="tama-monster">
       <div class="tama-monster-wrap">
-        <div class="tama-monster-sprite" role="img" aria-label="pixel Monster"></div>
+        <div class="tama-monster-sprite" role="img" aria-label="<%= t("monsters.show.monster_alt") %>"></div>
         <% if @notifications.any? %>
   <% @notifications.each do |notification| %>
     <div class="tama-notification">
       <span><%= notification.message %></span>
 
       <% if notification.task %>
-        <%= button_to "Do Task",
+        <%= button_to t("monsters.show.do_task"),
         monster_monster_tasks_path(@monster),
         params: { monster_task: { task_id: notification.task.id } },
         class: "tama-task-button",
@@ -121,20 +121,20 @@
             <div class="tama-quest">
               <div class="tama-quest-text">
                 <% if index == 0 %>
-                <span class="tama-quest-label">Cyborg says:</span>
+                <span class="tama-quest-label"><%= t("monsters.show.cyborg_says") %></span>
                 <% end %>
 
               <div class="tama-quest-meta">
                 <span class="tama-quest-level">LV. <%= task.difficulty %></span>
                 <span class="tama-quest-difficulty">
                   <% if task.difficulty == 1 %>
-                    EASY
+                    <%= t("monsters.show.difficulty.easy") %>
                   <% elsif task.difficulty > 2 && task.difficulty < 5 %>
-                    MEDIUM
+                    <%= t("monsters.show.difficulty.medium") %>
                   <% elsif task.difficulty == 5 %>
-                    DIFFICULT
+                    <%= t("monsters.show.difficulty.difficult") %>
                   <% else %>
-                    PRO
+                    <%= t("monsters.show.difficulty.pro") %>
                   <% end %>
                 </span>
               </div>
@@ -148,10 +148,10 @@
               <div class="tama-quest-action">
                 <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
                   <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-                  <%= f.submit "Do Task", class: "tama-start", data: { task_status_target: "button", task_id: task.id } %>
+                  <%= f.submit t("monsters.show.do_task"), class: "tama-start", data: { task_status_target: "button", task_id: task.id } %>
                 <% end %>
               </div>
-              <div class="tama-hint">Press START to begin</div>
+              <div class="tama-hint"><%= t("monsters.show.press_start") %></div>
             </div>
 
             </div>
@@ -168,7 +168,7 @@
       <%= task.goal %>
       <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
         <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-        <%= f.submit "Do Task", data: { task_status_target: "button", task_id: task.id } %>
+        <%= f.submit t("monsters.show.do_task"), data: { task_status_target: "button", task_id: task.id } %>
       <% end %>
     <% end %>
   </div>

@@ -4,14 +4,14 @@
 
 <body>
 
-  <h1> Time to get the apple! </h1>
+  <h1><%= t("tasks.level1.title") %></h1>
 
   <div class="tooltip-wrap tooltip-wrap--block">
-    <div id="task-info" class="has-tooltip" data-tooltip="レベル1の説明だよ。MOVEの使い方を学んで、正しいコマンドをドラッグしてリンゴまで進もう。Runを押すと実行できるよ。">
-      <h2> Easy apple </h2>
+    <div id="task-info" class="has-tooltip" data-tooltip="<%= t("tasks.level1.info_tooltip") %>">
+      <h2><%= t("tasks.level1.info_title") %></h2>
       <%# <%= @monster_task.task.goal %>
-      <p> Level: 1 </p>
-      <p> Beginner quest. Learn how MOVE works, drag the correct command, and guide your monster to the apple. Click Run to execute. No jump needed.</p>
+      <p><%= t("tasks.level1.level_label", level: 1) %></p>
+      <p><%= t("tasks.level1.description") %></p>
     </div>
     <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
   </div>
@@ -38,25 +38,25 @@
   >
 
     <div id="task-message" data-task1-target="messagebox" class="hidden" style="gap: 10px; margin-bottom: 18px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
-      <h3 id="task-message-status" data-task1-target="message"> Task Status </h3>
-      <p id="task-message-info" data-task1-target="info"> Task message </p>
+      <h3 id="task-message-status" data-task1-target="message"><%= t("tasks.shared.task_status") %></h3>
+      <p id="task-message-info" data-task1-target="info"><%= t("tasks.shared.task_message") %></p>
       <div data-controller="monster-tasks">
-        <p id="task-message-link" data-task1-target="link" data-monster-tasks-target="claim" data-action="click->monster-tasks#rewards"> <%= link_to "Return Home", monster_path(@monster), class: "cta-button" %> </p>
+        <p id="task-message-link" data-task1-target="link" data-monster-tasks-target="claim" data-action="click->monster-tasks#rewards"> <%= link_to t("tasks.shared.return_home"), monster_path(@monster), class: "cta-button" %> </p>
       </div>
 
       <div id="hidden-rewards-form">
         <%# hidden button that runs monster_task controller's #rewards function - updates rewards %>
-        <%= button_to "Claim Rewards", rewards_monster_task_path(@monster_task), method: :patch, form: {style: "display: none", data: {task1_target: "rewardsclaim", page_transition_ignore: true} } %>
+        <%= button_to t("tasks.shared.claim_rewards"), rewards_monster_task_path(@monster_task), method: :patch, form: {style: "display: none", data: {task1_target: "rewardsclaim", page_transition_ignore: true} } %>
       </div>
 
     </div>
 
       <div id="task-complete-modal">
         <div id="task-complete-card">
-          <h3 id="task-message-status" data-task1-target="modalmessage"> Task Status </h3>
-          <h3>Congrats! よくできました! 😆</h3>
-          <p>Task finished. Great job!</p>
-          <p id="task-message-info" data-task1-target="modalinfo"> Task message </p>
+          <h3 id="task-message-status" data-task1-target="modalmessage"><%= t("tasks.shared.task_status") %></h3>
+          <h3><%= t("tasks.shared.congrats") %></h3>
+          <p><%= t("tasks.shared.finished") %></p>
+          <p id="task-message-info" data-task1-target="modalinfo"><%= t("tasks.shared.task_message") %></p>
           <% reward_items = [] %>
           <% [@monster_task.task.reward_item1, @monster_task.task.reward_item2].each do |reward_name| %>
             <% next if reward_name.blank? %>
@@ -75,13 +75,13 @@
                   </div>
                   <div class="tama-inventory-meta">
                     <span class="tama-inventory-name"><%= item.name %></span>
-                    <span class="tama-inventory-qty">Reward</span>
+                    <span class="tama-inventory-qty"><%= t("tasks.shared.reward_label") %></span>
                   </div>
                 </div>
               <% end %>
             </div>
           <% end %>
-          <%= link_to "Continue Quest", monster_path(@monster_task.monster), class: "cta-button" %>
+          <%= link_to t("tasks.shared.continue_quest"), monster_path(@monster_task.monster), class: "cta-button" %>
         </div>
       </div>
 
@@ -89,22 +89,22 @@
       <div id="task-phaser" style="width: 100%; height: 360px;"></div>
 <div id="task-code-panel" style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
   <div class="task-code-header" style="font-family: monospace; letter-spacing: 0.12em; text-transform: uppercase;">
-    Code Console
+    <%= t("tasks.shared.code_console") %>
   </div>
 
   <div class="tooltip-wrap tooltip-wrap--block">
     <div
       id="task-mini-challenge"
       class="has-tooltip"
-      data-tooltip="ここではMOVEだけを使うよ。ブロックを見て、どう動くか学ぼう。"
+      data-tooltip="<%= t("tasks.level1.mini_tooltip") %>"
       style="display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 10px; border: 1px solid rgba(90, 200, 255, 0.35); background: rgba(6, 12, 18, 0.85); color: #cfe9ff; font-family: monospace;"
     >
       <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;">
-        Mini Challenge
+        <%= t("tasks.shared.mini_challenge") %>
       </div>
 
       <div style="font-size: 13px; color: #e8f0ff;">
-        Drag the command you need to reach the apple.
+        <%= t("tasks.level1.mini_desc") %>
       </div>
 
       <div style="display: flex; flex-wrap: wrap; gap: 6px;">
@@ -112,7 +112,7 @@
           class="task-block has-tooltip"
           draggable="true"
           data-value="MOVE"
-          data-tooltip="1マス前に進む動きだよ。"
+          data-tooltip="<%= t("tasks.level1.move_tooltip") %>"
           style="position: relative; padding: 4px 26px 4px 8px; border-radius: 6px; border: 1px solid rgba(57, 244, 183, 0.6); background: rgba(12, 22, 30, 0.9); color: #9bfef2; cursor: grab; user-select: none; font-size: 12px;"
         >
           MOVE
@@ -127,11 +127,11 @@
       </div>
 
       <div style="display: grid; gap: 4px; font-size: 12px; color: #9bfef2;">
-        <div>Use MOVE to go to the apple.</div>
+        <div><%= t("tasks.level1.use_move") %></div>
       </div>
 
       <div style="font-size: 11px; color: #9bfef2; opacity: 0.8;">
-        Hint: No jump needed in this level.
+        <%= t("tasks.level1.hint") %>
       </div>
     </div>
 
@@ -148,11 +148,11 @@
   <div
     id="task-drop-zone"
     class="has-tooltip"
-    data-tooltip="ここに MOVE をドラッグして入れてね。1回で1歩進むよ。"
+    data-tooltip="<%= t("tasks.level1.drop_tooltip") %>"
     style="flex: 1; width: 100%; min-height: 160px; padding: 10px; border-radius: 8px; border: 1px dashed rgba(90, 200, 255, 0.4); background: rgba(6, 12, 18, 0.9); color: #e8f0ff; font-family: monospace; display: flex; flex-direction: column; gap: 8px;"
   >
     <div id="task-drop-placeholder" style="opacity: 0.7;">
-      Drag MOVE here
+      <%= t("tasks.level1.drop_placeholder") %>
     </div>
     <div id="task-command-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
   </div>
@@ -170,10 +170,10 @@
     <button
       id="task-run"
       class="has-tooltip"
-      data-tooltip="書いたMOVEを実行するよ。"
+      data-tooltip="<%= t("tasks.level1.run_tooltip") %>"
       style="align-self: flex-start;"
     >
-      Run
+      <%= t("tasks.shared.run") %>
     </button>
 
     <button
@@ -189,7 +189,7 @@
     <pre
       id="task-output"
       class="has-tooltip"
-      data-tooltip="ここに結果が出るよ。"
+      data-tooltip="<%= t("tasks.level1.output_tooltip") %>"
       style="min-height: 80px; margin: 0; padding: 8px; border-radius: 8px; border: 1px solid rgba(90, 200, 255, 0.2); background: rgba(6, 12, 18, 0.85); color: #9bfef2; font-family: monospace;"
     ></pre>
 
@@ -210,7 +210,7 @@
   <%# <p>v3 </p> %>
 
 <div class="bottom-home-button bottom-home-button--left">
-  <%= link_to "Back to Monster Home",
+  <%= link_to t("tasks.shared.back_home"),
   monster_path(@monster_task.monster),
   class: "btn btn-secondary btn-muted" %>
 </div>
