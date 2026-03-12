@@ -388,6 +388,14 @@
   border-color: rgba(57, 244, 183, 0.7);
 }
 
+.tama-inventory-wearing {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--theme-text);
+}
+
+
 .tama-inventory-list {
   display: grid;
   gap: 10px;
@@ -398,7 +406,7 @@
 
 .tama-inventory-item {
   display: grid;
-  grid-template-columns: 56px 1fr;
+  grid-template-columns: 56px 1fr 1fr;
   gap: 12px;
   align-items: center;
   padding: 8px 10px;
@@ -417,6 +425,10 @@
   border: 1px solid rgba(90, 200, 255, 0.45);
   background: rgba(6, 12, 20, 0.9);
   box-shadow: 0 0 10px rgba(90, 200, 255, 0.25);
+}
+
+.button-equip {
+
 }
 
 .tama-inventory-media img {

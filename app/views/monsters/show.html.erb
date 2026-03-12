@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="tama-inventory" data-controller="inventory-popup">
+    <div class="tama-inventory" data-controller="inventory-popup inventory-wearing" data-inventory-wearing-wearing-value="<%= @monster.accessory %>">
       <button
         type="button"
         class="tama-inventory-trigger"
@@ -57,6 +57,11 @@
             Close
           </button>
         </div>
+
+        <div id="inventory-wearing">
+          <span class="tama-inventory-wearing" data-inventory-wearing-target="wearingmsg"> Now wearing: <%= @monster.accessory %> </span>
+        </div>
+
         <div class="tama-inventory-list">
           <% if @my_items.present? %>
             <% @my_items.each do |item| %>
@@ -71,6 +76,13 @@
                   <span class="tama-inventory-name"><%= current_item.name %></span>
                   <span class="tama-inventory-qty">Qty <%= item.qty %></span>
                 </div>
+                      <%#  equip items by updating Monster.accessory %>
+                  <% if current_item.accessory == true %>
+                    <div class="button-equip">
+                      <%= button_to "Equip", equip_monster_path(@monster), method: :patch, params: { item_id: current_item.id}, form: {data: {page_transition_ignore: true}}, data: { action: "click->inventory-wearing#wearingupdate"} %>
+                      <%# set @monster.accessory to @current_item.name %>
+                    </div>
+                  <% end %>
               </div>
             <% end %>
           <% else %>
