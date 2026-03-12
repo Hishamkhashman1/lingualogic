@@ -94,24 +94,25 @@
 
     <div class="tama-monster">
       <div class="tama-monster-wrap">
-        <div class="tama-monster-sprite" role="img" aria-label="pixel Monster"></div>
-        <% if @notifications.any? %>
-  <% @notifications.each do |notification| %>
-    <div class="tama-notification">
-      <span><%= notification.message %></span>
+        <%= image_tag "pixel-monster-nobkg.png", alt: "pixel Monster", size: "240x280", class: "tama-monster-image" %>
 
-      <% if notification.task %>
-        <%= button_to "Do Task",
-        monster_monster_tasks_path(@monster),
-        params: { monster_task: { task_id: notification.task.id } },
-        class: "tama-task-button",
-        data: { task_status_target: "button", task_id: notification.task.id } %>
-      <% end %>
-
-    </div>
-  <% end %>
-<% end %>
       </div>
+      <% if @notifications.any? %>
+          <% @notifications.each do |notification| %>
+            <div class="tama-notification">
+            <span><%= notification.message %></span>
+
+            <% if notification.task %>
+              <%= button_to "Do Task",
+              monster_monster_tasks_path(@monster),
+              params: { monster_task: { task_id: notification.task.id } },
+              class: "tama-task-button",
+              data: { task_status_target: "button", task_id: notification.task.id } %>
+            <% end %>
+
+            </div>
+          <% end %>
+        <% end %>
     </div>
 
     <div class="monster-info tama-quests">
@@ -176,12 +177,15 @@
 
 <style>
 .tama-notification {
+  z-index: 10;
   position: absolute;
-  top: -50px;
-  right: 200px;
+  top: 10px;
+  left:310px;
 
   display: inline-block;
-  max-width: 160px;
+  width: auto;
+  height: 100px;
+  max-width: 230px;
 
   padding: 10px 12px;
 
@@ -200,7 +204,6 @@
 
 .tama-notification span {
   display: block;
-  margin-bottom: 8px;
 }
 
 .tama-notification form {
