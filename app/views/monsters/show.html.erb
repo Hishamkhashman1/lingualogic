@@ -1,14 +1,14 @@
-<div class="monster-container tama-shell">
+<div class="monster-container tama-shell" data-controller="task-status" data-task-status-monster-id-value="<%= @monster.id %>">
   <div class="tama-screen">
     <div class="tama-hud">
       <div class="tama-title">
         <h1 class="tama-name"><%= @monster.name %></h1>
       </div>
       <div class="tama-bars">
-        <div class="tama-bar">
+        <div class="tama-bar" data-controller="health-animate" data-health-animate-monster-id-value="<%= @monster.id %>" data-health-animate-current-value="<%= @monster.health %>">
           <span class="tama-bar-label">Health</span>
-          <span class="tama-bar-track">
-            <span class="tama-bar-fill" style="width:<%= @monster.health %>%"></span>
+          <span class="tama-bar-track" data-health-animate-target="track">
+            <span class="tama-bar-fill" data-health-animate-target="bar" style="width:<%= @monster.health %>%"></span>
           </span>
         </div>
         <div class="tama-bar">
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="tama-inventory" data-controller="inventory-popup">
+    <div class="tama-inventory" data-controller="inventory-popup inventory-wearing" data-inventory-wearing-wearing-value="<%= @monster.accessory %>">
       <button
         type="button"
         class="tama-inventory-trigger"
@@ -57,6 +57,11 @@
             Close
           </button>
         </div>
+
+        <div id="inventory-wearing">
+          <span class="tama-inventory-wearing" data-inventory-wearing-target="wearingmsg"> Now wearing: <%= @monster.accessory %> </span>
+        </div>
+
         <div class="tama-inventory-list">
           <% if @my_items.present? %>
             <% @my_items.each do |item| %>
@@ -71,6 +76,13 @@
                   <span class="tama-inventory-name"><%= current_item.name %></span>
                   <span class="tama-inventory-qty">Qty <%= item.qty %></span>
                 </div>
+                      <%#  equip items by updating Monster.accessory %>
+                  <% if current_item.accessory == true %>
+                    <div class="button-equip">
+                      <%= button_to "Equip", equip_monster_path(@monster), method: :patch, params: { item_id: current_item.id}, form: {data: {page_transition_ignore: true}}, data: { action: "click->inventory-wearing#wearingupdate"} %>
+                      <%# set @monster.accessory to @current_item.name %>
+                    </div>
+                  <% end %>
               </div>
             <% end %>
           <% else %>
@@ -92,7 +104,8 @@
         <%= button_to "Do Task",
         monster_monster_tasks_path(@monster),
         params: { monster_task: { task_id: notification.task.id } },
-        class: "tama-task-button" %>
+        class: "tama-task-button",
+        data: { task_status_target: "button", task_id: notification.task.id } %>
       <% end %>
 
     </div>
@@ -111,10 +124,22 @@
                 <span class="tama-quest-label">Cyborg says:</span>
                 <% end %>
 
-                <div class="tama-quest-meta">
-                  <span class="tama-quest-level">LV. 5</span>
-                  <span class="tama-quest-difficulty">DIFFICULT</span>
-                </div>
+              <div class="tama-quest-meta">
+                <span class="tama-quest-level">LV. <%= task.difficulty %></span>
+                <span class="tama-quest-difficulty">
+                  <% if task.difficulty == 1 %>
+                    EASY
+                  <% elsif task.difficulty > 2 && task.difficulty < 5 %>
+                    MEDIUM
+                  <% elsif task.difficulty == 5 %>
+                    DIFFICULT
+                  <% else %>
+                    PRO
+                  <% end %>
+                </span>
+              </div>
+
+
 
       <span class="tama-quest-goal">
       "<%= link_to task.goal, monster_monster_tasks_path(@monster, monster_task: { task_id: task.id }), method: :post %>"
@@ -123,7 +148,7 @@
               <div class="tama-quest-action">
                 <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
                   <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-                  <%= f.submit "Do Task", class: "tama-start" %>
+                  <%= f.submit "Do Task", class: "tama-start", data: { task_status_target: "button", task_id: task.id } %>
                 <% end %>
               </div>
               <div class="tama-hint">Press START to begin</div>
@@ -143,7 +168,7 @@
       <%= task.goal %>
       <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
         <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
-        <%= f.submit "Do Task" %>
+        <%= f.submit "Do Task", data: { task_status_target: "button", task_id: task.id } %>
       <% end %>
     <% end %>
   </div>
@@ -152,9 +177,9 @@
 <div id="item-list" class="inventory">
   <h3> Items </h3>
   <% @items.each do |item| %>
-    <p> <%= item.name %> - <%= item.description %> - <%= item.price %> </p>
-  <% end %>
-</div>
+    <%# <p> <%= item.name - <%= item.description - <%= item.price </p> %>
+  <%# <% end %>
+<%# </div> %>
 
 <style>
 .tama-notification {
@@ -236,14 +261,3 @@
   box-shadow: 0 0 6px rgba(57, 244, 183, 1);
 }
 </style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  setTimeout(function() {
-    const notification = document.getElementById("tama-notification");
-    if (notification) {
-      notification.style.display = "block";
-    }
-  }, 3000);
-});
-</script>

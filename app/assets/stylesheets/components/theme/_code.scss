@@ -1,0 +1,14 @@
+code,
+pre {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", "SFMono-Regular", monospace;
+  background: rgba(9, 14, 22, 0.9);
+  color: var(--theme-accent-2);
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(90, 200, 255, 0.4);
+}
+
+pre {
+  padding: 16px;
+  overflow-x: auto;
+}

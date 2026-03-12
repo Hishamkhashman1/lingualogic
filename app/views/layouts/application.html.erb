@@ -11,7 +11,7 @@
 
   </head>
 
-  <body class="app-body">
+  <body class="app-body" data-controller="page-transition">
     <div class="app-shell">
       <header class="app-header">
         <div class="header-left">
@@ -42,6 +42,24 @@
       <footer class="app-footer">
         <span>Signal locked. Continue the quest.</span>
       </footer>
+    </div>
+    <div
+      id="page-transition"
+      class="page-transition"
+      data-page-transition-target="overlay"
+      aria-hidden="true"
+    >
+      <div class="page-transition__panel" role="status" aria-live="polite">
+        <div class="page-transition__portal" aria-hidden="true">
+          <div class="page-transition__ring page-transition__ring--outer"></div>
+          <div class="page-transition__ring page-transition__ring--inner"></div>
+          <div class="page-transition__core"></div>
+          <div class="page-transition__scanlines"></div>
+        </div>
+        <div class="page-transition__text" data-page-transition-target="label">
+          Entering Challenge...
+        </div>
+      </div>
     </div>
   </body>
 </html>

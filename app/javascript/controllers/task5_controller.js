@@ -9,13 +9,18 @@ export default class extends Controller {
     imgApple: String,
     imgTransparentBox: String,
     imgPinkBox: String,
+    imgFunnyHat: String,
+    hatEquipped: String,
     rewardExp: Number,
     rewardItem1: String,
     rewardItem2: String,
     rewardMoney: Number,
     rewardEnergy: Number,
     rewardHealth: Number,
-    completed: Number
+    completed: Number,
+    taskId: Number,
+    monsterId: Number,
+    monsterHealth: Number
   }
 
   static targets = [ 'messagebox', 'message', 'info', 'rewardsclaim', 'modalmessage', 'modalinfo' ]
@@ -32,6 +37,26 @@ export default class extends Controller {
 
     let task_status = false;
     let rewards_claimed = false;
+
+    const persistCompletion = () => {
+      if (!controller.hasTaskIdValue || !controller.hasMonsterIdValue) return;
+      try {
+        const key = `lingualogic:monster:${controller.monsterIdValue}:task:${controller.taskIdValue}`;
+        localStorage.setItem(key, "done");
+      } catch (e) {
+        // Ignore storage errors (private mode, blocked storage, etc.)
+      }
+    };
+
+    const persistPrevHealth = () => {
+      if (!controller.hasMonsterIdValue || !controller.hasMonsterHealthValue) return;
+      try {
+        const key = `lingualogic:monster:${controller.monsterIdValue}:prevHealth`;
+        localStorage.setItem(key, String(controller.monsterHealthValue));
+      } catch (e) {
+        // Ignore storage errors
+      }
+    };
 
     // check if task completed and rewards claimed on load of task
     if (controller.completedValue == 2) {
@@ -140,6 +165,7 @@ export default class extends Controller {
         this.isRunning = false;
         this.monster = null;
         this.apple = null;
+        this.hatOffsetX = 0;
         //need to make this change successfully
         this.task_success = false;
       }
@@ -154,6 +180,8 @@ export default class extends Controller {
         }
         );
         this.load.image("apple", controller.imgAppleValue);
+
+        this.load.image("funny hat", controller.imgFunnyHatValue);
 
         this.load.image("box_transparent", controller.imgTransparentBoxValue)
         this.load.image("box_pink", controller.imgPinkBoxValue)
@@ -176,6 +204,40 @@ export default class extends Controller {
         this.monster.setScale(0.25);
         // this.monster.body.setCircle(this.monster.scale.width * 0.8)
 
+        // hat
+        console.log("Current accessory:" + controller.hatEquippedValue)
+
+        let accessory = ""
+
+        if ((controller.hatEquippedValue == "none") || (controller.hatEquippedValue == null)) {
+          accessory = "box_transparent";
+        }
+        else {
+          if ((controller.hatEquippedValue == "funny_hat") || (controller.hatEquippedValue == "funny hat")) {
+            accessory = "funny hat";
+          }
+          else
+            accessory = "box_transparent";
+        }
+
+        this.hat = this.physics.add.sprite(this.monster.x + 12, this.monster.y - 52, accessory)
+        this.hat.body.allowGravity = false;
+        this.hat.setScale(0.05)
+        this.hatOffsetX = 0;
+        this.hatOffsetY = 0;
+
+        //hat animation to match cat
+        this.tweens.add({
+          targets: this,
+          hatOffsetX: { from: -2, to: 1 },
+          hatOffsetY: { from: -1, to: 1 },
+          duration: 750,
+          ease: 'Smooth',
+          loop: -1,
+          yoyo: true
+        });
+
+        //animations for monster
         this.anims.create({
         key: 'walk', // A unique key to reference the animation
         frames: this.anims.generateFrameNumbers('monster', {
@@ -259,7 +321,7 @@ export default class extends Controller {
 
       reset() {
         this.isRunning = false;
-        this.tweens.killAll();
+        this.tweens.killTweensOf(this.monster);
         if (this.monster) this.monster.setPosition(this.startX, this.groundY);
       }
 
@@ -305,6 +367,7 @@ export default class extends Controller {
               // should set success variable here
               this.task_success = true;
               task_status = true;
+              persistCompletion();
               log("Task Complete!");
               log(task_success);
               log(task_status);
@@ -338,6 +401,9 @@ export default class extends Controller {
           this.monster.y = this.groundY;
         }
 
+        //hat
+        this.hat.setPosition(this.monster.x + 12 + this.hatOffsetX, this.monster.y - 52 + this.hatOffsetY);
+
         //check for task success
         if ((this.monster.x >= this.apple.x - 20) && (this.monster.y >= this.apple.y - 20) && (this.monster.y <= this.apple.y) && (this.task_success == false)) {
           this.monster.setVelocityX(0);
@@ -346,17 +412,18 @@ export default class extends Controller {
           log(this.task_success);
 
           task_status = true;
+          persistCompletion();
           console.log(task_status);
           console.log(rewards_claimed);
 
           // success message popup
           controller.messageTarget.innerText = "Task Completed!";
           controller.messageTarget.classList.toggle('success-message');
-          controller.infoTarget.innerText = `Rewards: ${controller.rewardItem1Value}, ${controller.rewardItem2Value}`;
-          if (controller.rewardExpValue != null && controller.rewardExpValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardExpValue} exp`) };
-          if (controller.rewardHealthValue != null && controller.rewardHealthValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardHealthValue} health`) };
-          if (controller.rewardEnergyValue != null && controller.rewardEnergyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardEnergyValue} energy`) };
-          if (controller.rewardMoneyValue != null && controller.rewardMoneyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", `, +${controller.rewardMoneyValue} money`) };
+          controller.infoTarget.innerText = "Rewards:";
+          if (controller.rewardExpValue != null && controller.rewardExpValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardExpValue} exp`) };
+          if (controller.rewardHealthValue != null && controller.rewardHealthValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardHealthValue} health`) };
+          if (controller.rewardEnergyValue != null && controller.rewardEnergyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardEnergyValue} energy`) };
+          if (controller.rewardMoneyValue != null && controller.rewardMoneyValue > 0) {controller.infoTarget.insertAdjacentHTML("beforeend", ` +${controller.rewardMoneyValue} money`) };
           controller.messageboxTarget.classList.toggle('hidden');
 
           controller.modalmessageTarget.innerHTML = controller.messageTarget.innerHTML;
@@ -376,6 +443,7 @@ export default class extends Controller {
           if (rewards_claimed == false) {
             //submit hidden form that runs the monster_tasks#rewards function to update models with rewards
             console.log("Claiming rewards")
+            persistPrevHealth();
             controller.rewardsclaimTarget.requestSubmit();
             rewards_claimed = true;
           }

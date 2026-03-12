@@ -1,0 +1,22 @@
+.flash-stack > .notice:empty,
+.flash-stack > .alert:empty {
+  display: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.flash-stack:not(:has(> .notice:not(:empty), > .alert:not(:empty))) {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+}

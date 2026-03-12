@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_11_140111) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.integer "health", default: 50
+    t.string "accessory", default: "none"
     t.index ["student_id"], name: "index_monsters_on_student_id"
   end
 

@@ -1,0 +1,14 @@
+.notice,
+.alert {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(57, 244, 183, 0.45);
+  background: rgba(18, 28, 43, 0.9);
+  color: var(--theme-text);
+  margin: 0 0 12px;
+}
+
+.alert {
+  border-color: rgba(255, 77, 125, 0.6);
+  color: #ffd0dd;
+}

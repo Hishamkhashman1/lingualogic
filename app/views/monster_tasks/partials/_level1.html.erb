@@ -3,10 +3,7 @@
 </head>
 
 <body>
-  <span class="tooltip-wrap">
-    <%= link_to "Play Now!", new_monster_path, class: "cta-button has-tooltip", data: { tooltip: "ミニチャレンジ画面へ行くよ！準備できたら押してね。" } %>
-    <button type="button" class="speak-btn" aria-label="読み上げ" data-controller="tooltip-speaker" data-action="click->tooltip-speaker#speak keydown.enter->tooltip-speaker#speak keydown.space->tooltip-speaker#speak mousedown->tooltip-speaker#blockDrag touchstart->tooltip-speaker#blockDrag">🔊</button>
-  </span>
+
   <h1> Time to get the apple! </h1>
 
   <div class="tooltip-wrap tooltip-wrap--block">
@@ -25,13 +22,19 @@
   data-task1-img-apple-value="<%= image_path("apple-s.png") %>"
   data-task1-img-transparent-box-value="<%= image_path("transparent_box.png") %>"
   data-task1-img-pink-box-value="<%= image_path("pink_box.png") %>"
+  data-task1-img-funny-hat-value="<%= image_path("top-hat.png") %>"
+  data-task1-hat-equipped-value="<%= @monster_task.monster.accessory %>"
+
   data-task1-reward-exp-value="<%= @monster_task.task.reward_exp %>"
   data-task1-reward-item1-value="<%= @monster_task.task.reward_item1 %>"
   data-task1-reward-item2-value="<%= @monster_task.task.reward_item2 %>"
   data-task1-reward-money-value="<%= @monster_task.task.reward_money %>"
   data-task1-reward-health-value="<%= @monster_task.task.reward_health %>"
   data-task1-reward-energy-value="<%= @monster_task.task.reward_energy %>"
-  data-task1-completed-value="<%= @monster_task.progress%>"
+  data-task1-completed-value="<%= @monster_task.progress %>"
+  data-task1-task-id-value="<%= @monster_task.task.id %>"
+  data-task1-monster-id-value="<%= @monster_task.monster_id %>"
+  data-task1-monster-health-value="<%= @monster_task.monster.health %>"
   >
 
     <div id="task-message" data-task1-target="messagebox" class="hidden" style="gap: 10px; margin-bottom: 18px; padding: 12px; border-radius: 12px; border: 1px solid rgba(57, 244, 183, 0.35); background: rgba(8, 14, 22, 0.8);">
@@ -43,20 +46,44 @@
 
       <div id="hidden-rewards-form">
         <%# hidden button that runs monster_task controller's #rewards function - updates rewards %>
-        <%= button_to "Claim Rewards", rewards_monster_task_path(@monster_task), method: :patch, form: {style: "display: none", data: {task1_target: "rewardsclaim"} } %>
+        <%= button_to "Claim Rewards", rewards_monster_task_path(@monster_task), method: :patch, form: {style: "display: none", data: {task1_target: "rewardsclaim", page_transition_ignore: true} } %>
       </div>
 
     </div>
 
-    <div id="task-complete-modal">
-      <div id="task-complete-card">
-         <h3 id="task-message-status" data-task1-target="modalmessage"> Task Status </h3>
-        <h3>Congrats! よくできました! 😆</h3>
-        <p>Task finished. Great job!</p>
-         <p id="task-message-info" data-task1-target="modalinfo"> Task message </p>
-        <%= link_to "Continue Quest", monster_path(@monster_task.monster), class: "cta-button" %>
+      <div id="task-complete-modal">
+        <div id="task-complete-card">
+          <h3 id="task-message-status" data-task1-target="modalmessage"> Task Status </h3>
+          <h3>Congrats! よくできました! 😆</h3>
+          <p>Task finished. Great job!</p>
+          <p id="task-message-info" data-task1-target="modalinfo"> Task message </p>
+          <% reward_items = [] %>
+          <% [@monster_task.task.reward_item1, @monster_task.task.reward_item2].each do |reward_name| %>
+            <% next if reward_name.blank? %>
+            <% if (item = Item.find_by(name: reward_name)) %>
+              <% reward_items << item %>
+            <% end %>
+          <% end %>
+          <% if reward_items.any? %>
+            <div class="tama-inventory-list task-reward-list">
+              <% reward_items.each do |item| %>
+                <div class="tama-inventory-item">
+                  <div class="tama-inventory-media">
+                    <% if item.image.present? %>
+                      <%= image_tag File.basename(item.image), alt: item.name, size: "56x56" %>
+                    <% end %>
+                  </div>
+                  <div class="tama-inventory-meta">
+                    <span class="tama-inventory-name"><%= item.name %></span>
+                    <span class="tama-inventory-qty">Reward</span>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+          <%= link_to "Continue Quest", monster_path(@monster_task.monster), class: "cta-button" %>
+        </div>
       </div>
-    </div>
 
     <div id="task-split" style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: stretch;">
       <div id="task-phaser" style="width: 100%; height: 360px;"></div>
@@ -182,9 +209,9 @@
 
   <%# <p>v3 </p> %>
 
-<div class="bottom-home-button">
+<div class="bottom-home-button bottom-home-button--left">
   <%= link_to "Back to Monster Home",
   monster_path(@monster_task.monster),
-  class: "btn btn-secondary" %>
+  class: "btn btn-secondary btn-muted" %>
 </div>
 </body>
