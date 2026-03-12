@@ -14,7 +14,7 @@
   --theme-glow: 0 0 26px rgba(57, 244, 183, 0.22);
   --theme-radius: 12px;
   --theme-radius-lg: 18px;
-  --theme-gap: unquote("clamp(16px, 2.8vw, 28px)");
-  --theme-gap-lg: unquote("clamp(24px, 3.8vw, 44px)");
+  --theme-gap: calc(max(16px, min(2.8vw, 28px)));
+  --theme-gap-lg: calc(max(24px, min(3.8vw, 44px)));
   --theme-max-width: 1080px;
 }
