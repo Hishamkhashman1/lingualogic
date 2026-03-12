@@ -307,7 +307,7 @@ body.landing-page .landing-lang-backdrop {
 
 body.landing-page .landing-lang-panel {
   position: relative;
-  width: unquote("min(420px, 90vw)");
+  width: #{"min(420px, 90vw)"};
   padding: 20px 22px;
   border-radius: 18px;
   border: 1px solid rgba(57, 244, 183, 0.5);
