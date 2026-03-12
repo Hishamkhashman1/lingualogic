@@ -123,27 +123,24 @@
                 <span class="tama-quest-label"><%= t("monsters.show.cyborg_says") %></span>
                 <% end %>
 
-              <div class="tama-quest-meta">
-                <span class="tama-quest-level">LV. <%= task.difficulty %></span>
-                <span class="tama-quest-difficulty">
-                  <% if task.difficulty == 1 %>
-                    <%= t("monsters.show.difficulty.easy") %>
-                  <% elsif task.difficulty > 2 && task.difficulty < 5 %>
-                    <%= t("monsters.show.difficulty.medium") %>
-                  <% elsif task.difficulty == 5 %>
-                    <%= t("monsters.show.difficulty.difficult") %>
-                  <% else %>
-                    <%= t("monsters.show.difficulty.pro") %>
-                  <% end %>
+                <div class="tama-quest-meta">
+                  <span class="tama-quest-level">LV. <%= task.difficulty %></span>
+                  <span class="tama-quest-difficulty">
+                    <% if task.difficulty == 1 %>
+                      <%= t("monsters.show.difficulty.easy") %>
+                    <% elsif task.difficulty > 2 && task.difficulty < 5 %>
+                      <%= t("monsters.show.difficulty.medium") %>
+                    <% elsif task.difficulty == 5 %>
+                      <%= t("monsters.show.difficulty.difficult") %>
+                    <% else %>
+                      <%= t("monsters.show.difficulty.pro") %>
+                    <% end %>
+                  </span>
+                </div>
+                <span class="tama-quest-goal">
+                  "<%= link_to task.goal, monster_monster_tasks_path(@monster, monster_task: { task_id: task.id }), method: :post %>"
                 </span>
               </div>
-
-
-
-      <span class="tama-quest-goal">
-      "<%= link_to task.goal, monster_monster_tasks_path(@monster, monster_task: { task_id: task.id }), method: :post %>"
-      </span>
-      </div>
               <div class="tama-quest-action">
                 <%= simple_form_for [@monster, MonsterTask.new] do |f| %>
                   <%= f.input :task_id, as: :hidden, input_html: { value: task.id } %>
@@ -152,13 +149,9 @@
               </div>
               <div class="tama-hint"><%= t("monsters.show.press_start") %></div>
             </div>
-
-            </div>
           <% end %>
         </div>
       <% end %>
-      </div>
-
     </div>
   </div>
 
